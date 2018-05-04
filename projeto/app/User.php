@@ -15,7 +15,6 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
     ];
 
     /**
@@ -35,9 +34,7 @@ class User extends Authenticatable
             case '0':
                 return 'Administrator';
             case '1':
-                return 'Normal';
         }
 
-        return 'Unknown';
     }
 }
