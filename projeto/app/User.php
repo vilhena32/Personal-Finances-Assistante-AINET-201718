@@ -15,6 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
+        'name', 'email', 'password','phone_number', 'photo'
     ];
 
     /**
@@ -34,7 +35,9 @@ class User extends Authenticatable
             case '0':
                 return 'Administrator';
             case '1':
+                return 'Registered';
         }
 
+        return 'Anonymous';
     }
 }
