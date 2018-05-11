@@ -1,8 +1,12 @@
-<?php
-
+@php
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\User;
+use App\Movement;
+use App\Account;
+
 
 class HomeController extends Controller
 {
@@ -24,5 +28,10 @@ class HomeController extends Controller
     public function index()
     {
         return view('welcome');
+        //$users = User::all()->count();
+        //var_dump($users);
+
+        //$users = User::all();
+        return view('index');
     }
 }
