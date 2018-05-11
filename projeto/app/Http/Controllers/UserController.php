@@ -9,10 +9,6 @@ use Model;
 use App\User;
 use App\Movement;
 use App\Account;
-
-
-
-
 use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
@@ -32,7 +28,7 @@ class UserController extends Controller
     	//var_dump($users);
 
         //$users = User::all();
-        return view('index', compact('users'));
+        return view('index', compact('users','movements','accounts'));
     }
 
 
