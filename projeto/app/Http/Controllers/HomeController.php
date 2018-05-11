@@ -17,7 +17,6 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
     }
 
     /**
@@ -27,7 +26,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('welcome');
         //$users = User::all()->count();
         //var_dump($users);
 
