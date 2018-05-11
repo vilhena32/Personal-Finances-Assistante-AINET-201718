@@ -3,7 +3,6 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Model;
@@ -14,7 +13,6 @@ use App\Account;
 
 
 
-class UserController
 use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
@@ -28,8 +26,6 @@ class UserController extends Controller
 
     public function index()
     {
-        $users = User::all();
-        return view('users.index', compact('users'));
     	$users = User::all()->count();
     	$movements = Movement::all()->count();
     	$accounts = Account::all()->count();
@@ -38,9 +34,7 @@ class UserController extends Controller
         //$users = User::all();
         return view('index', compact('users'));
     }
-*/
 
 
 }
 
-?>
