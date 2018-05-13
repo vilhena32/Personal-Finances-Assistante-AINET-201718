@@ -18,6 +18,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/', 'UserController@index')->name('home');
+//Route::get('/', 'UserController@register')->name('register');
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 Route::get('/register', 'UserController@index')->name('users.index');
 Route::post('/register', 'UserController@blocked')->name('users.blocked');
