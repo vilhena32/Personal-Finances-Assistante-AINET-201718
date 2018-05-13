@@ -15,7 +15,8 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        session_start();
+        //session_start();
+        $this->middleware('auth', ['except' => ['index','register']]);
     }
 
 
@@ -29,6 +30,12 @@ class UserController extends Controller
 
         //$users = User::all();
         return view('index', compact('users','movements','accounts'));
+    }
+
+    public function register()
+    {
+
+        return view('register');
     }
 
 
