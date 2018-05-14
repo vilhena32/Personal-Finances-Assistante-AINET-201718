@@ -34,9 +34,22 @@ class UserController extends Controller
 
     public function register()
     {
+        $user= new User();
+        return view('register');
+    }
 
+
+    public function store(Request $request)
+    {
+        $data= $request()->validated();
+        $data['password']->Hash::make($data['password']);
+
+        User::create($data);
+
+        
         return view('index');
     }
+
 
 
 

@@ -28,7 +28,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -52,8 +52,9 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255|regex:/^[a-zA-Z]+$/u',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
-            'phone' => 'optional|numeric|size:11|regex:/(01)[0-9]{9}/',
-            //'profile_photo' => 'optional|image|mimes:jpeg,png,jpg|max:2048|size:2',
+            'phone' => 'nullable|regex:/^[0-9]+$/',
+            //'profile_photo' => 'nullable|image|mimes:jpeg,bmp,png',
+          
         ]);
     }
 

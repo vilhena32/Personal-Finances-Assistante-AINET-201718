@@ -62,6 +62,9 @@
                         </div>
 
 
+
+
+
                         <div class="form-group row">
                             <label for="phone" class="col-md-4 col-form-label text-md-right">{{ __('Phone') }}</label>
 
@@ -70,11 +73,16 @@
 
                                 @if ($errors->has('phone'))
                                     <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('name') }}</strong>
+                                        <strong>{{ $errors->first('phone') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
+
+
+
+                        
+
 
                         
                         <div class="form-group row mb-0">
