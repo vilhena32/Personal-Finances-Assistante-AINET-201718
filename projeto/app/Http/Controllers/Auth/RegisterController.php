@@ -52,7 +52,6 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255|regex:/^[a-zA-Z]+$/u',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
-            'phone' => 'nullable|regex:/^[0-9]+$/',
             'phone' => 'nullable|regex:/(9)[0-9]{8}/|unique:users',
             //'profile_photo' => 'nullable|image|mimes:jpeg,bmp,png',
           
