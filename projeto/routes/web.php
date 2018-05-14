@@ -19,7 +19,7 @@ Auth::routes();
 
 Route::get('/', 'UserController@index')->name('home');
 //Route::get('/', 'UserController@register')->name('register');
-Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
+Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('users.logout');
 
 Route::get('/register', 'UserController@register')->name('register');
 Route::post('/register', 'UserController@store')->name('register');
