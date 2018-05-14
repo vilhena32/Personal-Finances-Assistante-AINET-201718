@@ -42,7 +42,6 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $data= $request()->validated();
-        $data['password']->Hash::make($data['password']);
 
         User::create($data);
 
