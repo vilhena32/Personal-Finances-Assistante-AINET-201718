@@ -16,21 +16,11 @@ class UserController extends Controller
     public function __construct()
     {
         //session_start();
-        $this->middleware('auth', ['except' => ['index','register']]);
+        $this->middleware('auth', ['except' => ['index','register','store']]);
     }
 
 
-    public function index()
-    {
-    	$users = User::all()->count();
-    	$movements = Movement::all()->count();
-    	$accounts = Account::all()->count();
-    	//var_dump($users);
-
-        //$users = User::all();
-        
-        return view('index', compact('users','movements','accounts'));
-    }
+   
 
     public function register()
     {
@@ -46,7 +36,7 @@ class UserController extends Controller
 
         User::create($data);
 
-        
+
         return view('index');
     }
 
