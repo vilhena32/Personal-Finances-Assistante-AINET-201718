@@ -1,4 +1,4 @@
-@php
+<?php
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
@@ -17,7 +17,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        //$this->middleware('auth');
+       $this->middleware('auth', ['except' => ['index']]);
     }
 
     /**
@@ -25,12 +25,18 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+
+
+
+     public function index()
     {
-        //$users = User::all()->count();
+        $users = User::all()->count();
+        $movements = Movement::all()->count();
+        $accounts = Account::all()->count();
         //var_dump($users);
 
         //$users = User::all();
-        return view('index');
+        
+        return view('index', compact('users','movements','accounts'));
     }
 }

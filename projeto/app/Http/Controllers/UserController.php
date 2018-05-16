@@ -17,6 +17,7 @@ class UserController extends Controller
     {
         //session_start();
         $this->middleware('auth', ['except' => ['index','register']]);
+        $this->middleware('auth', ['except' => ['index','register','store']]);
     }
 
 
@@ -40,6 +41,20 @@ class UserController extends Controller
 /*
     public function store()
     {
+<<<<<<< HEAD
+=======
+        $data= $request()->validated();
+        $data['password']->Hash::make($data['password']);
+
+        User::create($data);
+
+
+        return view('index');
+    }
+
+
+
+>>>>>>> 06cb59df345acbf887c1d274ee7a054dbb98f5b1
 
     }*/
 }

@@ -18,11 +18,17 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/', 'UserController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
 //Route::get('/', 'UserController@register')->name('register');
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('users.logout');
 
 Route::get('/register', 'UserController@register')->name('register');
+<<<<<<< HEAD
 Route::post('/register', 'RegisterController@create')->name('users.create');
+=======
+Route::post('/register', 'UserController@store')->name('register');
+Route::patch('/me/password','ResetPasswordController');
+>>>>>>> 06cb59df345acbf887c1d274ee7a054dbb98f5b1
 
 //Route::post('/login', 'UserController@create')->name('users.create');
 
