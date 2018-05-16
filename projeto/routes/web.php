@@ -22,7 +22,7 @@ Route::get('/', 'UserController@index')->name('home');
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('users.logout');
 
 Route::get('/register', 'UserController@register')->name('register');
-Route::post('/register', 'UserController@store')->name('register');
+Route::post('/register', 'RegisterController@create')->name('users.create');
 
 //Route::post('/login', 'UserController@create')->name('users.create');
 

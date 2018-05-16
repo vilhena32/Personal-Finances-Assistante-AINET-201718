@@ -7,6 +7,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\File;
 
 class RegisterController extends Controller
 {
@@ -51,28 +55,56 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => 'required|string|max:255|regex:/^[a-zA-Z]+$/u',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-            'phone' => 'nullable|regex:/(9)[0-9]{8}/|unique:users',
-            //'profile_photo' => 'nullable|image|mimes:jpeg,bmp,png',
-          
+            'password' => 'required|string|min:3|confirmed',
+            'phone' => 'nullable|unique:users|regex:/(9)[0-9]{8}/',
+            'profile_photo' => 'nullable|image|mimes:jpeg,bmp,png'          
         ]);
     }
 
-    /**
+     /**
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \App\User
+     * @return User
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'phone' => $data['phone'],
-            //'profile_photo'=> $data['profile_photo'],
+         try {
+            $user = User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'phone' => $data['name'],
+                'password' => Hash::make($data['password']),
+            ]);
 
-        ]);
+            if(array_key_exists('profile_photo', $data)){
+                if(!Storage::exists(storage_path('users/profiles/' . $user->id))){
+                    Storage::makeDirectory(storage_path('users/profiles/' . $user->id));
+                }
+                request()->file('profile_photo')->store('users/profiles/' . $user->id);         
+                $file = request()->file('profile_photo')->store('users/profiles/' . $user->id);         
+                $split = explode("/", $file);
+                $user->profile_photo = $split[3];
+            }
+            $user->save();
+            dd($user);
+        } catch(Exception $e){
+            return response()->json($e, 400);
+        }
+    }
+
+    /**
+     * Handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        return $this->registered($request, $user) ? : redirect($this->redirectPath());
     }
 }

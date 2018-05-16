@@ -37,20 +37,10 @@ class UserController extends Controller
         $user= new User();
         return view('register');
     }
-
-
-    public function store(Request $request)
+/*
+    public function store()
     {
-        $data= $request()->validated();
 
-        User::create($data);
-
-        
-        return view('index');
-    }
-
-
-
-
+    }*/
 }
 
