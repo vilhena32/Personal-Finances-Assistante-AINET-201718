@@ -21,17 +21,7 @@ class UserController extends Controller
     }
 
 
-    public function index()
-    {
-    	$users = User::all()->count();
-    	$movements = Movement::all()->count();
-    	$accounts = Account::all()->count();
-    	//var_dump($users);
-
-        //$users = User::all();
-        
-        return view('index', compact('users','movements','accounts'));
-    }
+   
 
     public function register()
     {
