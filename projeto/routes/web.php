@@ -19,10 +19,12 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 //Route::get('/', 'UserController@register')->name('register');
-Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('users.logout');
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('users.logout');
 
-Route::get('/register', 'UserController@create')->name('users.create');
-Route::post('/register', 'UserController@store')->name('users.store');
+/* Handled with default laravel routes
+Route::get('register', 'UserController@create')->name('users.create');
+Route::post('register', 'UserController@store')->name('users.store');
+*/
 
 //Route::patch('/me/password','ResetPasswordController');
 

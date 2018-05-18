@@ -30,7 +30,7 @@ class UserController extends Controller
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
-     */
+     *//* Inutil
     public function create()
     {
         $user= new User();
@@ -39,15 +39,13 @@ class UserController extends Controller
 
     public function store(RegisterUserRequest $request)
     {
-        dd("User controller store");
         $data = $request()->validate();
 
         User::create($data);
 
-        dd("User controller after store");
         return view('home');
     }
-
+*/
     /**
      * Display the specified resource.
      *
