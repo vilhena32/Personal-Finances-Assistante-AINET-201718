@@ -53,6 +53,8 @@ class UserController extends Controller
 
         return view('userslist', compact('users'));
     }
+    
+    
 
     /**
      * Display the specified resource.
@@ -97,5 +99,12 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function listUsers()
+    {
+        $users = User::all();
+
+        return view('userslist', compact('users'));
     }
 }
