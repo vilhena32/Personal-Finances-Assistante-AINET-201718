@@ -84,7 +84,7 @@ class RegisterController extends Controller
             $file = request()->file('profile_photo')->store('profiles', $public);         
             $split = explode("/", $file);
             $user->profile_photo = $split[3];
-        //}
+        }
     }
 
     /**

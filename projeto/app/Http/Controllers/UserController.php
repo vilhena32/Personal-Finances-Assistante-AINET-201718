@@ -20,34 +20,6 @@ class UserController extends Controller
         //session_start();
         $this->middleware('auth', ['except' => ['index','register','store','listUsers']]);
     }
-/*
-    public function register()
-    {
-        $user= new User();
-        return view('register');
-    }
-*/
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     *//* Inutil
-    public function create()
-    {
-        $user= new User();
-        //return view('register');
-        return view('register', compact('user'));
-    }
-
-    public function store(RegisterUserRequest $request)
-    {
-        $data = $request()->validate();
-
-        User::create($data);
-
-        return view('home');
-    }
-    
     
 
     /**
@@ -101,4 +73,14 @@ class UserController extends Controller
 
         return view('userslist', compact('users'));
     }
+
+    public function changePassword()
+    {
+        return ("Hello world");
+    }
+
+    public function updateProfile()
+    {
+        return view('profile');
+    }    
 }

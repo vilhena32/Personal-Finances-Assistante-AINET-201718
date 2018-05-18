@@ -27,8 +27,6 @@ Route::get('/users','UserController@listUsers')->name('listUsers');
 //Route::get('/registeruser', 'UserController@create')->name('users.create');
 //Route::post('/register', 'UserController@store')->name('users.store');
 
-//Route::patch('/me/password','ResetPasswordController');
-
 //Route::post('/login', 'UserController@create')->name('users.create');
 
 //Route::get('/users', 'UserController@store')->name('users.store');
@@ -40,9 +38,9 @@ Route::get('/users','UserController@listUsers')->name('listUsers');
 //Route::patch('users/{user}/promote', 'UserController@search_block')->name('users.search_block');
 //Route::patch('users/{user}/demote', 'UserController@search_block')->name('users.search_block');
 
-//Route::patch('/me/password', 'UserController@edit')->name('users.edit');
+Route::patch('/me/password', 'UserController@changePassword')->name('users.editPassword');
 
-//Route::put('/me/profile', 'UserController@update')->name('users.update');
+Route::get('/me/profile', 'UserController@updateprofile')->name('users.updateprofile');
 
 //Route::get('/profiles', 'UserController@destroy')->name('users.destroy');
 
