@@ -57,7 +57,7 @@ class RegisterController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:3|confirmed',
             'phone' => 'nullable|unique:users|regex:/(9)[0-9]{8}/',
-            'profile_photo' => 'nullable|image|mimes:jpeg,bmp,png'          
+            'profile_photo' => 'nullable|image|mimes:jpeg,bmp,png',         
         ]);
     }
 
@@ -69,27 +69,21 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-         try {
-            $user = User::create([
-                'name' => $data['name'],
-                'email' => $data['email'],
-                'phone' => $data['name'],
-                'password' => Hash::make($data['password']),
+        $user = User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'phone' => $data['name'],
+            'password' => Hash::make($data['password']),
             ]);
 
-            if(array_key_exists('profile_photo', $data)){
-                if(!Storage::exists(storage_path('users/profiles/' . $user->id))){
-                    Storage::makeDirectory(storage_path('users/profiles/' . $user->id));
-                }
-                request()->file('profile_photo')->store('users/profiles/' . $user->id);         
-                $file = request()->file('profile_photo')->store('users/profiles/' . $user->id);         
-                $split = explode("/", $file);
-                $user->profile_photo = $split[3];
+        if(array_key_exists('profile_photo', $data)){
+            if(!Storage::exists(storage_path('public/profiles/'))){
+                Storage::makeDirectory(storage_path('public/profiles/'));
             }
-            $user->save();
-            dd($user);
-        } catch(Exception $e){
-            return response()->json($e, 400);
+            request()->file('profile_photo')->store('public/profiles/');         
+            $file = request()->file('profile_photo')->store('public/profiles/');         
+            $split = explode("/", $file);
+            $user->profile_photo = $split[3];
         }
     }
 

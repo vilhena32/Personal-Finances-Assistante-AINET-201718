@@ -25,17 +25,11 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
-
-
-     public function index()
+    public function index()
     {
         $users = User::all()->count();
         $movements = Movement::all()->count();
         $accounts = Account::all()->count();
-        //var_dump($users);
-
-        //$users = User::all();
         
         return view('index', compact('users','movements','accounts'));
     }
