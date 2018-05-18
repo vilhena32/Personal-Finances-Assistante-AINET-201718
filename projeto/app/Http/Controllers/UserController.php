@@ -3,6 +3,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Http\Requests\RegisterRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -45,13 +46,6 @@ class UserController extends Controller
         User::create($data);
 
         return view('home');
-    }
-
-    public function listUsers()
-    {
-        $users = User::all();
-
-        return view('userslist', compact('users'));
     }
     
     
@@ -103,7 +97,7 @@ class UserController extends Controller
 
     public function listUsers()
     {
-        $users = User::all();
+        $users = User::orderBy('name','asc')->paginate(10);
 
         return view('userslist', compact('users'));
     }
