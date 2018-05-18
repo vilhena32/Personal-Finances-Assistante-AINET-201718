@@ -76,15 +76,12 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             ]);
 
-     //   if(array_key_exists('profile_photo', $data)){
-       //     if(!Storage::exists(storage_path('public'->'profiles/'))){
-         //       Storage::makeDirectory(storage_path('public'->'profiles/'));
-          //  }
-
-            Storage::disk('public')->putFile('profiles',$file); // Passa nos testes
-            //request()->file('profile_photo')->store('public'->'profiles/'); 
-            $file->store('profiles', 'public'); //        
-           // $file = request()->file('profile_photo')->store('public','profiles/');         
+        if(array_key_exists('profile_photo', $data)){
+            if(!Storage::exists(storage_path('profiles', $public))){
+                Storage::makeDirectory(storage_path('profiles', $public));
+            }
+            request()->file('profile_photo')->store('profiles', $public);         
+            $file = request()->file('profile_photo')->store('profiles', $public);         
             $split = explode("/", $file);
             $user->profile_photo = $split[3];
         //}
