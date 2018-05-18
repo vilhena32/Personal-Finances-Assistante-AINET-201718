@@ -17,7 +17,7 @@ class UserController extends Controller
     public function __construct()
     {
         //session_start();
-        $this->middleware('auth', ['except' => ['index','register','store']]);
+        $this->middleware('auth', ['except' => ['index','register','store','listUsers']]);
     }
 /*
     public function register()
@@ -34,6 +34,7 @@ class UserController extends Controller
     public function create()
     {
         $user= new User();
+        //return view('register');
         return view('register', compact('user'));
     }
 
@@ -45,7 +46,14 @@ class UserController extends Controller
 
         return view('home');
     }
-*/
+
+    public function listUsers()
+    {
+        $users = User::all();
+
+        return view('userslist', compact('users'));
+    }
+
     /**
      * Display the specified resource.
      *

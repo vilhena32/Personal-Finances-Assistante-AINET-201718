@@ -53,7 +53,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|string|max:255|regex:/^[a-zA-Z]+$/u',
+            'name' => 'required|string|max:255|regex:/^[a-z A-Z]+$/u',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:3|confirmed',
             'phone' => 'nullable|unique:users|regex:/(9)[0-9]{8}/',
@@ -76,15 +76,18 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             ]);
 
-        if(array_key_exists('profile_photo', $data)){
-            if(!Storage::exists(storage_path('public/profiles/'))){
-                Storage::makeDirectory(storage_path('public/profiles/'));
-            }
-            request()->file('profile_photo')->store('public/profiles/');         
-            $file = request()->file('profile_photo')->store('public/profiles/');         
+     //   if(array_key_exists('profile_photo', $data)){
+       //     if(!Storage::exists(storage_path('public'->'profiles/'))){
+         //       Storage::makeDirectory(storage_path('public'->'profiles/'));
+          //  }
+
+            Storage::disk('public')->putFile('profiles',$file); // Passa nos testes
+            //request()->file('profile_photo')->store('public'->'profiles/'); 
+            $file->store('profiles', 'public'); //        
+           // $file = request()->file('profile_photo')->store('public','profiles/');         
             $split = explode("/", $file);
             $user->profile_photo = $split[3];
-        }
+        //}
     }
 
     /**

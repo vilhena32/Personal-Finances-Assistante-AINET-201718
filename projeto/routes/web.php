@@ -21,10 +21,11 @@ Route::get('/', 'HomeController@index')->name('home');
 //Route::get('/', 'UserController@register')->name('register');
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('users.logout');
 
-/* Handled with default laravel routes
-Route::get('register', 'UserController@create')->name('users.create');
-Route::post('register', 'UserController@store')->name('users.store');
-*/
+Route::get('/users','UserController@listUsers')->name('listUsers');
+
+
+//Route::get('/registeruser', 'UserController@create')->name('users.create');
+//Route::post('/register', 'UserController@store')->name('users.store');
 
 //Route::patch('/me/password','ResetPasswordController');
 
@@ -82,7 +83,6 @@ Route::post('register', 'UserController@store')->name('users.store');
 //Route::delete('/me/associates/{user}', 'UserController@destroy')->name('users.destroy');
 //Route::get('/home', 'HomeController@index');
 
-Auth::routes();
 
 
 //Route::get('/home', 'HomeController@index');

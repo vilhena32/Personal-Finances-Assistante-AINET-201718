@@ -8,11 +8,11 @@
       </nav>
 
       @if(!Auth::user())
-        <a class="btn btn-outline-primary" href="{{'register'}}">Sign up</a>
-        <a class="btn btn-outline-primary" href="{{'login'}}">Login</a>
+        <a class="btn btn-outline-primary" href="{{route('register')}}">Sign up</a>
+        <a class="btn btn-outline-primary" href="{{route('login')}}">Login</a>
       @else
         <a class="btn btn-outline-primary" href="#">MyProfile</a>
-        <a class="btn btn-outline-primary" href="{{'logout'}}">Logout</a>
+        <a class="btn btn-outline-primary" href="{{route('logout')}}">Logout</a>
       @endif
     </div>
 
