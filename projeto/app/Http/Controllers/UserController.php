@@ -18,7 +18,8 @@ class UserController extends Controller
     public function __construct()
     {
         //session_start();
-        $this->middleware('auth', ['except' => ['index','register','store','listUsers']]);
+        $this->middleware('auth', ['except' => ['index','register','store',]]);
+        $this->middleware('admin', ['except' => ['index','register','store',]]);
     }
     
 

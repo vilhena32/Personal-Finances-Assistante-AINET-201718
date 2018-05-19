@@ -21,7 +21,7 @@ Route::get('/', 'HomeController@index')->name('home');
 //Route::get('/', 'UserController@register')->name('register');
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('users.logout');
 
-Route::get('/users','UserController@listUsers')->name('listUsers')->middleware('admin');
+Route::get('/users','UserController@listUsers')->name('listUsers');
 
 
 //Route::get('/registeruser', 'UserController@create')->name('users.create');
