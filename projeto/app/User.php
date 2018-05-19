@@ -40,4 +40,11 @@ class User extends Authenticatable
 
         return 'Anonymous';
     }
+
+    public function getType()
+    {
+        return $this->admin ? 1 : 0;
+    }
+
+
 }
