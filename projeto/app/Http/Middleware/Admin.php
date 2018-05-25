@@ -26,10 +26,11 @@ class Admin
         if (Auth::check()){
             if(Auth::user()->admin ==1)
             {
-                return redirect('/');
+                return $next($request);
+                
             }
-            
+            return redirect('/');
         }
-        return $next($request);
+        
     } 
 }

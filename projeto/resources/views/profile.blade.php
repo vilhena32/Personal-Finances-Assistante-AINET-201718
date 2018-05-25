@@ -8,7 +8,6 @@
     
 
 
-@if (count($users))
     <table class="table table-striped">
     <thead>
         <tr>
@@ -23,7 +22,7 @@
     </thead>
     
     <tbody>
-    @foreach ($users as $user)
+   
         <tr>
             <td><a href="">{{ $user->name }}</a></td>
             <td><a href=""</a></td>
@@ -64,15 +63,13 @@
                 </form>
             </td>
         </tr>
-    @endforeach
+
     </table>
    
-@else
-    <h2>No users found</h2>
-@endif
 
-    {{ $users->links() }}
-    @include('partials.index.bottom')
+
+
+
 </body>
 </html>
 

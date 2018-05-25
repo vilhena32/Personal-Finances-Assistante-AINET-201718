@@ -12,6 +12,7 @@ use App\User;
 use App\Movement;
 use App\Account;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -90,6 +91,14 @@ class UserController extends Controller
        // return view('profile');
     } 
 
+
+    public function showProfile()
+    {
+        $user = Auth::user();
+
+        return view('profile', compact('user'));
+    }
+
     public function search(Request $request){
         $validFields = array('name', 'email');
         if ($request->input('name') == ""  || !(in_array($request->input('search_field'), $validFields))){
@@ -98,6 +107,6 @@ class UserController extends Controller
         $users = User::where($request->input('search_field'), 'like' ,'%'.$request->input('name').'%')->orderBy('name', 'asc')->paginate(10);
         //$users = DB::table('users')->where('name', $request->input('name'))->get();
         //dd($users);
-        return view('lsitusers', compact('users'));
+        return view('listusers', compact('users'));
     }
 }

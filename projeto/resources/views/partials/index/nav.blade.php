@@ -11,7 +11,7 @@
         <a class="btn btn-outline-primary" href="{{route('register')}}">Sign up</a>
         <a class="btn btn-outline-primary" href="{{route('login')}}">Login</a>
       @else
-        <a class="btn btn-outline-primary" href="{{route('users.updateprofile')}}">MyProfile</a>
+        <a class="btn btn-outline-primary" href="{{route('showProfile')}}">MyProfile</a>
         <a class="btn btn-outline-primary" href="{{'logout'}}">Logout</a>
       @endif
     </div>

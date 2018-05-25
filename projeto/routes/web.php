@@ -22,7 +22,8 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('users.logout');
 
 Route::get('/users','UserController@listUsers')->name('listUsers')->middleware('admin');
-Route::get('/search','UserController@search')->name('users.search');
+//Route::get('/s','UserController@listUsers')->name('listUsers')->middleware('admin');
+//Route::get('/search','UserController@search')->name('users.search');
 
 //Route::get('/registeruser', 'UserController@create')->name('users.create');
 //Route::post('/register', 'UserController@store')->name('users.store');
@@ -40,7 +41,7 @@ Route::get('/search','UserController@search')->name('users.search');
 
 Route::patch('/me/password', 'UserController@changePassword')->name('users.editPassword');
 
-Route::get('/me/profile', 'UserController@updateprofile')->name('users.updateprofile');
+Route::get('/me/profile', 'UserController@showProfile')->name('showProfile');
 
 //Route::get('/profiles', 'UserController@destroy')->name('users.destroy');
 
