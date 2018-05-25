@@ -6,7 +6,7 @@
 <body>
 	@include('partials.index.nav')
 	
-        <form action="{{route('users.search')}}" method="post" class="form-inline">
+        <form action="{{--route('users.search')--}}" method="post" class="form-inline">
         {{csrf_field()}}
         <div class="form-group">
             <select id="search_field" class="form-control" name="search_field">
