@@ -6,7 +6,20 @@
 <body>
 	@include('partials.index.nav')
 	
-
+        <form action="{{route('users.search')}}" method="post" class="form-inline">
+        {{csrf_field()}}
+        <div class="form-group">
+            <select id="search_field" class="form-control" name="search_field">
+                <option value="name">Name</option>
+                <option value="email">Email</option>
+            </select>
+            <input
+                type="text" class="form-control"
+                name="name" id="name"
+                value="{{old('name')}}" size="100"/>
+        </div>
+        <button type="submit" class="btn btn-success" name="search">Search</button>
+    </form>
 
 @if (count($users))
     <table class="table table-striped">
@@ -27,8 +40,8 @@
         <tr>
             <td><a href="">{{ $user->name }}</a></td>
             <td><a href=""</a></td>
-            <td>{{-- $user->getType() --}}</td>
-            <td>{{-- $user->getStatus() --}}</td>
+            <td>{{ $user->getType() }}</td>
+            <td>{{ $user->getStatus() }}</td>
             <td>{{ $user->created_at }}</td>
             <td>{{ $user->updated_at }}</td>
             

@@ -18,8 +18,8 @@ class UserController extends Controller
     public function __construct()
     {
         //session_start();
-        $this->middleware('auth', ['except' => ['index','register','store',]]);
-        $this->middleware('admin', ['except' => ['index','register','store',]]);
+        $this->middleware('auth', ['except' => ['index','register','store']]);
+        $this->middleware('admin', ['except' => ['index','register','store','listUsers']]);
     }
     
 
@@ -84,4 +84,20 @@ class UserController extends Controller
     {
         return view('profile');
     }    
+
+    public function myProfile()
+    {
+       // return view('profile');
+    } 
+
+    public function search(Request $request){
+        $validFields = array('name', 'email');
+        if ($request->input('name') == ""  || !(in_array($request->input('search_field'), $validFields))){
+            return redirect('users');
+        }
+        $users = User::where($request->input('search_field'), 'like' ,'%'.$request->input('name').'%')->orderBy('name', 'asc')->paginate(10);
+        //$users = DB::table('users')->where('name', $request->input('name'))->get();
+        //dd($users);
+        return view('lsitusers', compact('users'));
+    }
 }

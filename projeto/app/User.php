@@ -29,22 +29,32 @@ class User extends Authenticatable
 
 
 
-    public function typeToStr()
+    public function getType()
     {
-        switch ($this->type) {
-            case '0':
-                return 'Administrator';
+        switch ($this->admin) {
             case '1':
+                return 'Administrator';
+            case '0':
                 return 'Registered';
         }
 
         return 'Anonymous';
     }
 
-    public function getType()
-    {
-        return $this->admin ? 1 : 0;
+    public function getStatus()
+    {   
+         switch ($this->blocked) {
+            case '0':
+                return 'Unblocked';
+            case '1':
+                return 'Blocked';
+        }
+
+        return 'Anonymous';
+  
     }
+
+   
 
 
 }
