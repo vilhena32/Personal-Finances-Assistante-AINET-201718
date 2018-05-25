@@ -77,7 +77,7 @@ class UserController extends Controller
 
     public function changePassword()
     {
-        return ("Hello world");
+        return view('profile');
     }
 
     public function updateProfile()
@@ -87,7 +87,7 @@ class UserController extends Controller
 
     public function myProfile()
     {
-       // return view('profile');
+        return view('profile');
     } 
 
     public function search(Request $request){
