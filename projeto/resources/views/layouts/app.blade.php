@@ -55,9 +55,7 @@
                                 document.getElementById('logout-form').submit();">
                                 {{ __('Logout') }}
                             </a>
-                            <a class="dropdown-item" href="{{ route('users.editPassword') }}"
-                            onclick="event.preventDefault();
-                            document.getElementById('logout-form').submit();">
+                            <a class="dropdown-item" href="{{ route('users.editPassword')}}">
                             {{ __('Change Password') }}
                         </a>
 
