@@ -23,7 +23,7 @@ Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')->name(
 
 Route::get('/users','UserController@listUsers')->name('listUsers')->middleware('admin');
 //Route::get('/s','UserController@listUsers')->name('listUsers')->middleware('admin');
-//Route::get('/search','UserController@search')->name('users.search');
+Route::get('/search','UserController@search')->name('users.search');
 
 //Route::get('/registeruser', 'UserController@create')->name('users.create');
 //Route::post('/register', 'UserController@store')->name('users.store');

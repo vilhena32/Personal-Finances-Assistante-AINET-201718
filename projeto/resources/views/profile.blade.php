@@ -32,7 +32,7 @@
             <td>{{ $user->updated_at }}</td>
             
             <td>
-                <a class="btn btn-xs btn-primary" href="">Edit</a>
+                <a class="btn btn-xs btn-primary" href="http://www.google.pt">Edit</a>
                 <form action="" method="post" class="inline">
                 {{ csrf_field() }}
                     <div class="form-group">

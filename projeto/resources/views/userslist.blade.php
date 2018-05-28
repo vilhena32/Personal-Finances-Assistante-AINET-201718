@@ -6,17 +6,28 @@
 <body>
 	@include('partials.index.nav')
 	
-        <form action="{{--route('users.search')--}}" method="post" class="form-inline">
+        <form action="{{route('users.search')}}" method="post" class="form-inline">
         {{csrf_field()}}
         <div class="form-group">
             <select id="search_field" class="form-control" name="search_field">
                 <option value="name">Name</option>
                 <option value="email">Email</option>
             </select>
+
+            <select id="search_field_blocked" class="form-control" name="block_unblock">
+                <option value="blocked">Blocked</option>
+                <option value="unblocked">Unblocked</option>
+            </select>
+
+            <select id="search_field_blocked" class="form-control" name="block_unblock">
+                <option value="normal">Administrator</option>
+                <option value="admin">Normal User</option>
+            </select>            
+
             <input
                 type="text" class="form-control"
                 name="name" id="name"
-                value="{{old('name')}}" size="100"/>
+                value="{{old('name')}}" size="50"/>
         </div>
         <button type="submit" class="btn btn-success" name="search">Search</button>
     </form>
@@ -39,7 +50,7 @@
     @foreach ($users as $user)
         <tr>
             <td><a href="">{{ $user->name }}</a></td>
-            <td><a href=""</a></td>
+            <td><a href=""> {{ $user->email }}</a></td>
             <td>{{ $user->getType() }}</td>
             <td>{{ $user->getStatus() }}</td>
             <td>{{ $user->created_at }}</td>
