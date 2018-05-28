@@ -12,7 +12,7 @@
         <a class="btn btn-outline-primary" href="{{route('login')}}">Login</a>
       @else
         <a class="btn btn-outline-primary" href="{{route('showProfile')}}">MyProfile</a>
-        <a class="btn btn-outline-primary" href="{{'logout'}}">Logout</a>
+        <a class="btn btn-outline-primary" href="{{route('logout')}}">Logout</a>
       @endif
     </div>
 
