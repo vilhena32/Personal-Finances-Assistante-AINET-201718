@@ -46,12 +46,12 @@
                         @if ($user->blocked == 0 || $user->admin == 0)
                         <button type="submit" class="btn btn-xs btn-danger" name="block" >Block User</button>
                         @else
-                        <button type="submit" class="btn btn-xs btn-success" name"block" >Unblock User</button>
+                        <button type="submit" class="btn btn-xs btn-success" name="block" >Unblock User</button>
                         @endif
                     </div>
                 </form>
 
-                <form action="" method="post" class="inline">
+                <form action="{{}}" method="post" class="inline">
                     {{ csrf_field() }}
                     <div class="form-group">
                         @if ($user->admin == 0)

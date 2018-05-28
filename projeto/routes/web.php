@@ -22,8 +22,15 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('users.logout');
 
 Route::get('/users','UserController@listUsers')->name('listUsers')->middleware('admin');
+
+Route::patch('/users/{user}/block','UserController@block')->name('block')->middleware('admin');
+Route::patch('/users/{user}/unblock','UserController@unblock')->name('unblock')->middleware('admin');
+Route::patch('/users/{user}/promote','UserController@assignAdmin')->name('assignAdmin')->middleware('admin');
+Route::patch('/users/{user}/demote','UserController@removeAdmin')->name('removeAdmin')->middleware('admin');
+
+
 //Route::get('/s','UserController@listUsers')->name('listUsers')->middleware('admin');
-Route::get('/search','UserController@search')->name('users.search');
+Route::post('/search','UserController@filter')->name('users.search');
 
 //Route::get('/registeruser', 'UserController@create')->name('users.create');
 //Route::post('/register', 'UserController@store')->name('users.store');
