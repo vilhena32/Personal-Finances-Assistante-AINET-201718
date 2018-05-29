@@ -55,7 +55,7 @@
                                 document.getElementById('logout-form').submit();">
                                 {{ __('Logout') }}
                             </a>
-                            <a class="dropdown-item" href="{{ route('users.editPassword')}}">
+                            <a class="dropdown-item" href="{{-- route('users.editPassword')--}}">
                             {{ __('Change Password') }}
                         </a>
 

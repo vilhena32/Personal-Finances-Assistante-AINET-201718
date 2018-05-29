@@ -19,9 +19,14 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 //Route::get('/', 'UserController@register')->name('register');
+
+Route::get('/me/password','HomeController@showChangePasswordForm');
+Route::post('/me/password','HomeController@changePassword')->name('changePassword');
+
+
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('users.logout');
 
-Route::get('/users','UserController@listUsers')->name('listUsers')->middleware('admin');
+Route::get('/users','UserController@listUsers')->name('listUsers')->middleware('auth');
 
 Route::patch('/users/{user}/block','UserController@block')->name('block')->middleware('admin');
 Route::patch('/users/{user}/unblock','UserController@unblock')->name('unblock')->middleware('admin');
@@ -46,7 +51,7 @@ Route::post('/search','UserController@filter')->name('users.search');
 //Route::patch('users/{user}/promote', 'UserController@search_block')->name('users.search_block');
 //Route::patch('users/{user}/demote', 'UserController@search_block')->name('users.search_block');
 
-Route::patch('/me/password', 'UserController@changePassword')->name('users.editPassword');
+//Route::patch('/me/password', 'UserController@changePassword')->name('users.editPassword');
 
 Route::get('/me/profile', 'UserController@showProfile')->name('showProfile');
 

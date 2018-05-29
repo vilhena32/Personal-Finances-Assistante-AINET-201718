@@ -51,7 +51,7 @@
                     </div>
                 </form>
 
-                <form action="{{}}" method="post" class="inline">
+                <form action="" method="post" class="inline">
                     {{ csrf_field() }}
                     <div class="form-group">
                         @if ($user->admin == 0)
