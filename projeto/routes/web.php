@@ -39,7 +39,7 @@ Route::post('/search{request?}','UserController@filter')->name('users.search')->
 Route::get('/me/profile','UserController@edit')->name('showEdit')->middleware('auth');
 Route::put('/me/profile','UserController@store')->name('editUser')->middleware('auth');
 
-
+Route::get('/accounts/{user}', 'UserController@show')->name('showUser')->middleware('auth');
 //Route::get('/registeruser', 'UserController@create')->name('users.create');
 //Route::post('/register', 'UserController@store')->name('users.store');
 

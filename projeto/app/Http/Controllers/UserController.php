@@ -31,9 +31,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        //
+        
+        return view('profile',compact('user'));
     }
 
     /**
@@ -42,9 +43,8 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit()
+    public function edit(User $user)
     {
-        $user = Auth::user();
 
         return view('auth.edit-user',compact('user'));
     }

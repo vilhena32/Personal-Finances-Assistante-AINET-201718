@@ -50,8 +50,8 @@
         <tbody>
             @foreach ($users as $user)
             <tr>
-                <td><a href="">{{ $user->name }}</a></td>
-                <td><a href=""</a>{{$user->email}}</td>
+                <td>{{ $user->name }}</td>
+                <td>{{$user->email}}</td>
                     <td>{{ $user->getType() }}</td>
                     <td>{{ $user->getStatus() }}</td>
                     <td>{{ $user->created_at }}</td>
@@ -94,6 +94,18 @@
                             </div>
                         </form>
                         @endif
+
+                        @if(Auth::user())
+
+                        <form action="{{route('showUser', $user)}}" method="get" class="inline">
+                             
+                         
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-xs btn-danger">Show User</button>
+                            </div>
+                        </form>
+                        @endif
+
 
                         @if(Auth::user()->admin==1 && $user->admin==1 && Auth::user()->id != $user->id)
                         <form action="{{route('removeAdmin', $user->id)}}" method="post" class="inline">

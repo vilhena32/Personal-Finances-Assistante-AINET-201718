@@ -24,15 +24,15 @@
     <tbody>
    
         <tr>
-            <td><a href="">{{ $user->name }}</a></td>
-            <td><a href=""</a></td>
+            <td>{{ $user->name }}</a></td>
+            <td>{{$user->email}}</td>
             <td>{{ $user->getType() }}</td>
             <td>{{ $user->getStatus() }}</td>
             <td>{{ $user->created_at }}</td>
             <td>{{ $user->updated_at }}</td>
             
             <td>
-                <a class="btn btn-xs btn-primary" href="http://www.google.pt">Edit</a>
+                <a class="btn btn-xs btn-primary" href="{{route('showEdit', $user)}}">Edit</a>
                 <form action="" method="post" class="inline">
                 {{ csrf_field() }}
                     <div class="form-group">
