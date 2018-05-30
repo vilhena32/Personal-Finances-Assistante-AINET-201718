@@ -20,8 +20,8 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 //Route::get('/', 'UserController@register')->name('register');
 
-Route::get('/me/password','HomeController@showChangePasswordForm');
-Route::post('/me/password','HomeController@changePassword')->name('changePassword');
+Route::get('/me/password','UserController@changePassword');
+Route::patch('/me/password','UserController@updatePassword')->name('users.updatePassword');
 
 
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('users.logout');

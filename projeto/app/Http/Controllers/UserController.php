@@ -84,11 +84,10 @@ class UserController extends Controller
 
     public function updatePassword(ChangePasswordRequest $request)
     {
-        if (!(Hash::check('old_password', Auth::user()->password))) {
-            dd("PATADA NA PORTA");
+        if (!Hash::check($request->get('old_password'), Auth::user()->password)) {
             return redirect()
-                ->back();
-                //->with("error","Your current password does not matches with the password you provided. Please try again.");
+                ->back()
+                ->with("error","The password you provided is not the same as your old password. Please try again.");
         }
  
         if(strcmp($request->get('old_password'), $request->get('password')) == 0){
@@ -97,10 +96,10 @@ class UserController extends Controller
                 ->with("error","New Password cannot be same as your current password. Please choose a different password.");
         }
         
-        $validatedData = $request->validated();
+        $data = $request->validated();
 
         $user = Auth::user();
-        $user->password = Hash::make($request->get('password'));
+        $user->password = Hash::make($data['password']);
         $user->save();
         
         return redirect()->route('showProfile');
