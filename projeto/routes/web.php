@@ -37,7 +37,7 @@ Route::patch('/users/{user}/demote','UserController@removeAdmin')->name('removeA
 //Route::get('/s','UserController@listUsers')->name('listUsers')->middleware('admin');
 Route::post('/search{request?}','UserController@filter')->name('users.search')->middleware('admin');
 Route::get('/me/profile','UserController@edit')->name('showEdit')->middleware('auth');
-Route::patch('/me/profile','UserController@store')->name('editUser')->middleware('auth');
+Route::put('/me/profile','UserController@store')->name('editUser')->middleware('auth');
 
 
 //Route::get('/registeruser', 'UserController@create')->name('users.create');
@@ -56,7 +56,7 @@ Route::patch('/me/profile','UserController@store')->name('editUser')->middleware
 
 //Route::patch('/me/password', 'UserController@changePassword')->name('users.editPassword');
 
-//Route::get('/me/profile', 'UserController@showProfile')->name('showProfile');
+Route::get('/me/show', 'UserController@showProfile')->name('showProfile');
 
 //Route::get('/profiles', 'UserController@destroy')->name('users.destroy');
 
