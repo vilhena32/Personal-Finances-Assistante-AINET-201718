@@ -11,12 +11,12 @@
 
         <div class="form-group">
 
-            <select id="search_type" class="form-control" name="search_field">
+            <select id="search_type" class="form-control" name="search_type">
                 <option value="admin">Admin</option>
                 <option value="regular">Regular</option>
                 <option value="none">None</option>
             </select>
-            <select id="search_status" class="form-control" name="search_field">
+            <select id="search_status" class="form-control" name="search_status">
                 <option value="block">Block</option>
                 <option value="unblock">Unblock</option>
                 <option value="none">None</option>

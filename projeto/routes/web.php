@@ -20,13 +20,13 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 //Route::get('/', 'UserController@register')->name('register');
 
-Route::get('/me/password','UserController@changePassword');
-Route::patch('/me/password','UserController@updatePassword')->name('users.updatePassword');
+Route::get('/me/password','HomeController@showChangePasswordForm')->middleware('auth');
+Route::post('/me/password','HomeController@changePassword')->name('changePassword')->middleware('auth');
 
 
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('users.logout');
 
-Route::get('/users','UserController@listUsers')->name('listUsers')->middleware('auth');
+Route::get('/users{name?}','UserController@listUsers')->name('listUsers')->middleware('auth');
 
 Route::patch('/users/{user}/block','UserController@block')->name('block')->middleware('admin');
 Route::patch('/users/{user}/unblock','UserController@unblock')->name('unblock')->middleware('admin');
@@ -35,7 +35,9 @@ Route::patch('/users/{user}/demote','UserController@removeAdmin')->name('removeA
 
 
 //Route::get('/s','UserController@listUsers')->name('listUsers')->middleware('admin');
-Route::post('/search','UserController@filter')->name('users.search');
+Route::post('/search{request?}','UserController@filter')->name('users.search')->middleware('admin');
+
+
 
 //Route::get('/registeruser', 'UserController@create')->name('users.create');
 //Route::post('/register', 'UserController@store')->name('users.store');
