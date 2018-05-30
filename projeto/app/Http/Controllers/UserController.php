@@ -19,11 +19,11 @@ class UserController extends Controller
     public function __construct()
     {
         //session_start();
-         $this->middleware('auth', ['except' => ['index','register','store',]]);
-        $this->middleware('auth', ['only' => ['listusers']]);
-        $this->middleware('admin', ['only' => ['filter','block','unblock','assignAdmin','removeAdmin']]);
-    }
-    
+       $this->middleware('auth', ['except' => ['index','register','store',]]);
+       $this->middleware('auth', ['only' => ['listusers']]);
+       $this->middleware('admin', ['only' => ['filter','block','unblock','assignAdmin','removeAdmin']]);
+   }
+
 
     /**
      * Display the specified resource.
@@ -95,39 +95,51 @@ class UserController extends Controller
     public function block(User $user)
     {
 
-        $user->blocked = 1;
+        if(Auth::user()->id != $user->id)
+        {
+            $user->blocked = 1;
 
-        $user->save();
+            $user->save();
 
-        return redirect()
-        ->route('listUsers')
-        ->with('success', 'User block successfully');
+            return redirect()
+            ->route('listUsers')
+            ->with('success', 'User block successfully');
+        }
+
 
     }
 
 
 
     public function unblock(User $user)
-    {
+    {   
+        if(Auth::user()->id != $user->id)
+        {
+            $user->blocked = 0;
+            $user->save();
 
-        $user->blocked = 0;
-        $user->save();
+            return redirect()
+            ->route('listUsers')
+            ->with('success', 'User block successfully');
 
-        return redirect()
-        ->route('listUsers')
-        ->with('success', 'User block successfully');
+        }
+
+
     }
 
     public function assignAdmin(User $user)
     {
+        if(Auth::user()->id != $user->id)
+        {
+            $user->admin = 1;
 
-        $user->admin = 1;
+            $user->save();
 
-        $user->save();
+            return redirect()
+            ->route('listUsers')
+            ->with('success', 'User assigned successfully');
+        }
 
-        return redirect()
-        ->route('listUsers')
-        ->with('success', 'User assigned successfully');
 
     }
 
@@ -136,12 +148,17 @@ class UserController extends Controller
     public function removeAdmin(User $user)
     {
 
-        $user->admin = 0;
-        $user->save();
+        if(Auth::user()->id != $user->id)
+        {
+            $user->admin = 0;
+            $user->save();
 
-        return redirect()
-        ->route('listUsers')
-        ->with('success', 'User removed successfully');
+            return redirect()
+            ->route('listUsers')
+            ->with('success', 'User removed successfully');
+        }
+
+
     }
 
 
@@ -153,7 +170,7 @@ class UserController extends Controller
         return view('profile', compact('user'));
     }
 
-   
+
 
     public function filter(Request $request)
     {   
@@ -171,12 +188,12 @@ class UserController extends Controller
 
         if($request->input('search_type')=="admin")
         {   
-                $admin =1;
+            $admin =1;
         }
 
         if($request->input('search_type')=="regular")
         {   
-                $admin =0;
+            $admin =0;
         }
 
 
@@ -185,7 +202,7 @@ class UserController extends Controller
             $users= User::where('name', 'like' ,'%' . $request->input('name') . '%')
             ->orderBy('name','asc')
             ->paginate(10);
-             return view('userslist', compact('users'));
+            return view('userslist', compact('users'));
         }
 
         if($request->input('search_status')=="none" && $request->input('search_type')!="none")
@@ -194,7 +211,7 @@ class UserController extends Controller
             ->where('admin','=' , $admin)
             ->orderBy('name','asc')
             ->paginate(10);
-             return view('userslist', compact('users'));
+            return view('userslist', compact('users'));
         }
 
         if($request->input('search_status')!="none" && $request->input('search_type')=="none")
@@ -203,7 +220,7 @@ class UserController extends Controller
             ->where('blocked','=', $blocked)
             ->orderBy('name','asc')
             ->paginate(10);
-             return view('userslist', compact('users'));
+            return view('userslist', compact('users'));
         }
 
 
@@ -220,22 +237,22 @@ class UserController extends Controller
             ->paginate(10);
         }else
         {
-           $users = User::where('name', 'like' ,'%' . $request->input('name') . '%')
-           ->where('blocked','=' , $blocked)
-           ->where('admin','=', $admin)
-           ->orderBy('name','asc')
-           ->paginate(10);
-       }
-
-
-
-    
-       return view('userslist', compact('users'));
+         $users = User::where('name', 'like' ,'%' . $request->input('name') . '%')
+         ->where('blocked','=' , $blocked)
+         ->where('admin','=', $admin)
+         ->orderBy('name','asc')
+         ->paginate(10);
+     }
 
 
 
 
+     return view('userslist', compact('users'));
 
-   }
+
+
+
+
+ }
 
 }

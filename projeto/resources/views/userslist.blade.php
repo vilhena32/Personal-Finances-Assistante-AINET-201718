@@ -124,7 +124,7 @@
         @endif
 
         {{ $users->links() }}
-        @include('partials.index.bottom')
+        
     </body>
     </html>
 
