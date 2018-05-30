@@ -19,7 +19,7 @@ class UserController extends Controller
     public function __construct()
     {
         //session_start();
-        $this->middleware('auth', ['except' => ['index','register','store',]]);
+         $this->middleware('auth', ['except' => ['index','register','store',]]);
         $this->middleware('auth', ['only' => ['listusers']]);
         $this->middleware('admin', ['only' => ['filter','block','unblock','assignAdmin','removeAdmin']]);
     }
@@ -100,9 +100,9 @@ class UserController extends Controller
         $user->save();
 
         return redirect()
-            ->route('listUsers')
-            ->with('success', 'User block successfully');
-    
+        ->route('listUsers')
+        ->with('success', 'User block successfully');
+
     }
 
 
@@ -114,21 +114,21 @@ class UserController extends Controller
         $user->save();
 
         return redirect()
-            ->route('listUsers')
-            ->with('success', 'User block successfully');
+        ->route('listUsers')
+        ->with('success', 'User block successfully');
     }
 
- public function assignAdmin(User $user)
+    public function assignAdmin(User $user)
     {
-  
+
         $user->admin = 1;
 
         $user->save();
 
         return redirect()
-            ->route('listUsers')
-            ->with('success', 'User assigned successfully');
-    
+        ->route('listUsers')
+        ->with('success', 'User assigned successfully');
+
     }
 
 
@@ -140,8 +140,8 @@ class UserController extends Controller
         $user->save();
 
         return redirect()
-            ->route('listUsers')
-            ->with('success', 'User removed successfully');
+        ->route('listUsers')
+        ->with('success', 'User removed successfully');
     }
 
 
@@ -153,41 +153,89 @@ class UserController extends Controller
         return view('profile', compact('user'));
     }
 
-    public function search(Request $request){
-        $validFields = array('name', 'email');
-        if ($request->input('name') == ""  || !(in_array($request->input('search_field'), $validFields))){
-            return redirect('users');
-        }
-        $users = User::where($request->input('search_field'), 'like' ,'%'.$request->input('name').'%')->orderBy('name', 'asc')->paginate(10);
-        //$users = DB::table('users')->where('name', $request->input('name'))->get();
-        //dd($users);
-        return view('listusers', compact('users'));
-    }
+   
 
     public function filter(Request $request)
     {   
-        dd($request);
-        $validFields= array('search_field','name', 'search');
+      //  dd($request);
+        $validFields= array('search_field','search_status', 'name');
 
-        //if()
+        if($request->input('search_status')=="block")
+        {
+            $blocked=1;   
+        }
+        if($request->input('search_status')=="unblock")
+        {
+            $blocked=0;   
+        }
+
+        if($request->input('search_type')=="admin")
+        {   
+                $admin =1;
+        }
+
+        if($request->input('search_type')=="regular")
+        {   
+                $admin =0;
+        }
 
 
-        $results = DB::table('myTable')->where(function($query) use ($var1, $var2) {
-               if ( ! empty($var1)) {
-                   $query->where('firstField', '=', $var1);
-               }
-               if ( ! empty($var2)) {
-                   $query->where('secondField', '=', $var2);
-               }
-           })->get();
+        if($request->input('search_status')=="none" && $request->input('search_type')=="none")
+        {
+            $users= User::where('name', 'like' ,'%' . $request->input('name') . '%')
+            ->orderBy('name','asc')
+            ->paginate(10);
+             return view('userslist', compact('users'));
+        }
+
+        if($request->input('search_status')=="none" && $request->input('search_type')!="none")
+        {
+            $users= User::where('name', 'like' ,'%' . $request->input('name') . '%')
+            ->where('admin','=' , $admin)
+            ->orderBy('name','asc')
+            ->paginate(10);
+             return view('userslist', compact('users'));
+        }
+
+        if($request->input('search_status')!="none" && $request->input('search_type')=="none")
+        {
+            $users= User::where('name', 'like' ,'%' . $request->input('name') . '%')
+            ->where('blocked','=', $blocked)
+            ->orderBy('name','asc')
+            ->paginate(10);
+             return view('userslist', compact('users'));
+        }
 
 
-        $search = $request->input();
+
+
+        
+
+
+        if($request->input('name')=="")
+        {
+            $users= User::where('blocked','=' , $blocked)
+            ->where('admin','=', $admin)
+            ->orderBy('name','asc')
+            ->paginate(10);
+        }else
+        {
+           $users = User::where('name', 'like' ,'%' . $request->input('name') . '%')
+           ->where('blocked','=' , $blocked)
+           ->where('admin','=', $admin)
+           ->orderBy('name','asc')
+           ->paginate(10);
+       }
 
 
 
-    }
+    
+       return view('userslist', compact('users'));
 
 
+
+
+
+   }
 
 }
