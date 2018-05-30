@@ -1,18 +1,18 @@
 <?php
 
-
 namespace App\Http\Controllers;
 
-
-use App\Http\Requests\RegisterRequest;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Model;
 use App\User;
 use App\Movement;
 use App\Account;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\ChangePasswordRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -23,7 +23,6 @@ class UserController extends Controller
         $this->middleware('auth', ['only' => ['listusers']]);
         $this->middleware('admin', ['only' => ['filter','block','unblock','assignAdmin','removeAdmin']]);
     }
-    
 
     /**
      * Display the specified resource.
@@ -79,7 +78,32 @@ class UserController extends Controller
 
     public function changePassword()
     {
-        return view('profile');
+        $user = Auth::user();
+        return view('auth.passwords.change');
+    }
+
+    public function updatePassword(ChangePasswordRequest $request)
+    {
+        if (!(Hash::check('old_password', Auth::user()->password))) {
+            dd("PATADA NA PORTA");
+            return redirect()
+                ->back();
+                //->with("error","Your current password does not matches with the password you provided. Please try again.");
+        }
+ 
+        if(strcmp($request->get('old_password'), $request->get('password')) == 0){
+            return redirect()
+                ->back()
+                ->with("error","New Password cannot be same as your current password. Please choose a different password.");
+        }
+        
+        $validatedData = $request->validated();
+
+        $user = Auth::user();
+        $user->password = Hash::make($request->get('password'));
+        $user->save();
+        
+        return redirect()->route('showProfile');
     }
 
     public function updateProfile()
@@ -90,7 +114,7 @@ class UserController extends Controller
     public function myProfile()
     {
         return view('profile');
-    } 
+    }
 
     public function block(User $user)
     {
