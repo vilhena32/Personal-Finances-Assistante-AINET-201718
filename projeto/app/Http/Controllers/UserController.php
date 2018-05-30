@@ -123,23 +123,20 @@ class UserController extends Controller
         return view('profile');
     }
 
+
     public function block(User $user)
     {
 
         if(Auth::user()->id != $user->id)
         {
             $user->blocked = 1;
-
             $user->save();
 
             return redirect()
             ->route('listUsers')
             ->with('success', 'User block successfully');
         }
-
-
     }
-
 
 
     public function unblock(User $user)
@@ -150,48 +147,38 @@ class UserController extends Controller
             $user->save();
 
             return redirect()
-            ->route('listUsers')
-            ->with('success', 'User block successfully');
-
+                ->route('listUsers')
+                ->with('success', 'User block successfully');
         }
-
-
     }
+
 
     public function assignAdmin(User $user)
     {
         if(Auth::user()->id != $user->id)
         {
             $user->admin = 1;
-
             $user->save();
 
             return redirect()
-            ->route('listUsers')
-            ->with('success', 'User assigned successfully');
+                ->route('listUsers')
+                ->with('success', 'User assigned successfully');
         }
-
-
     }
-
 
 
     public function removeAdmin(User $user)
     {
-
         if(Auth::user()->id != $user->id)
         {
             $user->admin = 0;
             $user->save();
 
             return redirect()
-            ->route('listUsers')
-            ->with('success', 'User removed successfully');
+                ->route('listUsers')
+                ->with('success', 'User removed successfully');
         }
-
-
     }
-
 
 
     public function showProfile()
@@ -202,10 +189,8 @@ class UserController extends Controller
     }
 
 
-
     public function filter(Request $request)
-    {   
-      //  dd($request);
+    {
         $validFields= array('search_field','search_status', 'name');
 
         if($request->input('search_status')=="block")
@@ -227,37 +212,31 @@ class UserController extends Controller
             $admin =0;
         }
 
-
         if($request->input('search_status')=="none" && $request->input('search_type')=="none")
         {
             $users= User::where('name', 'like' ,'%' . $request->input('name') . '%')
-            ->orderBy('name','asc')
-            ->paginate(10);
+                        ->orderBy('name','asc')
+                        ->paginate(10);
             return view('userslist', compact('users'));
         }
 
         if($request->input('search_status')=="none" && $request->input('search_type')!="none")
         {
             $users= User::where('name', 'like' ,'%' . $request->input('name') . '%')
-            ->where('admin','=' , $admin)
-            ->orderBy('name','asc')
-            ->paginate(10);
+                        ->where('admin','=' , $admin)
+                        ->orderBy('name','asc')
+                        ->paginate(10);
             return view('userslist', compact('users'));
         }
 
         if($request->input('search_status')!="none" && $request->input('search_type')=="none")
         {
             $users= User::where('name', 'like' ,'%' . $request->input('name') . '%')
-            ->where('blocked','=', $blocked)
-            ->orderBy('name','asc')
-            ->paginate(10);
+                        ->where('blocked','=', $blocked)
+                        ->orderBy('name','asc')
+                        ->paginate(10);
             return view('userslist', compact('users'));
         }
-
-
-
-
-        
 
 
         if($request->input('name')=="")
@@ -266,7 +245,8 @@ class UserController extends Controller
             ->where('admin','=', $admin)
             ->orderBy('name','asc')
             ->paginate(10);
-        }else
+        }
+        else
         {
          $users = User::where('name', 'like' ,'%' . $request->input('name') . '%')
          ->where('blocked','=' , $blocked)
