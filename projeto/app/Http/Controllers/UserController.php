@@ -49,6 +49,11 @@ class UserController extends Controller
         return view('auth.edit-user',compact('user'));
     }
 
+    public function storeEdit(Request $request)
+    {
+        dd($request);
+    }
+
     /**
      * Update the specified resource in storage.
      *
