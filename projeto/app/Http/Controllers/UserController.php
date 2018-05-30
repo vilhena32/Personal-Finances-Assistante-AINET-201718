@@ -1,18 +1,18 @@
 <?php
 
-
 namespace App\Http\Controllers;
 
-
-use App\Http\Requests\RegisterRequest;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Model;
 use App\User;
 use App\Movement;
 use App\Account;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\ChangePasswordRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -79,7 +79,31 @@ class UserController extends Controller
 
     public function changePassword()
     {
-        return view('profile');
+        $user = Auth::user();
+        return view('auth.passwords.change');
+    }
+
+    public function updatePassword(ChangePasswordRequest $request)
+    {
+        if (!Hash::check($request->get('old_password'), Auth::user()->password)) {
+            return redirect()
+                ->back()
+                ->with("error","The password you provided is not the same as your old password. Please try again.");
+        }
+ 
+        if(strcmp($request->get('old_password'), $request->get('password')) == 0){
+            return redirect()
+                ->back()
+                ->with("error","New Password cannot be same as your current password. Please choose a different password.");
+        }
+        
+        $data = $request->validated();
+
+        $user = Auth::user();
+        $user->password = Hash::make($data['password']);
+        $user->save();
+        
+        return redirect()->route('showProfile');
     }
 
     public function updateProfile()
@@ -90,7 +114,7 @@ class UserController extends Controller
     public function myProfile()
     {
         return view('profile');
-    } 
+    }
 
     public function block(User $user)
     {

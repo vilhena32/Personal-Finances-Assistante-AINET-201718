@@ -26,8 +26,7 @@ class Admin
         if (Auth::check()){
             if(Auth::user()->admin ==1)
             {
-                return $next($request);
-                
+                return $next($request);                
             }
             return redirect('/');
         }
