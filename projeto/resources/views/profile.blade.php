@@ -32,7 +32,15 @@
             <td>{{ $user->updated_at }}</td>
             
             <td>
-                <a class="btn btn-xs btn-primary" href="{{route('showEdit', $user)}}">Edit</a>
+                <form action="{{route('showEdit')}}" method="get" class="inline">
+                
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-xs btn-danger">Edit</button>
+                    </div>
+
+                </form>
+                
+                
                 <form action="" method="post" class="inline">
                 {{ csrf_field() }}
                     <div class="form-group">

@@ -13,16 +13,18 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\UpdateUserRequest;
 
 class UserController extends Controller
 {
     public function __construct()
     {
         //session_start();
-       $this->middleware('auth', ['except' => ['index','register','store',]]);
-       $this->middleware('auth', ['only' => ['listusers']]);
-       $this->middleware('admin', ['only' => ['filter','block','unblock','assignAdmin','removeAdmin']]);
-   }
+     $this->middleware('auth', ['except' => ['index','register','store',]]);
+     $this->middleware('auth', ['only' => ['listusers']]);
+     $this->middleware('admin', ['only' => ['filter','block','unblock','assignAdmin','removeAdmin','store']]);
+ }
 
 
     /**
@@ -33,34 +35,38 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        
+
         return view('profile',compact('user'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(User $user)
-    {
 
+    public function edit()
+    {
+        $user= Auth::user();
         return view('auth.edit-user',compact('user'));
     }
 
-    public function storeEdit(Request $request)
+    public function store(UpdateUserRequest $request, User $user)
     {
-        dd($request);
+        
+       
+        $except = ['password','email','photo','phone'];
+
+        $user= User::where('id','=',$user);
+        $user->fill($request->except($except));
+        $user->save();
+
+        return redirect()
+            ->route('listUsers')
+            ->with('success', 'User saved successfully');
+
+        
+
+       
+
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, $id)
     {
         //
@@ -94,14 +100,14 @@ class UserController extends Controller
     {
         if (!Hash::check($request->get('old_password'), Auth::user()->password)) {
             return redirect()
-                ->back()
-                ->with("error","The password you provided is not the same as your old password. Please try again.");
+            ->back()
+            ->with("error","The password you provided is not the same as your old password. Please try again.");
         }
- 
+
         if(strcmp($request->get('old_password'), $request->get('password')) == 0){
             return redirect()
-                ->back()
-                ->with("error","New Password cannot be same as your current password. Please choose a different password.");
+            ->back()
+            ->with("error","New Password cannot be same as your current password. Please choose a different password.");
         }
         
         $data = $request->validated();
@@ -268,22 +274,22 @@ class UserController extends Controller
             ->paginate(10);
         }else
         {
-         $users = User::where('name', 'like' ,'%' . $request->input('name') . '%')
-         ->where('blocked','=' , $blocked)
-         ->where('admin','=', $admin)
-         ->orderBy('name','asc')
-         ->paginate(10);
-     }
+           $users = User::where('name', 'like' ,'%' . $request->input('name') . '%')
+           ->where('blocked','=' , $blocked)
+           ->where('admin','=', $admin)
+           ->orderBy('name','asc')
+           ->paginate(10);
+       }
 
 
 
 
-     return view('userslist', compact('users'));
+       return view('userslist', compact('users'));
 
 
 
 
 
- }
+   }
 
 }

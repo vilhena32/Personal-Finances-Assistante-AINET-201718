@@ -8,8 +8,9 @@
                 <div class="card-header">{{ __('Update user') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{-- route('editUser') --}}" enctype="multipart/form-data">
+                    <form method="POST" action="{{route('editUser', $user->id)}}" enctype="multipart/form-data">
                         @csrf
+                        {!! method_field('put') !!}
 
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
