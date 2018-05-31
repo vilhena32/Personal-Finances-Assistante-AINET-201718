@@ -10,7 +10,7 @@
         {{csrf_field()}}
 
         <div class="form-group">
-
+            @if(Auth::user()->admin==1)
             <select id="search_type" class="form-control" name="search_type">
                 <option value="admin">Admin</option>
                 <option value="regular">Regular</option>
@@ -25,100 +25,108 @@
             type="text" class="form-control"
             name="name" id="name"
             value="{{old('name')}}" placeholder="Inser Name of search"  size="20"/>
-        </div>
         <button type="submit" class="btn btn-success" name="search">Search</button>
-    </form>
+            @else
+            <input
+            type="text" class="form-control"
+            name="name" id="name"
+            value="{{old('name')}}" placeholder="Inser Name of search"  size="20"/>
+        </div>
+    <button type="submit" class="btn btn-success" name="search">Search</button>
+
+    @endif
+</form>
 
 
 
 
 
-    @if (count($users))
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Type</th>
-                <th>Status</th>
-                <th>Created At</th>
-                <th>Updated At</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
+@if (count($users))
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Type</th>
+            <th>Status</th>
+            <th>Created At</th>
+            <th>Updated At</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
 
-        <tbody>
-            @foreach ($users as $user)
-            <tr>
-                <td>{{ $user->name }}</td>
-                <td>{{$user->email}}</td>
-                    <td>{{ $user->getType() }}</td>
-                    <td>{{ $user->getStatus() }}</td>
-                    <td>{{ $user->created_at }}</td>
-                    <td>{{ $user->updated_at }}</td>
+    <tbody>
+        @foreach ($users as $user)
+        <tr>
+            <td>{{ $user->name }}</td>
+            <td>{{$user->email}}</td>
+            <td>{{ $user->getType() }}</td>
+            <td>{{ $user->getStatus() }}</td>
+            <td>{{ $user->created_at }}</td>
+            <td>{{ $user->updated_at }}</td>
 
-                    <td>
+            <td>
 
-                        <div class="inline">
+                <div class="inline">
 
-                           @if(Auth::user()->admin==1 && $user->blocked==0 && Auth::user()->id != $user->id)
+                   @if(Auth::user()->admin==1 && $user->blocked==0 && Auth::user()->id != $user->id)
 
-                           <form action="{{route('block', $user->id)}}" method="post" class="inline">
-                            {{ csrf_field() }}
-                             {!! method_field('patch') !!}
+                   <form action="{{route('block', $user->id)}}" method="post" class="inline">
+                    {{ csrf_field() }}
+                    {!! method_field('patch') !!}
 
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-xs btn-danger">Block</button>
-                            </div>
-                        </form>
-                        @endif
-
-                        @if(Auth::user()->admin==1 && $user->blocked==1 && Auth::user()->id != $user->id)
-                        <form action="{{route('unblock', $user->id)}}" method="post" class="inline">
-                            {{ csrf_field() }}
-                            {!! method_field('patch') !!}
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-xs btn-danger">unBlock</button>
-                            </div>
-                        </form>
-                        @endif
-
-
-                        @if(Auth::user()->admin==1 && $user->admin==0 && Auth::user()->id != $user->id)
-
-                        <form action="{{route('assignAdmin', $user->id)}}" method="post" class="inline">
-                              {{ csrf_field() }}
-                            {!! method_field('patch') !!}
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-xs btn-danger">Assign Admin</button>
-                            </div>
-                        </form>
-                        @endif
-
-                        @if(Auth::user())
-
-                        <form action="{{route('showUser', $user)}}" method="get" class="inline">
-                             
-                         
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-xs btn-danger">Show User</button>
-                            </div>
-                        </form>
-                        @endif
-
-
-                        @if(Auth::user()->admin==1 && $user->admin==1 && Auth::user()->id != $user->id)
-                        <form action="{{route('removeAdmin', $user->id)}}" method="post" class="inline">
-                            {{ csrf_field() }}
-                            {!! method_field('patch') !!}
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-xs btn-danger">Remove Admin</button>
-                            </div>
-                        </form>
-                        @endif
-
-
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-xs btn-danger">Block</button>
                     </div>
+                </form>
+                @endif
+
+                @if(Auth::user()->admin==1 && $user->blocked==1 && Auth::user()->id != $user->id)
+                <form action="{{route('unblock', $user->id)}}" method="post" class="inline">
+                    {{ csrf_field() }}
+                    {!! method_field('patch') !!}
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-xs btn-danger">Unblock</button>
+                    </div>
+                </form>
+                @endif
+
+
+                @if(Auth::user()->admin==1 && $user->admin==0 && Auth::user()->id != $user->id)
+
+                <form action="{{route('assignAdmin', $user->id)}}" method="post" class="inline">
+                  {{ csrf_field() }}
+                  {!! method_field('patch') !!}
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-xs btn-danger">Assign Admin</button>
+                </div>
+            </form>
+            @endif
+
+            @if(Auth::user())
+
+            <form action="{{route('showUser', $user)}}" method="get" class="inline">
+
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-xs btn-danger">Show User</button>
+                </div>
+            </form>
+            @endif
+
+
+            @if(Auth::user()->admin==1 && $user->admin==1 && Auth::user()->id != $user->id)
+            <form action="{{route('removeAdmin', $user->id)}}" method="post" class="inline">
+                {{ csrf_field() }}
+                {!! method_field('patch') !!}
+                <div class="form-group">
+                    <button type="submit" class="btn btn-xs btn-danger">Remove Admin</button>
+                </div>
+            </form>
+            @endif
+
+
+        </div>
 
 
 
@@ -126,17 +134,17 @@
 
 
 
-                </td>
-            </tr>
-            @endforeach
-        </table>
+    </td>
+</tr>
+@endforeach
+</table>
 
-        @else
-        <h2>No users found</h2>
-        @endif
+@else
+<h2>No users found</h2>
+@endif
 
-        {{ $users->links() }}
-        
-    </body>
-    </html>
+{{ $users->links() }}
+
+</body>
+</html>
 

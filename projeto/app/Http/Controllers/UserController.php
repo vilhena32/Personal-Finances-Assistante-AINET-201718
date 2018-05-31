@@ -116,7 +116,7 @@ class UserController extends Controller
         $user->password = Hash::make($data['password']);
         $user->save();
         
-        return redirect()->route('showProfile');
+        return redirect()->route('file');
     }
 
     public function updateProfile()
@@ -260,12 +260,6 @@ class UserController extends Controller
             return view('userslist', compact('users'));
         }
 
-
-
-
-        
-
-
         if($request->input('name')=="")
         {
             $users= User::where('blocked','=' , $blocked)
@@ -286,7 +280,12 @@ class UserController extends Controller
 
        return view('userslist', compact('users'));
 
+     public function showPublicProfile()
+    {
+        $users = User::orderBy('name','asc')->paginate(10);
 
+        return view('publicProfile', compact('users'));
+    }
 
 
 
