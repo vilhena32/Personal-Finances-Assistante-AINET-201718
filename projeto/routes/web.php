@@ -18,47 +18,26 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
-//Route::get('/', 'UserController@register')->name('register');
-
 Route::get('/me/password','UserController@changePassword')->middleware('auth');
 Route::patch('/me/password','UserController@updatePassword')->name('users.updatePassword')->middleware('auth');
-
-
-Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('users.logout');
-
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('users.logout')->middleware('auth');
 Route::get('/users{name?}','UserController@listUsers')->name('listUsers')->middleware('auth');
-
 Route::patch('/users/{user}/block','UserController@block')->name('block')->middleware('admin');
 Route::patch('/users/{user}/unblock','UserController@unblock')->name('unblock')->middleware('admin');
 Route::patch('/users/{user}/promote','UserController@assignAdmin')->name('assignAdmin')->middleware('admin');
 Route::patch('/users/{user}/demote','UserController@removeAdmin')->name('removeAdmin')->middleware('admin');
-
-
-//Route::get('/s','UserController@listUsers')->name('listUsers')->middleware('admin');
 Route::post('/search{request?}','UserController@filter')->name('users.search')->middleware('admin');
 Route::get('/me/profile','UserController@edit')->name('showEdit')->middleware('auth');
 Route::put('/me/profile','UserController@store')->name('editUser')->middleware('auth');
+Route::get('/show/{user}', 'UserController@show')->name('showUser')->middleware('auth');
+Route::get('/me/show', 'UserController@showProfile')->name('showProfile'); //Esta é para o Querido! 
 
-Route::get('/accounts/{user}', 'UserController@show')->name('showUser')->middleware('auth');
-//Route::get('/registeruser', 'UserController@create')->name('users.create');
-//Route::post('/register', 'UserController@store')->name('users.store');
 
-//Route::post('/login', 'UserController@create')->name('users.create');
 
-//Route::get('/users', 'UserController@store')->name('users.store');
+//Profiles
+Route::get('/profiles', 'AssociateMembersController@profiles')->name('profiles');
 
-//Route::get('/users', 'UserController@search')->name('users.search');
-
-//Route::patch('users/{user}/block', 'UserController@search_block')->name('users.search_block');
-//Route::patch('users/{user}/unblock', 'UserController@search_block')->name('users.search_block');
-//Route::patch('users/{user}/promote', 'UserController@search_block')->name('users.search_block');
-//Route::patch('users/{user}/demote', 'UserController@search_block')->name('users.search_block');
-
-//Route::patch('/me/password', 'UserController@changePassword')->name('users.editPassword');
-
-Route::get('/me/show', 'UserController@showProfile')->name('showProfile');
-
-//Route::get('/profiles', 'UserController@destroy')->name('users.destroy');
+Route::get('/profiles', 'UserController@showPublicProfile')->name('publicProfile');
 
 //Route::get('/me/associates', 'UserController@destroy')->name('users.destroy');
 
