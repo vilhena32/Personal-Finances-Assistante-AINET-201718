@@ -53,6 +53,14 @@ class User extends Authenticatable
         return 'Anonymous';
   
     }
+    public function getPhoto(){
+        if ($this->profile_photo==NULL) {
+            return "No Profile Picture to Dysplay";
+        }
+        else{
+         return asset($this->profile_photo);
+        }
+    }
 
 
 

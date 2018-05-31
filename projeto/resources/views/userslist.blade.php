@@ -49,6 +49,7 @@
                 <th>Email</th>
                 <th>Type</th>
                 <th>Status</th>
+                <th>Foto</th>
                 <th>Created At</th>
                 <th>Updated At</th>
                 <th>Actions</th>
@@ -62,6 +63,7 @@
                 <td>{{$user->email}}</td>
                 <td>{{ $user->getType() }}</td>
                 <td>{{ $user->getStatus() }}</td>
+                <td>{{ $user->getPhoto() }}</td>
                 <td>{{ $user->created_at }}</td>
                 <td>{{ $user->updated_at }}</td>
 
