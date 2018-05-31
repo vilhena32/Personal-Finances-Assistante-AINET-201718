@@ -285,7 +285,7 @@ class UserController extends Controller
     {
         $users = User::orderBy('name','asc')->paginate(10);
 
-        return view('publicProfile', compact('users'));
+        return view('userslist', compact('users'));
     }
 
 

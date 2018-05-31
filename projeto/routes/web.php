@@ -27,6 +27,7 @@ Route::patch('/users/{user}/unblock','UserController@unblock')->name('unblock')-
 Route::patch('/users/{user}/promote','UserController@assignAdmin')->name('assignAdmin')->middleware('admin');
 Route::patch('/users/{user}/demote','UserController@removeAdmin')->name('removeAdmin')->middleware('admin');
 Route::post('/search{request?}','UserController@filter')->name('users.search')->middleware('admin');
+//Route::post('/search{request?}','UserController@filter')->name('users.searchPublic');
 Route::get('/me/profile','UserController@edit')->name('showEdit')->middleware('auth');
 Route::put('/me/profile','UserController@store')->name('editUser')->middleware('auth');
 Route::get('/show/{user}', 'UserController@show')->name('showUser')->middleware('auth');
