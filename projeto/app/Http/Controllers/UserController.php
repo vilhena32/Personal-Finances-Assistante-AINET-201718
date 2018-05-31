@@ -279,6 +279,7 @@ class UserController extends Controller
 
 
        return view('userslist', compact('users'));
+   }
 
      public function showPublicProfile()
     {
@@ -289,6 +290,6 @@ class UserController extends Controller
 
 
 
-   }
+   
 
 }

@@ -4,7 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use User;
-class AssociateMembers extends Model
+
+class AssociateMembers extends Eloquent
 {
     //
      protected $table = 'associate_members';
@@ -13,7 +14,7 @@ class AssociateMembers extends Model
 
     public function associates()
     {
-        return $this->belongsTo(User::class);
+       // return $this->has(User);
     }
 
 
