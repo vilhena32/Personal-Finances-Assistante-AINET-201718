@@ -2,7 +2,7 @@
 <html>
 <head>
 	@include('partials.index.top')
-    <link rel="stylesheet" href="css/styles.css">
+   
 </head>
 <body>
 	@include('partials.index.nav')

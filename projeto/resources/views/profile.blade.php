@@ -22,7 +22,7 @@
      @foreach($users as $user)
         <tr>
             <td>{{$user->name }}</a></td>
-            <td>{{$user->email}}</td>
+            <td><img src="{{$user->getPhoto()}}"></td>
             @foreach($associates as $assosciate)
                 @if($assosciate->id == $user->id)
 
@@ -76,7 +76,7 @@
              @endforeach
         </tr>
     </table>
-   
+   {{ $users->links() }}
 </body>
 </html>
 
