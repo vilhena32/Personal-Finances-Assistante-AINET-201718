@@ -21,8 +21,8 @@ class UserController extends Controller
     public function __construct()
     {
         //session_start();
-     $this->middleware('auth', ['except' => ['index','register','store',]]);
-     $this->middleware('auth', ['only' => ['listusers']]);
+     $this->middleware('auth', ['except' => ['index','register','store']]);
+     $this->middleware('auth', ['only' => ['showPublicProfile']]);
      $this->middleware('admin', ['only' => ['filter','block','unblock','assignAdmin','removeAdmin','store']]);
  }
 
