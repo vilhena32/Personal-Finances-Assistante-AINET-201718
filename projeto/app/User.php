@@ -55,10 +55,10 @@ class User extends Authenticatable
     }
     public function getPhoto(){
         if ($this->profile_photo==NULL) {
-            return "No Profile Picture to Dysplay";
+            return asset('storage/profiles/default.png');
         }
         else{
-         return asset($this->profile_photo);
+         return asset('storage/profiles/'.$this->profile_photo);
         }
     }
 

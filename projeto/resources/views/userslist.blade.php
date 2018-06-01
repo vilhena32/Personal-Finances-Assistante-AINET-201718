@@ -2,6 +2,7 @@
 <html>
 <head>
 	@include('partials.index.top')
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 	@include('partials.index.nav')
@@ -45,11 +46,11 @@
     <table class="table table-striped">
         <thead>
             <tr>
+                <th>Profile Photo</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Type</th>
                 <th>Status</th>
-                <th>Foto</th>
                 <th>Created At</th>
                 <th>Updated At</th>
                 <th>Actions</th>
@@ -59,11 +60,11 @@
         <tbody>
             @foreach ($users as $user)
             <tr>
+                <img><td><img src="{{$user->getPhoto()}}"></td></img>
                 <td>{{ $user->name }}</td>
-                <td>{{$user->email}}</td>
+                <td>{{ $user->email}}</td>
                 <td>{{ $user->getType() }}</td>
                 <td>{{ $user->getStatus() }}</td>
-                <td>{{ $user->getPhoto() }}</td>
                 <td>{{ $user->created_at }}</td>
                 <td>{{ $user->updated_at }}</td>
 
@@ -142,16 +143,16 @@
 <table class="table table-striped">
     <thead>
         <tr>
+            <th>Profile Photo</th>
             <th>Name</th>
-            <th>Email(é suposto ser a foto)</th>
         </tr>
     </thead>
 
     <tbody>
         @foreach ($users as $user)
         <tr>
+            <td>{{$user->getPhoto()}}</td>
             <td>{{ $user->name }}</td>
-            <td>{{$user->email}}</td>
         </tr>
         @endforeach
     </table>
