@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use App\Http\Requests\UpdateUserRequest;
+
 
 class UserController extends Controller
 {
@@ -184,21 +184,22 @@ class UserController extends Controller
     {
         $user = Auth::user();
 
-        return view('profile', compact('user'));
+        return view('users.showUser', compact('user'));
     }
 
 
     public function filter(Request $request)
-    {
+    {   
+       // dd($request);
         $validFields= array('search_field','search_status', 'name');
 
         if($request->input('search_status')=="block")
         {
-            $blocked=1;   
+            $block=1;
         }
         if($request->input('search_status')=="unblock")
         {
-            $blocked=0;   
+            $block=0;   
         }
 
         if($request->input('search_type')=="admin")
@@ -214,44 +215,50 @@ class UserController extends Controller
         if($request->input('search_status')=="none" && $request->input('search_type')=="none")
         {
             $users= User::where('name', 'like' ,'%' . $request->input('name') . '%')
-                        ->orderBy('name','asc')
-                        ->paginate(10);
+            ->orderBy('name','asc')
+            ->paginate(10);
+
             return view('userslist', compact('users'));
         }
 
         if($request->input('search_status')=="none" && $request->input('search_type')!="none")
         {
             $users= User::where('name', 'like' ,'%' . $request->input('name') . '%')
-                        ->where('admin','=' , $admin)
-                        ->orderBy('name','asc')
-                        ->paginate(10);
+            ->where('admin','=' ,$admin)
+            ->orderBy('name','asc')
+            ->paginate(10);
+
             return view('userslist', compact('users'));
         }
 
         if($request->input('search_status')!="none" && $request->input('search_type')=="none")
         {
             $users= User::where('name', 'like' ,'%' . $request->input('name') . '%')
-                        ->where('blocked','=', $blocked)
-                        ->orderBy('name','asc')
-                        ->paginate(10);
+            ->where('blocked','=', $block)
+            ->orderBy('name','asc')
+            ->paginate(10);
+
             return view('userslist', compact('users'));
         }
 
 
         if($request->input('name')=="")
         {
-            $users= User::where('blocked','=' , $blocked)
+            $users= User::where('blocked','=' , $block)
             ->where('admin','=', $admin)
             ->orderBy('name','asc')
             ->paginate(10);
-        }
-        else
+
+            return view('userslist', compact('users'));
+        }else
         {
            $users = User::where('name', 'like' ,'%' . $request->input('name') . '%')
-           ->where('blocked','=' , $blocked)
+           ->where('blocked','=' , $block)
            ->where('admin','=', $admin)
            ->orderBy('name','asc')
            ->paginate(10);
+
+           return view('userslist', compact('users'));
        }
 
        return view('userslist', compact('users'));

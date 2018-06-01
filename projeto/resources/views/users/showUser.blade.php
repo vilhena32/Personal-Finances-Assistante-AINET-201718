@@ -6,42 +6,10 @@
 <body>
 	@include('partials.index.nav')
 	
-    <form action="{{route('users.search')}}" method="post" class="form-inline">
-        {{csrf_field()}}
-
-        <div class="form-group">
-            @if(Auth::user()->admin==1)
-            <select id="search_type" class="form-control" name="search_type">
-                <option value="none">None</option>
-                <option value="regular">Regular</option>
-                <option value="admin">Admin</option>
-            </select>
-            <select id="search_status" class="form-control" name="search_status">
-                <option value="none">None</option>
-                <option value="unblock">Unblock</option>
-                <option value="block">Block</option>
-            </select>
-            <input
-            type="text" class="form-control"
-            name="name" id="name"
-            value="{{old('name')}}" placeholder="Insert Name "  size="20"/>
-            <button type="submit" class="btn btn-success" name="search">Search</button>
-            @else
-            <input
-            type="text" class="form-control"
-            name="name" id="name"
-            value="{{old('name')}}" placeholder="Inser Name of search"  size="20"/>
-        </div>
-        <button type="submit" class="btn btn-success" name="search">Search</button>
-
-        @endif
-    </form>
-
-
-
+    
 
     @if(Auth::user()->admin==1)
-    @if (count($users))
+   
     <table class="table table-striped">
         <thead>
             <tr>
@@ -49,7 +17,6 @@
                 <th>Email</th>
                 <th>Type</th>
                 <th>Status</th>
-                <th>Foto</th>
                 <th>Created At</th>
                 <th>Updated At</th>
                 <th>Actions</th>
@@ -57,13 +24,12 @@
         </thead>
 
         <tbody>
-            @foreach ($users as $user)
+           
             <tr>
-                <td>{{$user->name }}</td>
+                <td>{{ $user->name }}</td>
                 <td>{{$user->email}}</td>
                 <td>{{ $user->getType() }}</td>
                 <td>{{ $user->getStatus() }}</td>
-                <td>{{ $user->getPhoto() }}</td>
                 <td>{{ $user->created_at }}</td>
                 <td>{{ $user->updated_at }}</td>
 
@@ -129,16 +95,16 @@
             </div>
         </td>
     </tr>
-    @endforeach
+
 </table>
 
 @else
 <h2>No users found</h2>
 @endif
-@endif
 
 
-    {{ $users->links() }}
+
+
 
 </body>
 </html>
