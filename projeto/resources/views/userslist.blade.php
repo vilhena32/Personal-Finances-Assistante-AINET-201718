@@ -13,14 +13,14 @@
         <div class="form-group">
             @if(Auth::user()->admin==1)
             <select id="search_type" class="form-control" name="search_type">
-                <option value="none">None</option>
+                <option value="admin">None</option>
                 <option value="regular">Regular</option>
-                <option value="admin">Admin</option>
+                <option value="none">Admin</option>
             </select>
             <select id="search_status" class="form-control" name="search_status">
-                <option value="none">None</option>
+                <option value="block">None</option>
                 <option value="unblock">Unblock</option>
-                <option value="block">Block</option>
+                <option value="none">Block</option>
             </select>
             <input
             type="text" class="form-control"
@@ -32,10 +32,11 @@
             type="text" class="form-control"
             name="name" id="name"
             value="{{old('name')}}" placeholder="Inser Name of search"  size="20"/>
+
+        @endif
         </div>
         <button type="submit" class="btn btn-success" name="search">Search</button>
 
-        @endif
     </form>
 
 
@@ -60,7 +61,7 @@
         <tbody>
             @foreach ($users as $user)
             <tr>
-                <img><td><img src="{{$user->getPhoto()}}"></td></img>
+                <td><img src="{{$user->getPhoto()}}"></td>
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->email}}</td>
                 <td>{{ $user->getType() }}</td>
@@ -151,7 +152,7 @@
     <tbody>
         @foreach ($users as $user)
         <tr>
-            <td>{{$user->getPhoto()}}</td>
+            <td><img src="{{$user->getPhoto()}}"></td>
             <td>{{ $user->name }}</td>
         </tr>
         @endforeach
