@@ -8,9 +8,4 @@ class Account extends Model
 {
     //
     protected $table = 'accounts';
-
-    public function user()
-    {
-    	return $this->belongsTo('User');
-    }
 }

@@ -26,19 +26,20 @@ Route::patch('/users/{user}/block','UserController@block')->name('block')->middl
 Route::patch('/users/{user}/unblock','UserController@unblock')->name('unblock')->middleware('admin');
 Route::patch('/users/{user}/promote','UserController@assignAdmin')->name('assignAdmin')->middleware('admin');
 Route::patch('/users/{user}/demote','UserController@removeAdmin')->name('removeAdmin')->middleware('admin');
-Route::post('/search','UserController@filter')->name('users.search')->middleware('admin');
+Route::post('/search{request?}','UserController@filter')->name('users.search')->middleware('admin');
 //Route::post('/search{request?}','UserController@filter')->name('users.searchPublic');
 Route::get('/me/profile','UserController@edit')->name('showEdit')->middleware('auth');
 Route::put('/me/profile','UserController@store')->name('editUser')->middleware('auth');
 Route::get('/show/{user}', 'UserController@show')->name('showUser')->middleware('auth');
-
 Route::get('/me/show', 'UserController@showProfile')->name('showProfile'); //Esta é para o Querido! 
 
 
 
 //Profiles
-Route::get('/profiles', 'AssociateMemberController@listAssociates')->name('profiles')->middleware('auth');
-Route::get('/profiles/{id}','AssociateMemberController@showAssociate')->name('showAssociate')->middleware('auth');
+Route::get('/profiles', 'AssociateMembersController@profiles')->name('profiles');
+
+Route::get('/profiles', 'UserController@showPublicProfile')->name('publicProfile');
+
 //Route::get('/me/associates', 'UserController@destroy')->name('users.destroy');
 
 //Route::get('/associate-off', 'UserController@destroy')->name('users.destroy');

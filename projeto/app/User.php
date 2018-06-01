@@ -31,31 +31,38 @@ class User extends Authenticatable
 
     public function getType()
     {
-        return $this->admin ? 'Admin' : 'Regular';
+        switch ($this->admin) {
+            case '1':
+                return 'Administrator';
+            case '0':
+                return 'Registered';
+        }
+
+        return 'Anonymous';
     }
 
     public function getStatus()
     {   
-        return $this->blocked ? 'Blocked' : 'Unblocked';
-    }
+         switch ($this->blocked) {
+            case '0':
+                return 'Unblocked';
+            case '1':
+                return 'Blocked';
+        }
 
+        return 'Anonymous';
+  
+    }
     public function getPhoto(){
         if ($this->profile_photo==NULL) {
-            return "No Profile Picture to Dysplay";
+            return asset('storage/profiles/default.png');
         }
         else{
-         return asset($this->profile_photo);
+         return asset('storage/profiles/'.$this->profile_photo);
         }
     }
 
 
-
-    public function associates()
-    {
-        
-       // return $this->belongsToMany('App\User','associate_members','associated_user_id', )->withPivot('created_at');
-
-    }
 
 
    
