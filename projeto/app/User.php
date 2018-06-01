@@ -31,28 +31,14 @@ class User extends Authenticatable
 
     public function getType()
     {
-        switch ($this->admin) {
-            case '1':
-                return 'Administrator';
-            case '0':
-                return 'Registered';
-        }
-
-        return 'Anonymous';
+        return $this->admin ? 'Admin' : 'Regular';
     }
 
     public function getStatus()
     {   
-         switch ($this->blocked) {
-            case '0':
-                return 'Unblocked';
-            case '1':
-                return 'Blocked';
-        }
-
-        return 'Anonymous';
-  
+        return $this->blocked ? 'Blocked' : 'Unblocked';
     }
+
     public function getPhoto(){
         if ($this->profile_photo==NULL) {
             return "No Profile Picture to Dysplay";
@@ -63,6 +49,13 @@ class User extends Authenticatable
     }
 
 
+
+    public function associates()
+    {
+        
+       // return $this->belongsToMany('App\User','associate_members','associated_user_id', )->withPivot('created_at');
+
+    }
 
 
    
