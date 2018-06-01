@@ -12,14 +12,14 @@
         <div class="form-group">
             @if(Auth::user()->admin==1)
             <select id="search_type" class="form-control" name="search_type">
-                <option value="admin">None</option>
+                <option value="none">None</option>
                 <option value="regular">Regular</option>
-                <option value="none">Admin</option>
+                <option value="admin">Admin</option>
             </select>
             <select id="search_status" class="form-control" name="search_status">
-                <option value="block">None</option>
+                <option value="none">None</option>
                 <option value="unblock">Unblock</option>
-                <option value="none">Block</option>
+                <option value="block">Block</option>
             </select>
             <input
             type="text" class="form-control"
