@@ -9,7 +9,15 @@
             <img class="rounded-circle" src="{{ asset('storage/profiles/users.png') }}" alt="Generic placeholder image" width="140" height="140"></img>
             <h2>{{$users}}</h2>
             <p>Númeo de utilizadores registados</p>
-            <p><a class="btn btn-secondary" href="{{route('listUsers')}}" role="button">View details </a></p>
+            @if(Auth::user())
+              @if(Auth::user()->admin==1)
+                <p><a class="btn btn-secondary" href="{{route('listUsers')}}" role="button">View details </a></p>
+              @else
+                <p><a class="btn btn-secondary" href="{{route('associates')}}" role="button">View details </a></p>
+
+              @endif
+            @endif
+
           </div><!-- /.col-lg-4 -->
 
 
