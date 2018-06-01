@@ -18,10 +18,10 @@ class AssociateMemberController extends Controller
     {   
 
         $user = User::find(Auth::user()->id); 
-        $associates = $user->associates;
-        //dd($user->associates);
+        $associates= $user->associates;
+        $users= User::all();
         
-        return view('profile', compact('associates'));
+        return view('profile', compact('users','associates'));
     }
 
     public function showAssociate(User $user)

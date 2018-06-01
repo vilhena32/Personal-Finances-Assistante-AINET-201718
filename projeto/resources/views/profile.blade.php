@@ -7,29 +7,32 @@
     @include('partials.index.nav')
     
 
-    @foreach($associates as $associate)
+   
     <table class="table table-striped">
     <thead>
         <tr>
             <th>Name</th>
             <th>Email</th>
-            <th>Type</th>
-            <th>Status</th>
-            <th>Created At</th>
-            <th>Updated At</th>
-            <th>Actions</th>
+            <th>Group</th>
+          
         </tr>
     </thead>
     
     <tbody>
-   
+     @foreach($users as $user)
         <tr>
-            <td>{{ $associate->name }}</a></td>
-            <td>{{$associate->email}}</td>
-            <td>{{ $associate->getType() }}</td>
-            <td>{{ $associate->getStatus() }}</td>
-            <td>{{ $associate->created_at }}</td>
-            <td>{{ $associate->updated_at }}</td>
+            <td>{{$user->name }}</a></td>
+            <td>{{$user->email}}</td>
+            @foreach($associates as $assosciate)
+                @if($assosciate->id == $user->id)
+
+                    <td>Associated</td>
+                @else
+                    <td></td>
+                @endif
+            @endforeach
+
+         
             
             <td>
                 <form action="{{route('showEdit')}}" method="get" class="inline">
@@ -51,7 +54,7 @@
                 <form action="" method="post" class="inline">
                     {{ csrf_field() }}
                     <div class="form-group">
-                        @if ($associate->blocked == 0 || $user->admin == 0)
+                        @if ($user->blocked == 0 || $user->admin == 0)
                         <button type="submit" class="btn btn-xs btn-danger" name="block" >Block User</button>
                         @else
                         <button type="submit" class="btn btn-xs btn-success" name="block" >Unblock User</button>
@@ -62,7 +65,7 @@
                 <form action="" method="post" class="inline">
                     {{ csrf_field() }}
                     <div class="form-group">
-                        @if ($associate->admin == 0)
+                        @if ($user->admin == 0)
                         <button type="submit" class="btn btn-xs btn-danger" name="block" >Assign Admin</button>
                         @else
                         <button type="submit" class="btn btn-xs btn-success" name"block" >Remove Admin</button>
@@ -70,9 +73,10 @@
                     </div>
                 </form>
             </td>
+             @endforeach
         </tr>
     </table>
-    @endforeach
+   
 </body>
 </html>
 

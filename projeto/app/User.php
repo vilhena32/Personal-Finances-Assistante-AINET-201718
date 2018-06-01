@@ -68,8 +68,6 @@ class User extends Authenticatable
     {
         
         return $this->belongsToMany('App\User','associate_members','main_user_id','associated_user_id')->withPivot('created_at');
-
-   
     }
 
 }
