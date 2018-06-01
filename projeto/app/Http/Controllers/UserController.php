@@ -48,8 +48,6 @@ class UserController extends Controller
 
     public function store(UpdateUserRequest $request, User $user)
     {
-        
-       
         $except = ['password','email','photo','phone'];
 
         $user= User::where('id','=',$user);
@@ -59,11 +57,6 @@ class UserController extends Controller
         return redirect()
             ->route('listUsers')
             ->with('success', 'User saved successfully');
-
-        
-
-       
-
     }
 
 
@@ -93,6 +86,7 @@ class UserController extends Controller
     public function changePassword()
     {
         $user = Auth::user();
+
         return view('auth.passwords.change');
     }
 
@@ -132,15 +126,14 @@ class UserController extends Controller
 
     public function block(User $user)
     {
-
         if(Auth::user()->id != $user->id)
         {
             $user->blocked = 1;
             $user->save();
 
             return redirect()
-            ->route('listUsers')
-            ->with('success', 'User block successfully');
+                ->route('listUsers')
+                ->with('success', 'User block successfully');
         }
     }
 
@@ -261,21 +254,13 @@ class UserController extends Controller
            ->paginate(10);
        }
 
-
-
-
        return view('userslist', compact('users'));
    }
 
-     public function showPublicProfile()
+    public function showPublicProfile()
     {
         $users = User::orderBy('name','asc')->paginate(10);
 
         return view('userslist', compact('users'));
     }
-
-
-
-   
-
 }

@@ -56,7 +56,7 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255|regex:/^[a-z A-Z]+$/u',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:3|confirmed',
-            'phone' => 'nullable|unique:users|regex:/(9)[0-9]{8}/',
+            'phone' => 'nullable|regex:/^([0-9\s\+]*)$/|unique:users',
             'profile_photo' => 'nullable|image|mimes:jpeg,bmp,png',         
         ]);
     }
@@ -72,19 +72,16 @@ class RegisterController extends Controller
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'phone' => $data['name'],
+            'phone' => $data['phone'] ?? null,
             'password' => Hash::make($data['password']),
             ]);
-
-        $path = 'public/profiles/'.$user->id;
-
+ 
         if(array_key_exists('profile_photo', $data)){
-            if(!Storage::exists(storage_path($path))){
-                Storage::makeDirectory(storage_path($path));
+            if(!Storage::disk('public')->exists('profiles')){
+                Storage::disk('public')->makeDirectory('profiles');
             }
-            $file = request()->file('profile_photo')->store($path);
-            $split = explode('/', $file);
-            $user->profile_photo = $split[3];
+            $file = request()->file('profile_photo')->store('profiles', 'public');
+            $user->profile_photo = basename($file);
         }
         $user->save();
     }
