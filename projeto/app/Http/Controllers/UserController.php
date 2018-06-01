@@ -22,8 +22,8 @@ class UserController extends Controller
     {
         //session_start();
      $this->middleware('auth', ['except' => ['index','register','store',]]);
-     $this->middleware('auth', ['only' => ['listusers']]);
-     $this->middleware('admin', ['only' => ['filter','block','unblock','assignAdmin','removeAdmin','store']]);
+     //$this->middleware('auth', ['only' => ['listusers']]);
+     $this->middleware('admin', ['only' => ['filter','block','unblock','assignAdmin','removeAdmin','store','listUsers']]);
  }
 
 
