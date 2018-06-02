@@ -17,6 +17,11 @@ class AssociateMember extends Model
      	return $this->belongsTo('App\User','associated_user_id');
      }
 
+     public function associatedOf()
+     {
+     	return $this->belongsTo('App\User','main_user_id');
+     }
+
     
 
 

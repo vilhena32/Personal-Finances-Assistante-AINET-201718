@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
+
+
 
 class AccountController extends Controller
 {
@@ -11,11 +14,16 @@ class AccountController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function index(User $user)
+    {   
+
+        $accounts= $user->accounts;
+        //dd($accounts);
+
+        return view('accounts.listAccounts', compact('accounts'));
     }
 
+    
     /**
      * Show the form for creating a new resource.
      *
