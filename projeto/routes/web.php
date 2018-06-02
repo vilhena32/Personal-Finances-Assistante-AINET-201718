@@ -48,6 +48,7 @@ Route::get('/me/associates', 'AssociateMemberController@myAssociates')->name('my
 Route::get('/accounts/{user}', 'AccountController@index')->name('accounts')->middleware('auth');
 Route::get('/accounts/{user}/closed', 'AccountController@listClosedAccounts')->name('accounts.closed')->middleware('auth');
 Route::get('/accounts/{user}/opened', 'AccountController@listOpenAccounts')->name('accounts.open')->middleware('auth');
+Route::delete('/account/{account}', 'AccountController@delete')->name('accounts.delete')->middleware('auth');
 
 //Route::get('/me/associates', 'UserController@destroy')->name('users.destroy');
 
