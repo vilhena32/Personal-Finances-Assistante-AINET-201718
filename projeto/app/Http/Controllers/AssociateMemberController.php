@@ -14,7 +14,15 @@ class AssociateMemberController extends Controller
 {
     //
 
-	public function listAssociates()
+    public function __construct()
+    {
+        //session_start();
+
+        $this->middleware('auth', ['only' => ['listUsers', 'myAssociates']]);
+        //$this->middleware('admin', ['only' => ['listUsers', 'myAssociates']]);
+    }
+
+	public function listUsers()
     {   
 
         $user = User::find(Auth::user()->id); 
@@ -27,11 +35,28 @@ class AssociateMemberController extends Controller
         return view('profile', compact('users','associates'));
     }
 
+
+    public function myAssociates()
+    {   
+
+        $user = User::find(Auth::user()->id); 
+        $associates= $user->associates;
+        $users = User::orderBy('name','asc')->paginate(10);
+
+        
+        return view('associates.myassociates', compact('users','associates','user'));
+    }
+
+
+
+
     public function showAssociate(User $user)
     {
 
     	
     	return view('users.showUser','user');
     }
+
+
 }
  

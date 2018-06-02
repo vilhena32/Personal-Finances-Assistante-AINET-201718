@@ -39,7 +39,8 @@ Route::get('/me/show', 'UserController@showProfile')->name('showProfile'); //Est
 //Profiles
 //Route::get('/profiles', 'AssociateMembersController@profiles')->name('profiles');
 
-Route::get('/profiles', 'AssociateMemberController@listAssociates')->name('associates');
+Route::get('/profiles', 'AssociateMemberController@listUsers')->name('associates')->middleware('auth','admin');
+Route::get('/me/associates', 'AssociateMemberController@myAssociates')->name('my.associates')->middleware('auth');
 
 //Route::get('/me/associates', 'UserController@destroy')->name('users.destroy');
 
