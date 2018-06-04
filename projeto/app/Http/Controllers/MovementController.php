@@ -18,7 +18,7 @@ class MovementController extends Controller
         $account = Account::find(2);
         $movements = $account->movements;
         //dd($movements);
-        return view('movements.listMovements',compact('movements'));
+        return view('movements.listMovements',compact('movements','account'));
     }
 
     /**
