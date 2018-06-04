@@ -13,10 +13,11 @@ class MovementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        $account = Account::find(2);
-        $movements = $account->movements;
+        $account = Account::find($id);
+        $movements = Movement::where('account_id',$id)->orderby('date','desc')->get();
+        
         //dd($movements);
         return view('movements.listMovements',compact('movements','account'));
     }

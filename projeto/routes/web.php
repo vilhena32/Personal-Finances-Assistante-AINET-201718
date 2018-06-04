@@ -56,7 +56,7 @@ Route::get('/account', 'AccountController@create')->name('create.account')->midd
 Route::post('/account', 'AccountController@store')->name('store.account')->middleware('auth');
 
 //Movements
-Route::get('/movements', 'MovementController@index')->name('list.movements')->middleware('auth');
+Route::get('/movements/{account}', 'MovementController@index')->name('list.movements')->middleware('auth');
 
 
 

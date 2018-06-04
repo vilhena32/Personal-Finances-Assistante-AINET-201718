@@ -37,6 +37,14 @@
                             <button type="submit" class="btn btn-xs btn-danger">Delete</button>
                         </div>
                     </form>
+                   
+                    <form action="{{route('list.movements', $account->id)}}" method="get" class="inline">
+                      
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-xs btn-danger">Show Movements</button>
+                        </div>
+                    </form>
 
                     
 
