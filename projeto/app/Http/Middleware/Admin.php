@@ -29,7 +29,6 @@ class Admin
                 return $next($request);                
             }
             return redirect('/');
-        }
-        
+        }        
     } 
 }

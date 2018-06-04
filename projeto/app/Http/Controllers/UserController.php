@@ -76,13 +76,6 @@ class UserController extends Controller
         //
     }
 
-    public function listUsers()
-    {
-        $users = User::orderBy('name','asc')->paginate(10);
-
-        return view('userslist', compact('users'));
-    }
-
     public function changePassword()
     {
         $user = Auth::user();
@@ -188,74 +181,75 @@ class UserController extends Controller
     }
 
 
-    public function filter(Request $request)
+    public function filter()
     {
-        $validFields= array('search_field','search_status', 'name');
+        if (empty($_GET)) {
+            $users = User::orderBy('name','asc')->paginate(10);
 
-        if($request->input('search_status')=="block")
-        {
-            $blocked=1;   
-        }
-        if($request->input('search_status')=="unblock")
-        {
-            $blocked=0;   
-        }
-
-        if($request->input('search_type')=="admin")
-        {   
-            $admin =1;
-        }
-
-        if($request->input('search_type')=="regular")
-        {   
-            $admin =0;
-        }
-
-        if($request->input('search_status')=="none" && $request->input('search_type')=="none")
-        {
-            $users= User::where('name', 'like' ,'%' . $request->input('name') . '%')
-                        ->orderBy('name','asc')
-                        ->paginate(10);
             return view('userslist', compact('users'));
+        } else {
+            if ($_GET['status'] == "blocked") {
+                $status = 1;
+            }
+
+            if ($_GET['status'] == "unblocked") {
+                $status = 0;
+            }
+
+            if ($_GET['type'] == "admin") {
+                $type = 1;
+            }
+
+            if ($_GET['type'] == "normal") {  
+                $type = 0;
+            }
+
+            if (isset($_GET['name'])) {
+                $name = $_GET['name'];
+            }
+
+            if (!isset($status) && !isset($type)) {
+                $users= User::where('name', 'like' ,'%' . $name . '%')
+                            ->orderBy('name','asc')
+                            ->paginate(10);
+
+                return view('userslist', compact('users'));
+            }
+
+            if (!isset($status) && isset($type)) {
+                $users= User::where('name', 'like' ,'%' . $name . '%')
+                            ->where('admin','=' , $type)
+                            ->orderBy('name','asc')
+                            ->paginate(10);
+
+                return view('userslist', compact('users'));
+            }
+
+            if (isset($status) && !isset($type)) {
+                $users= User::where('name', 'like' ,'%' . $name . '%')
+                            ->where('blocked','=', $status)
+                            ->orderBy('name','asc')
+                            ->paginate(10);
+
+                return view('userslist', compact('users'));
+            }
+
+            if (!isset($name)) {
+                $users= User::where('blocked','=' , $status)
+                            ->where('admin','=', $type)
+                            ->orderBy('name','asc')
+                            ->paginate(10);
+            } else {
+               $users = User::where('name', 'like' ,'%' . $name . '%')
+                            ->where('blocked','=' , $status)
+                            ->where('admin','=', $type)
+                            ->orderBy('name','asc')
+                            ->paginate(10);
+            }
+
+           return view('userslist', compact('users'));
         }
-
-        if($request->input('search_status')=="none" && $request->input('search_type')!="none")
-        {
-            $users= User::where('name', 'like' ,'%' . $request->input('name') . '%')
-                        ->where('admin','=' , $admin)
-                        ->orderBy('name','asc')
-                        ->paginate(10);
-            return view('userslist', compact('users'));
-        }
-
-        if($request->input('search_status')!="none" && $request->input('search_type')=="none")
-        {
-            $users= User::where('name', 'like' ,'%' . $request->input('name') . '%')
-                        ->where('blocked','=', $blocked)
-                        ->orderBy('name','asc')
-                        ->paginate(10);
-            return view('userslist', compact('users'));
-        }
-
-
-        if($request->input('name')=="")
-        {
-            $users= User::where('blocked','=' , $blocked)
-            ->where('admin','=', $admin)
-            ->orderBy('name','asc')
-            ->paginate(10);
-        }
-        else
-        {
-           $users = User::where('name', 'like' ,'%' . $request->input('name') . '%')
-           ->where('blocked','=' , $blocked)
-           ->where('admin','=', $admin)
-           ->orderBy('name','asc')
-           ->paginate(10);
-       }
-
-       return view('userslist', compact('users'));
-   }
+    }
 
     public function showPublicProfile()
     {
