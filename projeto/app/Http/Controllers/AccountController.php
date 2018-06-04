@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use Auth;
 use App\Account;
+use App\Movement;
 
 
 
@@ -20,7 +21,8 @@ class AccountController extends Controller
     {   
 
         $accounts= $user->accounts;
-        //dd($accounts);
+        
+       // dd($accounts);
 
         return view('accounts.listAccounts', compact('accounts'));
     }
@@ -33,7 +35,8 @@ class AccountController extends Controller
         foreach($aux as $a)
         {
             if($a->deleted_at !=NULL)
-            {
+            {   
+
                 array_push($accounts,$a);
             }
         }
@@ -55,6 +58,7 @@ class AccountController extends Controller
                 array_push($accounts,$a);
             }
         }
+         
 
         //dd($accounts);
 
@@ -124,10 +128,13 @@ class AccountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Account $account)
-    {
+    public function destroy($id)
+    {   
+        $account= Account::find($id);
+        $account->movements()->delete();
         $account->delete();
-
-        return redirect('accounts');
+      
+        $userid = Auth::user()->id;
+        return redirect('accounts/'.$userid);
     }
 }
