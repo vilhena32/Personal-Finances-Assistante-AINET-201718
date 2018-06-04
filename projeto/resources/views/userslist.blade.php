@@ -9,17 +9,17 @@
     <form action="{{ route('users.search') }}" method="get" class="form-inline">
         @csrf
 
-        <div class="form-group">
-            <input type="text" class="form-control" name="name" id="name"
+        <div class="form-group" style="margin-bottom: 5px\">
+            <input type="text" class="form-control selectHeight" name="name" style="margin-left: 5px" id="name"
                 value="{{ old('name') }}" placeholder="Insert Name "  size="22">
 
-            <select id="type" class="form-control" name="type">
+            <select id="type" class="form-control" name="type" style="height: 35px">
                 <option value="">--Type--</option>
                 <option value="normal">Normal</option>
                 <option value="admin">Admin</option>
             </select>
 
-            <select id="status" class="form-control" name="status">
+            <select id="status" class="form-control" name="status" style="height: 35px">
                 <option value="">--Status--</option>
                 <option value="blocked">Blocked</option>
                 <option value="unblocked">Unblocked</option>
@@ -54,10 +54,8 @@
                         <td>{{ $user->getStatus() }}</td>
                         <td>{{ $user->created_at }}</td>
                         <td>{{ $user->updated_at }}</td>
-
                         <td>
                             <div class="inline">
-
                                 @if(Auth::user()->admin==1 && $user->blocked==0 && Auth::user()->id != $user->id)
                                     <form action="{{ route('block', $user->id) }}" method="post" class="inline">
                                         @csrf
