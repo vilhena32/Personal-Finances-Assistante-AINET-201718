@@ -1,6 +1,7 @@
 <?php
 
 namespace App;
+use App\Movement;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,9 +16,9 @@ class Account extends Model
 
     }
 
-    public function moviments()
+    public function movements()
     {
-    	return $this->hasMany('App\Movement','account_id');
+        return $this->hasMany('App\Movement','account_id');
     }
 
     public function type()

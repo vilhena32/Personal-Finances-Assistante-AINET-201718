@@ -80,7 +80,6 @@
 
                      <form action="{{route('block', $user->id)}}" method="post" class="inline">
                         {{ csrf_field() }}
-                        {!! method_field('patch') !!}
 
                         <div class="form-group">
                             <button type="submit" class="btn btn-xs btn-danger">Block</button>

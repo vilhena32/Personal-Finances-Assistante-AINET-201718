@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Account;
+
 use Illuminate\Database\Eloquent\Model;
 
 class Movement extends Model
