@@ -34,15 +34,13 @@
             value="{{old('name')}}" placeholder="Inser Name of search"  size="20"/>
 
         @endif
-        </div>
-        <button type="submit" class="btn btn-success" name="search">Search</button>
 
     </form>
 
 
 
 
-    @if(Auth::user()->admin==1)
+    @if(Auth::user())
     @if (count($users))
     <table class="table table-striped">
         <thead>
@@ -50,11 +48,14 @@
                 <th>Profile Photo</th>
                 <th>Name</th>
                 <th>Email</th>
+                <th>Phone</th>
+                @if(Auth::user()->admin==1)
                 <th>Type</th>
                 <th>Status</th>
                 <th>Created At</th>
                 <th>Updated At</th>
                 <th>Actions</th>
+                @endif
             </tr>
         </thead>
 
@@ -64,11 +65,13 @@
                 <td><img src="{{$user->getPhoto()}}"></td>
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->email}}</td>
+                <td>{{ $user->phone}}</td>
+                @if(Auth::user()->admin==1)
                 <td>{{ $user->getType() }}</td>
                 <td>{{ $user->getStatus() }}</td>
                 <td>{{ $user->created_at }}</td>
                 <td>{{ $user->updated_at }}</td>
-
+                 @endif
                 <td>
 
                     <div class="inline">

@@ -23,7 +23,7 @@ class UserController extends Controller
         //session_start();
         $this->middleware('auth', ['except' => ['index','register','store']]);
         $this->middleware('auth', ['only' => ['showPublicProfile']]);
-        $this->middleware('admin', ['only' => ['filter','block','unblock','assignAdmin','removeAdmin','store']]);
+        $this->middleware('admin', ['only' => ['filter','block','unblock','assignAdmin','removeAdmin','store','listUsers']]);
     }
 
 

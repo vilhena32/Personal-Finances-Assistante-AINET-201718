@@ -12,7 +12,7 @@
             @if(Auth::user())
               @if(Auth::user()->admin==1)
                 <p><a class="btn btn-secondary" href="{{route('listUsers')}}" role="button">View details </a></p>
-              @else
+              @elseif(Auth::user()->admin==0)
                 <p><a class="btn btn-secondary" href="{{route('associates')}}" role="button">View details </a></p>
 
               @endif

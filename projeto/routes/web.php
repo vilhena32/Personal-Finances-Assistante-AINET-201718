@@ -27,6 +27,7 @@ Route::patch('/users/{user}/block','UserController@block')->name('block')->middl
 Route::patch('/users/{user}/unblock','UserController@unblock')->name('unblock')->middleware('admin');
 Route::patch('/users/{user}/promote','UserController@assignAdmin')->name('assignAdmin')->middleware('admin');
 Route::patch('/users/{user}/demote','UserController@removeAdmin')->name('removeAdmin')->middleware('admin');
+
 Route::post('/search','UserController@filter')->name('users.search')->middleware('auth');
 //Route::post('/search{request?}','UserController@filter')->name('users.searchPublic');
 Route::get('/me/profile','UserController@edit')->name('showEdit')->middleware('auth');
@@ -39,7 +40,7 @@ Route::get('/me/show', 'UserController@showProfile')->name('showProfile'); //Est
 //Profiles
 //Route::get('/profiles', 'AssociateMembersController@profiles')->name('profiles');
 
-Route::get('/profiles', 'AssociateMemberController@listUsers')->name('associates')->middleware('auth','admin');
+Route::get('/profiles', 'AssociateMemberController@listUsers')->name('associates')->middleware('auth');
 Route::get('/me/associates', 'AssociateMemberController@myAssociates')->name('my.associates')->middleware('auth');
 
 
