@@ -14,15 +14,41 @@ class AssociateMemberController extends Controller
 {
     //
 
-	public function listAssociates()
+    public function __construct()
+    {
+        //session_start();
+
+        $this->middleware('auth', ['only' => ['listUsers', 'myAssociates']]);
+        //$this->middleware('admin', ['only' => ['listUsers', 'myAssociates']]);
+    }
+
+	public function listUsers()
     {   
 
         $user = User::find(Auth::user()->id); 
-        $associates = $user->associates;
-        //dd($user->associates);
+        $associates= $user->associates;
+        $associatedOf= $user->associateOf;
+        //dd($associatedOf);
+        $users = User::orderBy('name','asc')->paginate(10);
+
         
-        return view('profile', compact('associates'));
+        return view('profile', compact('users','associates'));
     }
+
+
+    public function myAssociates()
+    {   
+
+        $user = User::find(Auth::user()->id); 
+        $associates= $user->associates;
+        $users = User::orderBy('name','asc')->paginate(10);
+
+        
+        return view('associates.myassociates', compact('users','associates','user'));
+    }
+
+
+
 
     public function showAssociate(User $user)
     {
@@ -30,5 +56,7 @@ class AssociateMemberController extends Controller
     	
     	return view('users.showUser','user');
     }
+
+
 }
  

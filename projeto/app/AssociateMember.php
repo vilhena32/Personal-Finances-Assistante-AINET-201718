@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\User;
+
 
 
 class AssociateMember extends Model
@@ -14,15 +14,16 @@ class AssociateMember extends Model
 
      public function user()
      {
-     	return $this->belongsTo('App\User');
+     	return $this->belongsTo('App\User','associated_user_id');
      }
 
-     public function getUser($id)
-     {	
-     	$user = User::find($id);
-          //dd($user);
-     	return $user;
+     public function associatedOf()
+     {
+     	return $this->belongsTo('App\User','main_user_id');
      }
+
+    
+
 
 
 

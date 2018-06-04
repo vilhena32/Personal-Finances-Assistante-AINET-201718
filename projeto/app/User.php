@@ -30,15 +30,8 @@ class User extends Authenticatable
 
 
     public function getType()
-    {
-        switch ($this->admin) {
-            case '1':
-                return 'Administrator';
-            case '0':
-                return 'Registered';
-        }
-
-        return 'Anonymous';
+    {   
+        return $this->admin ? 'Administrator' : 'Regular';
     }
 
     public function getStatus()
@@ -68,8 +61,17 @@ class User extends Authenticatable
     {
         
         return $this->belongsToMany('App\User','associate_members','main_user_id','associated_user_id')->withPivot('created_at');
+    }
 
-   
+    public function accounts()
+    {
+        return $this->hasMany('App\Account','owner_id');
+    }
+
+    public function associatedOf()
+    {
+        
+        //return $this->belongsToMany('App\User','associate_members','main_user_id','this->id')->withPivot('created_at');
     }
 
 }

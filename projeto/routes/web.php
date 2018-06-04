@@ -39,7 +39,16 @@ Route::get('/me/show', 'UserController@showProfile')->name('showProfile'); //Est
 //Profiles
 //Route::get('/profiles', 'AssociateMembersController@profiles')->name('profiles');
 
-Route::get('/profiles', 'AssociateMemberController@listAssociates')->name('associates');
+Route::get('/profiles', 'AssociateMemberController@listUsers')->name('associates')->middleware('auth','admin');
+Route::get('/me/associates', 'AssociateMemberController@myAssociates')->name('my.associates')->middleware('auth');
+
+
+//Accounts
+
+Route::get('/accounts/{user}', 'AccountController@index')->name('accounts')->middleware('auth');
+Route::get('/accounts/{user}/closed', 'AccountController@listClosedAccounts')->name('accounts.closed')->middleware('auth');
+Route::get('/accounts/{user}/opened', 'AccountController@listOpenAccounts')->name('accounts.open')->middleware('auth');
+Route::delete('/account/{account}', 'AccountController@delete')->name('accounts.delete')->middleware('auth');
 
 //Route::get('/me/associates', 'UserController@destroy')->name('users.destroy');
 

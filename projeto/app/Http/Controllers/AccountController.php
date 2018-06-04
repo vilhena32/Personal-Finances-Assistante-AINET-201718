@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
+use Auth;
+use App\Account;
+
+
 
 class AccountController extends Controller
 {
@@ -11,10 +16,52 @@ class AccountController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function index(User $user)
+    {   
+
+        $accounts= $user->accounts;
+        //dd($accounts);
+
+        return view('accounts.listAccounts', compact('accounts'));
     }
+
+    public function listClosedAccounts()
+    {
+        $user= Auth::user();
+        $aux= $user->accounts;
+        $accounts=[];
+        foreach($aux as $a)
+        {
+            if($a->deleted_at !=NULL)
+            {
+                array_push($accounts,$a);
+            }
+        }
+
+        //dd($accounts);
+
+        return view('accounts.listAccounts',compact('accounts'));
+    }
+    
+    public function listOpenAccounts()
+    {
+        $user= Auth::user();
+        $aux= $user->accounts;
+        $accounts=[];
+        foreach($aux as $a)
+        {
+            if($a->deleted_at ==NULL)
+            {
+                array_push($accounts,$a);
+            }
+        }
+
+        //dd($accounts);
+
+        return view('accounts.listAccounts',compact('accounts'));
+    }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -77,8 +124,10 @@ class AccountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Account $account)
     {
-        //
+        $account->delete();
+
+        return redirect('accounts');
     }
 }

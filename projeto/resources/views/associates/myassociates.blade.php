@@ -2,11 +2,12 @@
 <html>
 <head>
     @include('partials.index.top')
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     @include('partials.index.nav')
     
-
+    @if(count($associates))
    
     <table class="table table-striped">
     <thead>
@@ -19,25 +20,29 @@
     </thead>
     
     <tbody>
-     @foreach($users as $user)
+     @foreach($associates as $associate)
         <tr>
-            <td>{{$user->name }}</a></td>
-            <td><img src="{{$user->getPhoto()}}"></td>
-            @foreach($associates as $assosciate)
-                @if($assosciate->id == $user->id)
 
+            <td>{{$user->name }}</a></td>
+                    <td><img src="{{$user->getPhoto()}}"></td>
+           
+                 
+                @if($associate->id == $user->id)
+                   
                     <td>Associated</td>
                 @else
                     <td></td>
                 @endif
             @endforeach
 
-            
-          
-             @endforeach
+        
         </tr>
     </table>
-   {{ $users->links() }}
+    @else
+        <h2>No Associates found </h2>
+
+    @endif
+   {{-- $assosciates->links() --}}
 </body>
 </html>
 
