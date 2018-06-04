@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Movement;
+use App\Account;
 
 class MovementController extends Controller
 {
@@ -14,7 +15,10 @@ class MovementController extends Controller
      */
     public function index()
     {
-        //
+        $account = Account::find(2);
+        $movements = $account->movements;
+        //dd($movements);
+        return view('movements.listMovements',compact('movements'));
     }
 
     /**

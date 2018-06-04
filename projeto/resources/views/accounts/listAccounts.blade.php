@@ -29,7 +29,7 @@
                 <td>{{ $account->current_balance }}</td>
                 <td>
                     @if(Auth::user())
-                        <form action="{{route('accounts.delete', $account->id)}}" method="post" class="inline">
+                    <form action="{{route('accounts.delete', $account->id)}}" method="post" class="inline">
                         {{ csrf_field() }}
                         {{ method_field('delete') }}
 
@@ -37,6 +37,34 @@
                             <button type="submit" class="btn btn-xs btn-danger">Delete</button>
                         </div>
                     </form>
+
+                    
+
+                    @if($account->deleted_at==NULL)
+                    
+                        <form action="{{route('close.account', $account->id)}}" method="post" class="inline">
+                        {{ csrf_field() }}
+                        {{ method_field('patch') }}
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-xs btn-danger">Close Account</button>
+                        </div>
+                    </form>
+                    
+                    @else
+                    
+                        <form action="{{route('reopen.account', $account->id)}}" method="post" class="inline">
+                        {{ csrf_field() }}
+                        {{ method_field('patch') }}
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-xs btn-danger">Reopen Account</button>
+                        </div>
+                    </form>
+
+                    
+                    @endif
+
                     @endif
                 </td>
 
