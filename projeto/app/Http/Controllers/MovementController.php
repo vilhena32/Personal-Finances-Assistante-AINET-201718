@@ -16,7 +16,7 @@ class MovementController extends Controller
     public function index($id)
     {
         $account = Account::find($id);
-        $movements = Movement::where('account_id',$id)->orderby('date','desc')->get();
+        $movements = Movement::where('account_id',$id)->orderBy('date','desc')->paginate(10);
         
         //dd($movements);
         return view('movements.listMovements',compact('movements','account'));

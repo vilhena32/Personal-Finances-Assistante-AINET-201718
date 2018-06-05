@@ -118,10 +118,11 @@ class AccountController extends Controller
 
         
 
-        
+            
 
-
-        return view('welcome');
+        $userid = Auth::user()->id;
+        return redirect('accounts/'.$userid);   
+    
     }
 
 
