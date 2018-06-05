@@ -71,6 +71,37 @@ class AccountController extends Controller
         return view('accounts.listAccounts',compact('accounts'));
     }
 
+    public function updateStartAmount($id)
+    {   
+        $account = Account::find($id);
+        return view('accounts.editStart',compact('account'));
+    }
+
+    public function storeStartAmount($id, Request $request)
+    {   
+
+        $account = Account::find($id);
+        $movements = $account->movements;
+        $account->start_balance = $request->input('balance');
+        $account->current_balance = $request->input('balance');
+
+        if($movements)
+        {
+                    foreach ($movements as $m)
+        {
+            $m->end_balance = $m->end_balance + $request->input('balance');
+            $m->start_balance = $m->start_balance + $request->input('balance');
+            $m->save();
+        }
+
+        }
+
+        $account->save();
+
+
+        return view('welcome');
+    }
+
 
 
     /**
