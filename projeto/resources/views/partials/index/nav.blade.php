@@ -5,7 +5,7 @@
         <a class="btn btn-outline-primary" href="{{ route('register') }}">Sign up</a>
         <a class="btn btn-outline-primary" href="{{ route('login') }}">Login</a>
     @else
-        <div class="dropdown">
+        <div class="">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {{ Auth::user()->name }}
             </button>
