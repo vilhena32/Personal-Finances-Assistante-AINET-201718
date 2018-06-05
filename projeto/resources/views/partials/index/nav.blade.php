@@ -10,7 +10,6 @@
                 {{ Auth::user()->name }}
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="#">My Movements</a> 
               <a class="dropdown-item" href="{{ route('accounts',Auth::user()) }}">My Accounts</a>
               <a class="dropdown-item" href="{{ route('showProfile') }}">MyProfile
               <a class="dropdown-item" href="{{ route('logout') }}">Logout</a>

@@ -71,6 +71,23 @@ class AccountController extends Controller
         return view('accounts.listAccounts',compact('accounts'));
     }
 
+    public function updateStartAmount()
+    {
+        return view('');
+    }
+
+    public function storeStartAmount(Account $account,$value)
+    {   
+        $movements = $account->movements();
+        $account->start_balance = $value;
+        foreach ($movements as $m)
+        {
+            $m->end_balance = $m->end_balance + $value;
+        }
+
+        redirect('/account');
+    }
+
 
 
     /**
