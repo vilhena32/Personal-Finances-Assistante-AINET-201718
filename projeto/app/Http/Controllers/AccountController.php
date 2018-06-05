@@ -7,6 +7,9 @@ use App\User;
 use Auth;
 use App\Account;
 use App\Movement;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+
 
 
 
@@ -17,15 +20,18 @@ class AccountController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    use SoftDeletes;
     public function index(User $user)
     {   
 
-        $accounts= $user->accounts;
-        
-       // dd($accounts);
+        //$accounts= $user->accounts;
+        $accounts = Account::withTrashed() ->where('owner_id', $user->id)->get();
+
 
         return view('accounts.listAccounts', compact('accounts'));
     }
+
+
 
     public function listClosedAccounts()
     {
@@ -75,6 +81,7 @@ class AccountController extends Controller
     public function create()
     {
         //
+        return view('accounts.addAccount');
     }
 
     /**
@@ -131,10 +138,41 @@ class AccountController extends Controller
     public function destroy($id)
     {   
         $account= Account::find($id);
-        $account->movements()->delete();
-        $account->delete();
+        //$account->movements()->forceDelete();
+        $account->forceDelete();
       
         $userid = Auth::user()->id;
         return redirect('accounts/'.$userid);
     }
+
+    public function closeAccount($id)
+    {
+        
+
+        $account = Account::find($id);
+
+
+        foreach ($account->movements as $m) {
+            $m->delete();
+         }
+        $account->delete();
+       // dd($account);
+      
+        $userid = Auth::user()->id;
+        return redirect('accounts/'.$userid);
+    }
+
+    public function reopenAccount($id)
+    {
+        
+
+        $account = Account::find($id);
+
+        $account->restore();
+       // dd($account);
+        $userid = Auth::user()->id;
+        return redirect('accounts/'.$userid);
+    }
+
+
 }

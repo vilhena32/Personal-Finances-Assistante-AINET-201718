@@ -49,6 +49,14 @@ Route::get('/accounts/{user}/closed', 'AccountController@listClosedAccounts')->n
 Route::get('/accounts/{user}/opened', 'AccountController@listOpenAccounts')->name('accounts.open')->middleware('auth');
 Route::delete('/account/{account}', 'AccountController@destroy')->name('accounts.delete')->middleware('auth');
 Route::patch('/account/{account}/close', 'AccountController@closeAccount')->name('close.account')->middleware('auth');
+Route::patch('/account/{account}/reopen', 'AccountController@reopenAccount')->name('reopen.account')->middleware('auth');
+Route::get('/account', 'AccountController@create')->name('create.account')->middleware('auth');
+Route::post('/account', 'AccountController@store')->name('store.account')->middleware('auth');
+
+//Movements
+Route::get('/movements/{account}', 'MovementController@index')->name('list.movements')->middleware('auth');
+
+
 
 //Route::get('/me/associates', 'UserController@destroy')->name('users.destroy');
 
