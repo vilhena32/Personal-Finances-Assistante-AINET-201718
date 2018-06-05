@@ -12,17 +12,20 @@
     <thead>
         <tr>
             <th>Name</th>
-            <th>Email</th>
+            <th>Photo</th>
             <th>Group</th>
           
         </tr>
     </thead>
     
     <tbody>
-     @foreach($users as $user)
+   
         <tr>
-            <td>{{$user->name }}</a></td>
-            <td><img src="{{$user->getPhoto()}}"></td>
+            <td>{{ $user->name }}</a></td>
+            <td>
+                <img src="{{ $user->getPhoto() }}">
+            </td>
+
             @foreach($associates as $assosciate)
                 @if($assosciate->id == $user->id)
 
@@ -34,10 +37,10 @@
 
             
           
-             @endforeach
+       
         </tr>
     </table>
-   {{ $users->links() }}
+  
 </body>
 </html>
 

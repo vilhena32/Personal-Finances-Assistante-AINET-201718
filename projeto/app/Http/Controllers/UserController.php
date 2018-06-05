@@ -23,7 +23,7 @@ class UserController extends Controller
         //session_start();
         $this->middleware('auth', ['except' => ['index','register','store']]);
         $this->middleware('auth', ['only' => ['showPublicProfile']]);
-        $this->middleware('admin', ['only' => ['filter','block','unblock','assignAdmin','removeAdmin','store','listUsers']]);
+        $this->middleware('admin', ['only' => ['filter','block','unblock','promote','demote','store']]);
     }
 
 
@@ -33,10 +33,15 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+
+
+
+
     public function show(User $user)
     {
-
-        return view('profile',compact('user'));
+        $associates= $user->associates;
+        return view('profile',compact('user','associates'));
     }
 
 
@@ -145,7 +150,7 @@ class UserController extends Controller
     }
 
 
-    public function assignAdmin(User $user)
+    public function promote(User $user)
     {
         if(Auth::user()->id != $user->id)
         {
@@ -153,13 +158,13 @@ class UserController extends Controller
             $user->save();
 
             return redirect()
-                ->route('listUsers')
+                ->route('users.search')
                 ->with('success', 'User assigned successfully');
         }
     }
 
 
-    public function removeAdmin(User $user)
+    public function demote(User $user)
     {
         if(Auth::user()->id != $user->id)
         {
@@ -167,7 +172,7 @@ class UserController extends Controller
             $user->save();
 
             return redirect()
-                ->route('listUsers')
+                ->route('users.search')
                 ->with('success', 'User removed successfully');
         }
     }
@@ -176,37 +181,40 @@ class UserController extends Controller
     public function showProfile()
     {
         $user = Auth::user();
+        $associates = $user->associates;
+        //dd($associates);
 
-        return view('profile', compact('user'));
+        return view('profile', compact('user','associates'));
     }
 
 
-    public function filter()
-    {
-        if (empty($_GET)) {
+    public function filter(Request $request)
+    {   
+       // dd($request);
+        if ($request->input('name')== NULL && $request->input('status')=="" && $request->input('type')=="") {
             $users = User::orderBy('name','asc')->paginate(10);
-
+            //dd($users);
             return view('userslist', compact('users'));
         } else {
-            if ($_GET['status'] == "blocked") {
+            if ($request->input('status') == "blocked") {
                 $status = 1;
             }
 
-            if ($_GET['status'] == "unblocked") {
+            if ($request->input('status') == "unblocked") {
                 $status = 0;
             }
 
-            if ($_GET['type'] == "admin") {
+            if ($request->input('type') == "admin") {
                 $type = 1;
             }
 
-            if ($_GET['type'] == "normal") {  
+            if ($request->input('type') == "regular") {  
                 $type = 0;
             }
 
-            if (isset($_GET['name'])) {
-                $name = $_GET['name'];
-            }
+           
+                $name = $request->input('name');
+            
 
             if (!isset($status) && !isset($type)) {
                 $users= User::where('name', 'like' ,'%' . $name . '%')
@@ -237,6 +245,7 @@ class UserController extends Controller
             if (!isset($name)) {
                 $users= User::where('blocked','=' , $status)
                             ->where('admin','=', $type)
+                            ->where('blocked','=' , $status)
                             ->orderBy('name','asc')
                             ->paginate(10);
             } else {
@@ -249,6 +258,12 @@ class UserController extends Controller
 
            return view('userslist', compact('users'));
         }
+    }
+
+    public function listUsers()
+    {
+        $users = User::orderBy('name','asc')->paginate(10);
+        return view ('userslist',compact('users'));
     }
 
     public function showPublicProfile()

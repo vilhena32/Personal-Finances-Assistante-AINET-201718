@@ -7,7 +7,7 @@
 	@include('partials.index.nav')
 	
     <form action="{{ route('users.search') }}" method="get" class="form-inline">
-        @csrf
+      
 
         <div class="form-group" style="margin-bottom: 5px\">
             <input type="text" class="form-control selectHeight" name="name" style="margin-left: 5px" id="name"

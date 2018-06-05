@@ -36,14 +36,7 @@ class User extends Authenticatable
 
     public function getStatus()
     {   
-         switch ($this->blocked) {
-            case '0':
-                return 'Unblocked';
-            case '1':
-                return 'Blocked';
-        }
-
-        return 'Anonymous';
+        return $this->blocked ? 'Blocked' : 'Unblocked';
   
     }
     public function getPhoto(){

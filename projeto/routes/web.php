@@ -25,14 +25,13 @@ Route::get('/users{name?}{type?}{status?}','UserController@filter')->name('users
 
 Route::patch('/users/{user}/block','UserController@block')->name('block')->middleware('admin');
 Route::patch('/users/{user}/unblock','UserController@unblock')->name('unblock')->middleware('admin');
-Route::patch('/users/{user}/promote','UserController@assignAdmin')->name('assignAdmin')->middleware('admin');
-Route::patch('/users/{user}/demote','UserController@removeAdmin')->name('removeAdmin')->middleware('admin');
-//Route::post('/search{request?}','UserController@filter')->name('users.searchPublic');
+Route::patch('/users/{user}/promote','UserController@promote')->name('assignAdmin')->middleware('admin');
+Route::patch('/users/{user}/demote','UserController@demote')->name('removeAdmin')->middleware('admin');
+
 Route::get('/me/profile','UserController@edit')->name('showEdit')->middleware('auth');
 Route::put('/me/profile','UserController@store')->name('editUser')->middleware('auth');
 Route::get('/show/{user}', 'UserController@show')->name('showUser')->middleware('auth');
-Route::get('/me/show', 'UserController@showProfile')->name('showProfile'); //Esta é para o Querido! 
-
+Route::get('/me/show/', 'UserController@showProfile')->name('showProfile'); //Esta é para o Querido! 
 
 
 //Profiles
@@ -50,9 +49,11 @@ Route::get('/accounts/{user}/opened', 'AccountController@listOpenAccounts')->nam
 Route::delete('/account/{account}', 'AccountController@destroy')->name('accounts.delete')->middleware('auth');
 Route::patch('/account/{account}/close', 'AccountController@closeAccount')->name('close.account')->middleware('auth');
 Route::patch('/account/{account}/reopen', 'AccountController@reopenAccount')->name('reopen.account')->middleware('auth');
+
 Route::get('/account', 'AccountController@create')->name('create.account')->middleware('auth');
 Route::post('/account', 'AccountController@store')->name('store.account')->middleware('auth');
 
+//US19
 //Movements
 Route::get('/movements/{account}', 'MovementController@index')->name('list.movements')->middleware('auth');
 
