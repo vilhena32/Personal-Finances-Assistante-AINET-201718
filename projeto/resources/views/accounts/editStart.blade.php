@@ -18,7 +18,7 @@
                             <label for="number" class="col-md-4 col-form-label text-md-right">{{ __('Start Balance') }}</label>
 
                             <div class="col-md-6">
-                                <input id="number" type="number" step="0.01" class="form-control{{ $errors->has('number') ? ' is-invalid' : '' }}" name="balance" value="{{ old('number') }}" required>
+                                <input id="number" type="number" class="form-control{{ $errors->has('number') ? ' is-invalid' : '' }}" name="balance" value="{{ old('number') }}" required>
 
                                 @if ($errors->has('number'))
                                     <span class="invalid-feedback">

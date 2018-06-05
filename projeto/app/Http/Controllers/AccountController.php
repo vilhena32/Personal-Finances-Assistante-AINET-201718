@@ -82,21 +82,43 @@ class AccountController extends Controller
 
         $account = Account::find($id);
         $movements = $account->movements;
-        $account->start_balance = $request->input('balance');
-        $account->current_balance = $request->input('balance');
+        
+       
 
-        if($movements)
+
+        if($movements->count()==0)
         {
-                    foreach ($movements as $m)
+            $account->start_balance = $request->input('balance');
+            $account->current_balance = $request->input('balance');
+        
+        }
+        if($movements->count()>0)
         {
-            $m->end_balance = $m->end_balance + $request->input('balance');
-            $m->start_balance = $m->start_balance + $request->input('balance');
-            $m->save();
-        }
+            foreach ($movements as $m)
+            {
+                $m->end_balance = $m->end_balance + $request->input('balance');
+                $m->start_balance = $m->start_balance + $request->input('balance');
+                //$account->current_balance = 
+                
 
-        }
+                $m->save();
+            }
 
-        $account->save();
+            $account->start_balance = $request->input('balance');
+            $account->current_balance = $account->current_balance + $request->input('balance');
+        }
+        
+        
+
+      
+        
+            
+            
+            $account->save();
+
+        
+
+        
 
 
         return view('welcome');
