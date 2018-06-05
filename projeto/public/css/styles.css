@@ -5,3 +5,10 @@ img {
     padding: 5px;
     width: 150px;
 }
+
+.dropdownMenuButton {
+    width: 450px;
+}
+.accounts {
+    font-family: "Times New Roman", Times, serif;
+}
