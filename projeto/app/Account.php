@@ -14,7 +14,8 @@ class Account extends Model
     
     use SoftDeletes;
 
-
+    public $timestamps = false;
+    
     protected $dates = ['deleted_at'];
     
     protected $table = 'accounts';
