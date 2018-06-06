@@ -32,6 +32,7 @@
     @if (count($users))
             <thead>
                 <tr>
+                    <th>Profile Photo</th>
                     <th>Email</th>
                     <th>Type</th>
                     <th>Status</th>
@@ -44,7 +45,7 @@
             <tbody>
                 @foreach ($users as $user)
                     <tr>
-                        <td><img src="{{ $user->getPhoto() }}"></td>
+                        <td><img class="profiles" src="{{ $user->getPhoto() }}"></td>
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->getType() }}</td>
                         <td>{{ $user->getStatus() }}</td>
