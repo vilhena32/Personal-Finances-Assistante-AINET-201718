@@ -38,8 +38,9 @@ class UserController extends Controller
 
 
 
-    public function show(User $user)
-    {
+    public function show($id)
+    {   
+        $user = User::find($id);
         $associates= $user->associates;
         return view('profile',compact('user','associates'));
     }
@@ -47,20 +48,39 @@ class UserController extends Controller
 
     public function edit()
     {
-        $user= Auth::user();
+        $user = Auth::user();
         return view('auth.edit-user',compact('user'));
     }
 
-    public function store(UpdateUserRequest $request, User $user)
+    public function store(Request $request)
     {
         $except = ['password','email','photo','phone'];
+        //dd($request);
+       
+        $user= Auth::user();
+         //dd($user);
 
-        $user= User::where('id','=',$user);
-        $user->fill($request->except($except));
+        if($request->input('name')!= "")
+        {
+            $user->name = $request->input('name');
+        }
+
+        if($request->input('email')!= null)
+        {
+            $user->email = $request->input('email');
+        }
+
+        if($request->input('phone')!= null)
+        {
+            $user->email = $request->input('phone');
+        }
+
+       
+
         $user->save();
 
         return redirect()
-            ->route('listUsers')
+            ->route('home')
             ->with('success', 'User saved successfully');
     }
 

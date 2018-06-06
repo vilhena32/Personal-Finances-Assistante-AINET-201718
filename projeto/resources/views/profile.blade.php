@@ -37,7 +37,7 @@
 
                 @if(Auth::user()->id == $user->id || Auth::user()->admin==1)
                 <td>
-                    <form action="{{ route('showEdit') }}" method="get" class="inline">
+                    <form action="{{ route('showEdit', $user->id ) }}" method="get" class="inline">
 
                         <div class="form-group">
                             <button type="submit" class="btn btn-xs btn-danger">Edit User</button>
