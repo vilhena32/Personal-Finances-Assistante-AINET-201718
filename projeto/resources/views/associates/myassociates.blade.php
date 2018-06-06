@@ -23,8 +23,8 @@
      @foreach($associates as $associate)
         <tr>
 
-            <td>{{$user->name }}</a></td>
-                    <td><img src="{{$user->getPhoto()}}"></td>
+            <td>{{$associate->name }}</a></td>
+                    <td><img src="{{$associate->getPhoto()}}"></td>
            
                  
                 @if($associate->id == $user->id)
@@ -42,7 +42,7 @@
         <h2>No Associates found </h2>
 
     @endif
-   {{-- $assosciates->links() --}}
+   
 </body>
 </html>
 

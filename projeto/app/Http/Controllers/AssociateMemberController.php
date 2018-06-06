@@ -41,10 +41,23 @@ class AssociateMemberController extends Controller
 
         $user = User::find(Auth::user()->id); 
         $associates= $user->associates;
-        $users = User::orderBy('name','asc')->paginate(10);
+        //dd($associates);
+        //$users = User::orderBy('name','asc')->paginate(10);
 
         
-        return view('associates.myassociates', compact('users','associates','user'));
+        return view('associates.myassociates', compact('associates','user'));
+    }
+
+    public function myAssociateOf()
+    {   
+
+        $user = User::find(Auth::user()->id); 
+        $associates= $user->associatesOf;
+       
+        //$users = User::orderBy('name','asc')->paginate(10);
+
+        
+        return view('associates.myassociates', compact('associates','user'));
     }
 
 

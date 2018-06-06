@@ -224,7 +224,7 @@ class AccountController extends Controller
     public function reopenAccount($id)
     {
         
-
+       
         $account = Account::withTrashed()->where('id', $id)->restore();
         //$account->restore();
        // dd($account);

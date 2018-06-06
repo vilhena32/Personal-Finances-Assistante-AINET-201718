@@ -39,8 +39,8 @@ Route::get('/me/show/', 'UserController@showProfile')->name('showProfile'); //Es
 //Profiles
 
 Route::get('/profiles', 'AssociateMemberController@listUsers')->name('associates')->middleware('auth');
-Route::get('/me/associates', 'AssociateMemberController@myAssociates')->name('my.associates')->middleware('auth');
-
+Route::get('/me/associates', 'AssociateMemberController@myAssociates')->name('my.associates')->middleware('auth'); //myAssociateOf
+Route::get('/me/associate-of', 'AssociateMemberController@myAssociateOf')->name('my.associates')->middleware('auth');
 
 //Accounts
 

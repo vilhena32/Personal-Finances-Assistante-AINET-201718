@@ -52,8 +52,14 @@ class User extends Authenticatable
 
     public function associates()
     {
-        
-        return $this->belongsToMany('App\User','associate_members','main_user_id','associated_user_id')->withPivot('created_at');
+        return $this->belongsToMany('App\User', 'associate_members', 'main_user_id', 'associated_user_id')
+            ->withPivot('created_at');
+    }
+
+    public function associatesOf()
+    {
+        return $this->belongsToMany('App\User', 'associate_members', 'associated_user_id', 'main_user_id')
+            ->withPivot('created_at');
     }
 
     public function accounts()
