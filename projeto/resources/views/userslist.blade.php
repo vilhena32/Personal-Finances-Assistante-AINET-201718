@@ -28,7 +28,7 @@
             <button type="submit" class="btn btn-success" name="search">Search</button>            
         </div>
     </form>
-
+      <table class="table table-striped">
     @if (count($users))
             <thead>
                 <tr>
@@ -45,7 +45,6 @@
                 @foreach ($users as $user)
                     <tr>
                         <td><img src="{{ $user->getPhoto() }}"></td>
-                        <td><img class="profiles" src="{{ $user->getPhoto() }}"></td>
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->getType() }}</td>
                         <td>{{ $user->getStatus() }}</td>
