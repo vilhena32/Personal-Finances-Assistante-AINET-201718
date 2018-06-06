@@ -16,4 +16,11 @@ class Movement extends Model
     {
     	return $this->belongsTo('App\Account');
     }
+
+
+    public function category()
+    {
+ 
+    	return $this->hasOne('App\MovementCategories','id','movement_category_id');
+    }
 }
