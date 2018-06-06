@@ -22,7 +22,7 @@ class UserController extends Controller
     {
         //session_start();
         $this->middleware('auth', ['except' => ['index','register','store']]);
-        $this->middleware('auth', ['only' => ['PublicProfile']]);
+        $this->middleware('auth', ['only' => ['PublicProfile','associates','listUsers']]);
         $this->middleware('admin', ['only' => ['filter','block','unblock','promote','demote','store']]);
     }
 
@@ -265,7 +265,6 @@ class UserController extends Controller
             if (!isset($name)) {
                 $users= User::where('blocked','=' , $status)
                             ->where('admin','=', $type)
-                            ->where('blocked','=' , $status)
                             ->orderBy('name','asc')
                             ->paginate(10);
             } else {
@@ -281,7 +280,7 @@ class UserController extends Controller
     }
 
     public function listUsers()
-    {
+    {   
         $users = User::orderBy('name','asc')->paginate(10);
         return view ('userslist',compact('users'));
     }

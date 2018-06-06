@@ -32,7 +32,7 @@ class AssociateMemberController extends Controller
         $users = User::orderBy('name','asc')->paginate(10);
 
         
-        return view('profile', compact('users','associates'));
+        return view('userslist', compact('users','associates'));
     }
 
 

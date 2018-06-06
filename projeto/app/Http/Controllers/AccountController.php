@@ -21,6 +21,7 @@ class AccountController extends Controller
      * @return \Illuminate\Http\Response
      */
     use SoftDeletes;
+
     public function index(User $user)
     {   
 
@@ -192,11 +193,15 @@ class AccountController extends Controller
     public function destroy($id)
     {   
         $account= Account::find($id);
-        //$account->movements()->forceDelete();
+        $movements= $account->movements();
+        if($movements==null)
+        {
+          return redirect('accounts/'.$userid);  
+        }
         $account->forceDelete();
       
         $userid = Auth::user()->id;
-        return redirect('accounts/'.$userid);
+        
     }
 
     public function closeAccount($id)
@@ -220,9 +225,8 @@ class AccountController extends Controller
     {
         
 
-        $account = Account::find($id);
-
-        $account->restore();
+        $account = Account::withTrashed()->where('id', $id)->restore();
+        //$account->restore();
        // dd($account);
         $userid = Auth::user()->id;
         return redirect('accounts/'.$userid);

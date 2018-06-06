@@ -22,6 +22,7 @@
         <tbody>
 
             <tr>
+
                 <td>{{ $user->name }}</a></td>
                 <td><img class="profiles" src="{{ $user->getPhoto() }}"></td>
 
@@ -29,13 +30,12 @@
                 @if($assosciate->id == $user->id)
 
                 <td>Associated</td>
-                @else
-                <td></td>
                 @endif
                 @endforeach
                 
+                <td></td>
 
-                @if(Auth::user()->id == $user->id || Auth::user()->admin==1)
+                @if(Auth::user()->id == $user->id)
                 <td>
                     <form action="{{ route('showEdit', $user->id ) }}" method="get" class="inline">
 
@@ -49,6 +49,7 @@
 
 
             </tr>
+     
         </table>
 
     </body>
