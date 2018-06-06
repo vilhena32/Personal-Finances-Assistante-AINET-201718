@@ -23,7 +23,19 @@
                 <tr>
                     <tr><br></tr>
 
+                     <td>
+                            <div class="inline">
+                                @if(Auth::user()->id == $account->owner_id)
+                                
+                                    <form action="{{ route('create.movements', $account->id) }}" method="get" class="inline">
+                                       
+                                        
 
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-xs btn-danger">Create Movement</button>
+                                        </div>
+                                    </form>
+                                @endif
                 </tr>
             </tbody>
         </table>
