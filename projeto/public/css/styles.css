@@ -3,5 +3,12 @@
     border: 1px;
     border-radius: 1px;
     padding: 5px;
-    width: 50%;
+    width: 30%;
+}
+
+botaoProfile{
+	position: absolute;
+    top: 5px;
+    bottom: 0;
+    right: 100px;
 }

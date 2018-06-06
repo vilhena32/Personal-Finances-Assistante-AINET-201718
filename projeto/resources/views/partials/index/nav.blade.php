@@ -6,7 +6,7 @@
         <a class="btn btn-outline-primary" href="{{ route('register') }}">Sign up</a>
         <a class="btn btn-outline-primary" href="{{ route('login') }}">Login</a>
     @else
-        <div class="dropdown">
+        <botaoProfile><div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {{ Auth::user()->name }}
             </button>
@@ -15,7 +15,7 @@
               <a class="dropdown-item" href="{{ route('showProfile') }}">MyProfile
               <a class="dropdown-item" href="{{ route('logout') }}">Logout</a>
             </div>
-        </div>
+        </div></botaoProfile>
     @endif
 </div>
 
