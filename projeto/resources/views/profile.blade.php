@@ -2,6 +2,7 @@
 <html>
 <head>
     @include('partials.index.top')
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     @include('partials.index.nav')
@@ -32,6 +33,7 @@
                 <td>Associated</td>
                 @endif
                 @endforeach
+                <td></td>
                 
                 <td></td>
 

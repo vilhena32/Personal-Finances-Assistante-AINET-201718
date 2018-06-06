@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="css/styles.css">
 	@include('partials.index.top')
-
 </head>
 <body>
 	@include('partials.index.nav')
