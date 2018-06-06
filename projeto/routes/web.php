@@ -39,8 +39,8 @@ Route::get('/me/show/', 'UserController@showProfile')->name('showProfile'); //Es
 //Profiles
 
 Route::get('/profiles', 'AssociateMemberController@listUsers')->name('associates')->middleware('auth');
-Route::get('/me/associates', 'AssociateMemberController@myAssociates')->name('my.associates')->middleware('auth');
-
+Route::get('/me/associates', 'AssociateMemberController@myAssociates')->name('my.associates')->middleware('auth'); //myAssociateOf
+Route::get('/me/associate-of', 'AssociateMemberController@myAssociateOf')->name('my.associates')->middleware('auth');
 
 //Accounts
 
@@ -57,7 +57,7 @@ Route::post('/account', 'AccountController@store')->name('store.account')->middl
 //US19
 //Movements
 Route::get('/movements/{account}', 'MovementController@index')->name('list.movements')->middleware('auth');
-
+Route::get('/movements/{account}/create', 'MovementController@create')->name('create.movements')->middleware('auth');
 
 Route::get('/account/{account}/startBalance', 'AccountController@updateStartAmount')->name('change.startbalance')->middleware('auth');
 Route::patch('/account/{account}/startBalance', 'AccountController@storeStartAmount')->name('update.startbalance')->middleware('auth');
