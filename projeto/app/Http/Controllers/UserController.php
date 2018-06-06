@@ -22,7 +22,7 @@ class UserController extends Controller
     {
         //session_start();
         $this->middleware('auth', ['except' => ['index','register','store']]);
-        $this->middleware('auth', ['only' => ['PublicProfile','associates','listUsers']]);
+        $this->middleware('auth', ['only' => ['PublicProfile','associates','filterAuth']]);
         $this->middleware('admin', ['only' => ['filter','block','unblock','promote','demote','store']]);
     }
 
@@ -291,4 +291,33 @@ class UserController extends Controller
 
         return view('userslist', compact('users'));
     }
+
+
+
+    public function filterAuth(Request $request)
+    {   
+       // dd($request);
+        if ($request->input('name')== NULL) {
+            $users = User::orderBy('name','asc')->paginate(10);
+            //dd($users);
+            return view('userslist', compact('users'));
+        } else {
+            
+            $name = $request->input('name');
+            
+            $users= User::where('name', 'like' ,'%' . $name . '%')
+                        ->orderBy('name','asc')
+                        ->paginate(10);
+            
+
+            if (!isset($name)) 
+            {
+                $users= User::where('blocked','=' , $status)
+                            ->where('admin','=', $type)
+                            ->orderBy('name','asc')
+                            ->paginate(10);
+            }
+        
+        }
 }
+ }

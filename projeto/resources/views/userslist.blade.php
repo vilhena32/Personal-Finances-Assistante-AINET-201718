@@ -6,13 +6,15 @@
 <body>
 	@include('partials.index.nav')
 	
+
+    @if(Auth::user()->admin ==1)
     <form action="{{ route('users.search') }}" method="get" class="form-inline">
       
 
         <div class="form-group" style="margin-bottom: 5px\">
             <input type="text" class="form-control selectHeight" name="name" style="margin-left: 5px" id="name"
                 value="{{ old('name') }}" placeholder="Insert Name "  size="22">
-            @if(Auth::user()->admin==1)
+           
             <select id="type" class="form-control" name="type" style="height: 35px">
                 <option value="">--Type--</option>
                 <option value="normal">Normal</option>
@@ -24,10 +26,27 @@
                 <option value="blocked">Blocked</option>
                 <option value="unblocked">Unblocked</option>
             </select>
-            @endif
+           
             <button type="submit" class="btn btn-success" name="search">Search</button>            
         </div>
     </form>
+
+    @endif
+
+    @if(Auth::user())
+    <form action="{{ route('users.search.auth') }}" method="get" class="form-inline">
+      
+
+        <div class="form-group" style="margin-bottom: 5px\">
+            <input type="text" class="form-control selectHeight" name="name" style="margin-left: 5px" id="name"
+                value="{{ old('name') }}" placeholder="Insert Name "  size="22">
+           
+           
+            <button type="submit" class="btn btn-success" name="search">Search</button>            
+        </div>
+    </form>
+
+    @endif
 
       <table class="table table-striped">
     @if (count($users))
