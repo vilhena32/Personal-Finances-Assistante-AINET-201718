@@ -91,7 +91,10 @@
         </table>
 
         @else
+        <form action="{{ route('create.account') }}" method="get">
         <h2>No Accounts found</h2>
+            <button type="submit" class="btn btn-success" name="createNewAccount">Create new account</button>
+        </form>
         @endif
 
 
