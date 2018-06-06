@@ -6,16 +6,16 @@
         <a class="btn btn-outline-primary" href="{{ route('register') }}">Sign up</a>
         <a class="btn btn-outline-primary" href="{{ route('login') }}">Login</a>
     @else
-        <botaoProfile><div class="dropdown">
+        <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {{ Auth::user()->name }}
             </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <div class="dropdown-menu pull-right" aria-labelledby="dropdownMenuButton">
               <a class="dropdown-item id" id ="accounts" href="{{ route('accounts',Auth::user()) }}">My Accounts</a>
               <a class="dropdown-item" href="{{ route('showProfile') }}">MyProfile
               <a class="dropdown-item" href="{{ route('logout') }}">Logout</a>
-            </div>
-        </div></botaoProfile>
+            </div> 
+        </div>
     @endif
 </div>
 

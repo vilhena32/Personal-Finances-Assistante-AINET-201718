@@ -2,6 +2,7 @@
 <html>
 <head>
     @include('partials.index.top')
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     @include('partials.index.nav')
@@ -33,6 +34,7 @@
                 <td></td>
                 @endif
                 @endforeach
+                <td></td>
                 
 
                 @if(Auth::user()->id == $user->id || Auth::user()->admin==1)
