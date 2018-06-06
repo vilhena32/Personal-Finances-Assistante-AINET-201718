@@ -57,7 +57,7 @@ Route::post('/account', 'AccountController@store')->name('store.account')->middl
 //US19
 //Movements
 Route::get('/movements/{account}', 'MovementController@index')->name('list.movements')->middleware('auth');
-
+Route::get('/movements/{account}/create', 'MovementController@create')->name('create.movements')->middleware('auth');
 
 Route::get('/account/{account}/startBalance', 'AccountController@updateStartAmount')->name('change.startbalance')->middleware('auth');
 Route::patch('/account/{account}/startBalance', 'AccountController@storeStartAmount')->name('update.startbalance')->middleware('auth');

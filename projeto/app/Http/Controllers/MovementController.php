@@ -30,6 +30,7 @@ class MovementController extends Controller
     public function create()
     {
         //
+        return view('movements.addMovement');
     }
 
     /**
