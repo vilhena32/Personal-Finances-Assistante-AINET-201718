@@ -22,9 +22,7 @@
    
         <tr>
             <td>{{ $user->name }}</a></td>
-            <td>
-                <img src="{{ $user->getPhoto() }}">
-            </td>
+            <td><img class="profiles" src="{{ $user->getPhoto() }}"></td>
 
             @foreach($associates as $assosciate)
                 @if($assosciate->id == $user->id)

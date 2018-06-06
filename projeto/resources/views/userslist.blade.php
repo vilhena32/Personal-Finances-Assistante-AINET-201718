@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	@include('partials.index.top')   
+	@include('partials.index.top') 
 </head>
 <body>
 	@include('partials.index.nav')
@@ -30,11 +30,8 @@
     </form>
 
     @if (count($users))
-        <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Profile Photo</th>
-                    <th>Name</th>
                     <th>Email</th>
                     <th>Type</th>
                     <th>Status</th>
@@ -48,7 +45,7 @@
                 @foreach ($users as $user)
                     <tr>
                         <td><img src="{{ $user->getPhoto() }}"></td>
-                        <td>{{ $user->name }}</td>
+                        <td><img class="profiles" src="{{ $user->getPhoto() }}"></td>
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->getType() }}</td>
                         <td>{{ $user->getStatus() }}</td>

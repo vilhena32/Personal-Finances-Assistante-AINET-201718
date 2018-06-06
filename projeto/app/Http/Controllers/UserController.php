@@ -22,7 +22,7 @@ class UserController extends Controller
     {
         //session_start();
         $this->middleware('auth', ['except' => ['index','register','store']]);
-        $this->middleware('auth', ['only' => ['showPublicProfile']]);
+        $this->middleware('auth', ['only' => ['PublicProfile']]);
         $this->middleware('admin', ['only' => ['filter','block','unblock','promote','demote','store']]);
     }
 
