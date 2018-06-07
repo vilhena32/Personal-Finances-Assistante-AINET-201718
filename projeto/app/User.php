@@ -72,7 +72,9 @@ class User extends Authenticatable
         
         //return $this->belongsToMany('App\User','associate_members','main_user_id','this->id')->withPivot('created_at');
     }
-
+    public function isAdmin(){
+        return $this->admin==1;
+    }
     
 
 }

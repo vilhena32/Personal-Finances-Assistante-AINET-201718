@@ -215,8 +215,17 @@ class UserController extends Controller
        // dd($request);
         if ($request->input('name')== NULL && $request->input('status')=="" && $request->input('type')=="") {   
             $users = User::orderBy('name','asc')->paginate(10);
+            foreach ($users as $user) {
+                $user->associates=$user->associates();
+                $user->associatesOf=$user->associatesOf();
+            }
             //dd($users);
-            return view('userslist', compact('users'));
+            if(Auth::user()->isAdmin()){
+                return view('userslist', compact('users'));
+            }
+            else{
+             return view('profile',compact('users'));
+            }
         } else {
             if ($request->input('status') == "blocked") {
                 $status = 1;
@@ -233,8 +242,6 @@ class UserController extends Controller
             if ($request->input('type') == "regular") {  
                 $type = 0;
             }
-
-           
                 $name = $request->input('name');
             
 
@@ -242,8 +249,12 @@ class UserController extends Controller
                 $users= User::where('name', 'like' ,'%' . $name . '%')
                             ->orderBy('name','asc')
                             ->paginate(10);
-
-                return view('userslist', compact('users'));
+                if(Auth::user()->isAdmin()){
+                    return view('userslist', compact('users'));
+                }
+                else{
+                 return view('profile',compact('users'));
+                }
             }
 
             if (!isset($status) && isset($type)) {
@@ -251,8 +262,12 @@ class UserController extends Controller
                             ->where('admin','=' , $type)
                             ->orderBy('name','asc')
                             ->paginate(10);
-
-                return view('userslist', compact('users'));
+                if(Auth::user()->isAdmin()){
+                    return view('userslist', compact('users'));
+                }
+                else{
+                 return view('profile',compact('users'));
+                }
             }
 
             if (isset($status) && !isset($type)) {
@@ -261,7 +276,12 @@ class UserController extends Controller
                             ->orderBy('name','asc')
                             ->paginate(10);
 
-                return view('userslist', compact('users'));
+            if(Auth::user()->isAdmin()){
+                    return view('userslist', compact('users'));
+                }
+                else{
+                 return view('profile',compact('users'));
+                }
             }
 
             if (!isset($name)) {
@@ -276,8 +296,12 @@ class UserController extends Controller
                             ->orderBy('name','asc')
                             ->paginate(10);
             }
-
-           return view('userslist', compact('users'));
+            if(Auth::user()->isAdmin()){
+                    return view('userslist', compact('users'));
+                }
+                else{
+                 return view('profile',compact('users'));
+                }
         }
     }
 

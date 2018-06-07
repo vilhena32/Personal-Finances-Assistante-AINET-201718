@@ -32,19 +32,25 @@
                 <td><img class="profiles" src="{{ $user->getPhoto() }}"></td>
                 <td>{{ $user->name }}</td>
                 <td>
-                @if(count($associates))
-                @foreach($associates as $associate)
-                    @if($associate->id == $user->id)
-                        Associated
+                
+                @if(count($user->associates))
+
+                @foreach($user->associates as $associate)
+                    @if($associate->id == Auth::user()->id)
+                        associate <br>
                     @endif
+
                 @endforeach
                 @endif
+               
+                @if(count($user->associatesOf))
+                @foreach($user->associatesOf as $associatesOf)
+               
+                         @if($associatesOf->id == Auth::user()->id)
+                            associated-of
+                            @endif
                 
-                @if(count($associatesOf))
-                @foreach($associatesOf as $associate)
-                    @if($associate->id == $user->id)
-                       Associated Of
-                    @endif
+                  
                 @endforeach
                
                 @endif
