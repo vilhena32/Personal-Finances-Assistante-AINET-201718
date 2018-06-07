@@ -3,6 +3,7 @@
 <head>
     @include('partials.index.top')
     <link rel="stylesheet" href="css/styles.css">
+    <title>Personal Finances App</title>
 </head>
 <body>
     @include('partials.index.nav')

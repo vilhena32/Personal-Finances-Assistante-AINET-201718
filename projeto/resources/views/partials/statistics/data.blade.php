@@ -6,7 +6,7 @@
         <div class="col-lg-4">
             <img class="rounded-circle" src="{{ asset('storage/profiles/users.png') }}" alt="Generic placeholder image" width="140" height="140"></img>
             <h2>{{$users}}</h2>
-            <p>Utilizadores registados</p>
+            <p>Resgisted users</p>
             @if(Auth::user())
                 @if(Auth::user()->admin==1)
                     <p><a class="btn btn-secondary" href="{{ route('users.search') }}" role="button">View details </a></p>
@@ -19,14 +19,14 @@
         <div class="col-lg-4">
             <img class="rounded-circle" src="{{ asset('storage/profiles/movimentos.png') }}" alt="Generic placeholder image" width="140" height="140">
             <h2>{{ $movements }}</h2>
-            <p>Movimentos</p>
+            <p>Movements</p>
             <p><a class="btn btn-secondary" href="#" role="button">View details »</a></p>
         </div><!-- /.col-lg-4 -->
 
         <div class="col-lg-4">
             <img class="rounded-circle" src="{{ asset('storage/profiles/contas.jpg') }}" alt="Generic placeholder image" width="140" height="140">
             <h2>{{ $accounts }}</h2>
-            <p>Contas.</p>
+            <p>Accounts</p>
             <p><a class="btn btn-secondary" href="#" role="button">View details »</a></p>
         </div><!-- /.col-lg-4 -->
     </div>

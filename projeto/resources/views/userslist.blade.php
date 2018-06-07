@@ -2,6 +2,7 @@
 <html>
 <head>
 	@include('partials.index.top') 
+    <title>Personal Finances App</title>
 </head>
 <body>
 	@include('partials.index.nav')
