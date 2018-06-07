@@ -2,6 +2,7 @@
 <html>
 <head>
 <link rel="stylesheet" href="css/styles.css">
+<title>Personal Finnances Application</title>
 	@include('partials.index.top')
 </head>
 <body>

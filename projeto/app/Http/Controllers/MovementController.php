@@ -27,10 +27,12 @@ class MovementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
         //
-        return view('movements.addMovement');
+       
+        
+        return view('movements.addMovement',compact('id'));
     }
 
     /**
@@ -39,9 +41,20 @@ class MovementController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,$id)
     {
         //
+        //dd($request);
+        
+        $movement= new Movement();
+        $movement->account_id = $id;
+        //$movement->movement_category_id = x;
+        $movement->date = $request->input('date');
+        $movement->value= $request->input('value');
+        //$movement->save();
+
+         return redirect('movements/'.$id);
+
     }
 
     /**

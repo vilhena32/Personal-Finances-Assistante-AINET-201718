@@ -2,6 +2,7 @@
 <html>
 <head>
 	@extends('partials.index.top')
+	<title>Personal Finnances Application</title>
 </head>
 <body>
 
