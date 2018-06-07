@@ -26,9 +26,9 @@ class CreateAccountRequest extends FormRequest
     public function rules()
     {
         return [
-            'account_type_id' => 'required|numeric|between:1,10',
-            'date' => 'required|date|before_or_equal:' . Carbon::now()->format('Y-m-d') ,
-            'start_balance' => 'required|numeric|regex:/^\d*(\.\d{2})?$/',
+            'account_type_id' => 'required|exists:account_types,id',
+            'date' => 'date',
+            'start_balance' => 'required|numeric|regex:/^-?\d*(\.\d{2})?$/',
             'description' => 'nullable|string|max:255',
             'code' => 'required|string|max:255|unique:accounts',
         ];

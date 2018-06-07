@@ -127,7 +127,13 @@ class AccountController extends Controller
     {
         $data = $request->validated();
 
-        $account = new Account($data);
+        $account = new Account([
+            'account_type_id' => $data['account_type_id'],
+            'date' => $data['date'] ?? Carbon::now()->format('Y-m-d'),
+            'start_balance' => $data['start_balance'],
+            'description' => $data['description'],
+            'code' =>   $data['code'],
+        ]);
 
         $account->current_balance = $account->start_balance;
         $account->last_movement_date = null;

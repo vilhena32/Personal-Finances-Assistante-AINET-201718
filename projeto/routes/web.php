@@ -43,6 +43,11 @@ Route::get('/me/associates', 'AssociateMemberController@myAssociates')->name('my
 Route::get('/me/associate-of', 'AssociateMemberController@myAssociateOf')->name('my.associates')->middleware('auth');
 
 //Accounts
+Route::get('/account', 'AccountController@create')->name('create.account')->middleware('auth');
+Route::post('/account', 'AccountController@store')->name('store.account')->middleware('auth');
+
+Route::get('/account/{account}', 'AccountController@edit')->name('account.edit')->middleware('auth');
+Route::put('/account/{account}', 'AccountController@update')->name('account.update')->middleware('auth');
 
 Route::get('/accounts/{user}', 'AccountController@index')->name('accounts')->middleware('auth');
 Route::get('/accounts/{user}/closed', 'AccountController@listClosedAccounts')->name('accounts.closed')->middleware('auth');
@@ -50,9 +55,6 @@ Route::get('/accounts/{user}/opened', 'AccountController@listOpenAccounts')->nam
 Route::delete('/account/{account}', 'AccountController@destroy')->name('accounts.delete')->middleware('auth');
 Route::patch('/account/{account}/close', 'AccountController@closeAccount')->name('close.account')->middleware('auth');
 Route::patch('/account/{account}/reopen', 'AccountController@reopenAccount')->name('reopen.account')->middleware('auth');
-
-Route::get('/account', 'AccountController@create')->name('create.account')->middleware('auth');
-Route::post('/account', 'AccountController@store')->name('store.account')->middleware('auth');
 
 //US19
 //Movements
