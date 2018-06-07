@@ -11,6 +11,9 @@
 
 
     @if (count($accounts))
+        <form action="{{ route('create.account') }}" method="get">
+            <button type="submit" class="btn btn-success" name="createNewAccount">Create new account</button>
+        </form>
     <table class="table table-striped">
         <thead>
             <tr>

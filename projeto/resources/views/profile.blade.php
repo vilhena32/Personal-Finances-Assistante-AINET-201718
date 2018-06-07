@@ -37,7 +37,7 @@
 
                 @foreach($user->associates as $associate)
                     @if($associate->id == Auth::user()->id)
-                        associate <br>
+                       <span>associate</span>
                     @endif
 
                 @endforeach
@@ -47,7 +47,7 @@
                 @foreach($user->associatesOf as $associatesOf)
                
                          @if($associatesOf->id == Auth::user()->id)
-                            associated-of
+                            <span>associate-of</span>
                             @endif
                 
                   
