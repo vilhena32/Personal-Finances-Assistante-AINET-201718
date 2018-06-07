@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\CreateAccountRequest;
 use App\User;
 use Auth;
+use Carbon\Carbon;
 use App\Account;
 use App\Movement;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -29,7 +31,6 @@ class AccountController extends Controller
     }
 
 
-
     public function listClosedAccounts()
     {
         $user= Auth::user();
@@ -46,6 +47,7 @@ class AccountController extends Controller
         return view('accounts.listAccounts',compact('accounts'));
     }
     
+
     public function listOpenAccounts()
     {
         $user= Auth::user();
@@ -62,11 +64,13 @@ class AccountController extends Controller
         return view('accounts.listAccounts',compact('accounts'));
     }
 
+
     public function updateStartAmount($id)
     {   
         $account = Account::find($id);
         return view('accounts.editStart',compact('account'));
     }
+
 
     public function storeStartAmount($id, Request $request)
     {
@@ -122,7 +126,17 @@ class AccountController extends Controller
     public function store(CreateAccountRequest $request)
     {
         $data = $request->validated();
-        Account::created($data);
+
+        $account = new Account($data);
+
+        $account->current_balance = $account->start_balance;
+        $account->last_movement_date = null;
+        $account->deleted_at = null;
+        $account->created_at = Carbon::now();
+
+        Auth::user()->accounts()->save($account);
+
+        $account->save();
 
         return redirect()
                     ->route('home')
@@ -202,14 +216,10 @@ class AccountController extends Controller
 
     public function reopenAccount($id)
     {
-        
-       
         $account = Account::withTrashed()->where('id', $id)->restore();
         //$account->restore();
        // dd($account);
         $userid = Auth::user()->id;
         return redirect('accounts/'.$userid);
     }
-
-
 }

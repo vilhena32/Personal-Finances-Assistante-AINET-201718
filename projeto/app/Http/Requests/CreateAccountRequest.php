@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Account;
 use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -26,10 +27,10 @@ class CreateAccountRequest extends FormRequest
     {
         return [
             'account_type_id' => 'required|numeric|between:1,10',
-            'date' => 'required|date|before_or_equal:' . Carbon::now()->format('Y-m-d'),
-            'start_balance' => 'required|numeric',
+            'date' => 'required|date|before_or_equal:' . Carbon::now()->format('Y-m-d') ,
+            'start_balance' => 'required|numeric|regex:/^\d*(\.\d{2})?$/',
             'description' => 'nullable|string|max:255',
-            'code' => 'required|string|max:255|unique',
+            'code' => 'required|string|max:255|unique:accounts',
         ];
     }
 }

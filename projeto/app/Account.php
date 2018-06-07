@@ -14,6 +14,26 @@ class Account extends Model
     
     use SoftDeletes;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'account_type_id', 'date', 'start_balance', 'description', 'code',
+    ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+/*
+    protected $hidden = [
+        'owner_id',
+    ];
+*/
+
     public $timestamps = false;
     
     protected $dates = ['deleted_at'];

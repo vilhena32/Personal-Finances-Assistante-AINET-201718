@@ -12,9 +12,12 @@
                     <form method="POST" action="{{ route('store.account') }}" enctype="multipart/form-data">
                         @csrf
 
-                        <div class="form-group row" for="type" >{{ __('Account-Type-ID') }}
+                        <div class="form-group row">
+                            <label for="account_type_id" class="col-md-4 col-form-label text-md-right"> {{ __('Account Type') }} </label>
+
                             <div class="col-md-6">
-                                <select class="col-md-6">
+                                <select id="account_type_id" class="form-control {{ $errors->has('account_type_id') ? ' is-invalid' : '' }}" name="account_type_id">
+                                    <option value="">------Select------</option>                                    
                                     <option value="1">Bank Account</option>
                                     <option value="2">Pocket Money</option>
                                     <option value="3">Paypal Account</option>
@@ -24,72 +27,64 @@
 
                                 @if ($errors->has('code'))
                                     <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('account_type_id') }}</strong>
+                                    </span>
+                                @endif
+
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="date" class="col-md-4 col-form-label text-md-right"> {{ __('Creation Date') }} </label>
+                            
+                            <div class="col-md-6">
+                                <input id="date" type="date" class="form-control {{ $errors->has('date') ? ' is-invalid' : '' }}" name="date" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
+
+                                @if ($errors->has('date'))
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('date') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="start_balance" class="col-md-4 col-form-label text-md-right">{{ __('Start Balance') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="start_balance" type="number" step="0.05" class="form-control {{ $errors->has('start_balance') ? ' is-invalid' : '' }}" name="start_balance" required>
+
+                                @if ($errors->has('start_balance'))
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('start_balance') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="description" class="col-md-4 col-form-label text-md-right">{{ __('Description') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="description" type="text" class="form-control {{ $errors->has('description') ? ' is-invalid' : '' }}" name="description">
+
+                                @if ($errors->has('description'))
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('description') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="code" class="col-md-4 col-form-label text-md-right">{{ __('Account Code') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="code" type="text" class="form-control {{ $errors->has('code') ? ' is-invalid' : '' }}" name="code" required>
+
+                                @if ($errors->has('code'))
+                                    <span class="invalid-feedback">
                                         <strong>{{ $errors->first('code') }}</strong>
-                                    </span>
-                                @endif
-
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Account Creation Date') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="date" type="date" class="form-control{{ $errors->has('date') ? ' is-invalid' : '' }}" name="date" value="{{ old('date') }}" required>
-
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="startBalance" class="col-md-4 col-form-label text-md-right">{{ __('Start Balance') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="startBalance" type="number" step="0.05" class="form-control{{ $errors->has('startBalance') ? ' is-invalid' : '' }}" name="Start" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="phone" class="col-md-4 col-form-label text-md-right">{{ __('Phone') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="number" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone" value="{{ old('phone') }}">
-
-                                @if ($errors->has('phone'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('phone') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="profile_photo" class="col-md-4 col-form-label text-md-right">{{ __('Profile Photo') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="profile_photo" type="file" class="form-control{{ $errors->has('profile_photo') ? ' is-invalid' : '' }}" name="profile_photo">
-
-                                @if ($errors->has('profile_photo'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('profile_photo') }}</strong>
                                     </span>
                                 @endif
                             </div>
