@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateUserRequest extends FormRequest
+class CreateAccountRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +25,11 @@ class CreateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|regex:/^[a-zA-Z]+$/u',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:3|confirmed',
-            'phone' => 'nullable|unique:users|regex:/(9)[0-9]{8}/',
-            'profile_photo' => 'nullable|image|mimes:jpeg,bmp,png'
+            'account_type_id' => 'required|numeric|between:1,10',
+            'date' => 'required|date|before_or_equal:' . Carbon::now()->format('Y-m-d'),
+            'start_balance' => 'required|numeric',
+            'description' => 'nullable|string|max:255',
+            'code' => 'required|string|max:255|unique',
         ];
     }
 }

@@ -12,13 +12,13 @@
                         @csrf
 
                         <div class="form-group row" for="type" >{{ __('Account-Type-ID') }}
-                                
                             <div class="col-md-6">
                                 <select class="col-md-6">
-                                    <option value="Bank">Bank Account</option>
-                                    <option value="Money">Money</option>
-                                    <option value="mercedes">Mercedes</option>
-                                    <option value="audi">Audi</option>
+                                    <option value="1">Bank Account</option>
+                                    <option value="2">Pocket Money</option>
+                                    <option value="3">Paypal Account</option>
+                                    <option value="4">Credit Card</option>
+                                    <option value="5">Meal Card</option>
                                 </select> 
 
                                 @if ($errors->has('code'))
@@ -31,7 +31,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Date') }}</label>
+                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Account Creation Date') }}</label>
 
                             <div class="col-md-6">
                                 <input id="date" type="date" class="form-control{{ $errors->has('date') ? ' is-invalid' : '' }}" name="date" value="{{ old('date') }}" required>

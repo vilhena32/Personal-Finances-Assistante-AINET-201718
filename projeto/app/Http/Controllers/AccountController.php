@@ -10,9 +10,6 @@ use App\Movement;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
-
-
-
 class AccountController extends Controller
 {
     /**
@@ -28,7 +25,6 @@ class AccountController extends Controller
         //$accounts= $user->accounts;
         $accounts = Account::withTrashed() ->where('owner_id', $user->id)->get();
 
-
         return view('accounts.listAccounts', compact('accounts'));
     }
 
@@ -42,13 +38,10 @@ class AccountController extends Controller
         foreach($aux as $a)
         {
             if($a->deleted_at !=NULL)
-            {   
-
+            {
                 array_push($accounts,$a);
             }
         }
-
-        //dd($accounts);
 
         return view('accounts.listAccounts',compact('accounts'));
     }
@@ -65,9 +58,6 @@ class AccountController extends Controller
                 array_push($accounts,$a);
             }
         }
-         
-
-        //dd($accounts);
 
         return view('accounts.listAccounts',compact('accounts'));
     }
@@ -79,13 +69,9 @@ class AccountController extends Controller
     }
 
     public function storeStartAmount($id, Request $request)
-    {   
-
+    {
         $account = Account::find($id);
         $movements = $account->movements;
-        
-       
-
 
         if($movements->count()==0)
         {
@@ -93,39 +79,26 @@ class AccountController extends Controller
             $account->current_balance = $request->input('balance');
         
         }
+
         if($movements->count()>0)
         {
             foreach ($movements as $m)
             {
                 $m->end_balance = $m->end_balance + $request->input('balance');
                 $m->start_balance = $m->start_balance + $request->input('balance');
-                //$account->current_balance = 
-                
+                //$account->current_balance =                 
 
                 $m->save();
             }
 
             $account->start_balance = $request->input('balance');
             $account->current_balance = $account->current_balance + $request->input('balance');
-        }
-        
-        
-
-      
-        
-            
-            
-            $account->save();
-
-        
-
-            
-
+        }   
+        $account->save();
         $userid = Auth::user()->id;
-        return redirect('accounts/'.$userid);   
-    
-    }
 
+        return redirect('accounts/'.$userid);   
+    }
 
 
     /**
@@ -135,8 +108,9 @@ class AccountController extends Controller
      */
     public function create()
     {
-        //
-        return view('accounts.addAccount');
+        $account = new Account;
+        
+        return view('accounts.addAccount', compact('account'));
     }
 
     /**
@@ -145,9 +119,14 @@ class AccountController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateAccountRequest $request)
     {
-        //
+        $data = $request->validated();
+        Account::created($data);
+
+        return redirect()
+                    ->route('home')
+                    ->with('success', 'Account created successfully.');
     }
 
     /**
