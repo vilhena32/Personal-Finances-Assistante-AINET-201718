@@ -42,7 +42,9 @@ class UserController extends Controller
     {   
         $user = User::find($id);
         $associates= $user->associates;
-        return view('profile',compact('user','associates'));
+        $associateOf= $user->associatesOf;
+
+        return view('profile',compact('user','associates','associateOf'));
     }
 
 
@@ -202,7 +204,7 @@ class UserController extends Controller
     {
         $user = Auth::user();
         $associates = $user->associates;
-        //dd($associates);
+        dd($associates);
 
         return view('profile', compact('user','associates'));
     }
@@ -319,5 +321,5 @@ class UserController extends Controller
             }
         
         }
+    }
 }
- }

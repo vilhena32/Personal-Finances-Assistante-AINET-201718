@@ -1,59 +1,63 @@
 <!DOCTYPE html>
 <html>
 <head>
-    @include('partials.index.top')
-    <link rel="stylesheet" href="css/styles.css">
+    @include('partials.index.top') 
+    <title>Personal Finances App</title>
 </head>
 <body>
     @include('partials.index.nav')
     
+    <form action="{{ route('users.search') }}" method="get" class="form-inline">
 
 
+        <div class="form-group" style="margin-bottom: 5px\">
+            <input type="text" class="form-control selectHeight" name="name" style="margin-left: 5px" id="name"
+            value="{{ old('name') }}" placeholder="Insert Name "  size="22">
+            <button type="submit" class="btn btn-success" name="search">Search</button>
+        </div>
+    </form>
     <table class="table table-striped">
+        @if (count($users))
         <thead>
             <tr>
+                <th>Profile Photo</th>                    
                 <th>Name</th>
-                <th>Photo</th>
-                <th>Group</th>
-                <th>Actions</th>
-
+                <th>Associates</th>
             </tr>
         </thead>
 
         <tbody>
-
+            @foreach ($users as $user)
             <tr>
-
-                <td>{{ $user->name }}</a></td>
                 <td><img class="profiles" src="{{ $user->getPhoto() }}"></td>
-
-                @foreach($associates as $assosciate)
-                @if($assosciate->id == $user->id)
-
-                <td>Associated</td>
-                @endif
-                @endforeach
-                <td></td>
-                
-                <td></td>
-
-                @if(Auth::user()->id == $user->id)
+                <td>{{ $user->name }}</td>
                 <td>
-                    <form action="{{ route('showEdit', $user->id ) }}" method="get" class="inline">
-
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-xs btn-danger">Edit User</button>
-                        </div>
-                    </form>
-                </td>
+                @if(count($associates))
+                @foreach($associates as $associate)
+                    @if($associate->id == $user->id)
+                        Associated
+                    @endif
+                @endforeach
                 @endif
-
-
-
+                
+                @if(count($associatesOf))
+                @foreach($associatesOf as $associate)
+                    @if($associate->id == $user->id)
+                       Associated Of
+                    @endif
+                @endforeach
+               
+                @endif
+                </td>
             </tr>
-     
-        </table>
+            @endforeach
+        </tbody>
+    </table>
+    @else
+    <h2>No users found</h2>
+    @endif
 
-    </body>
-    </html>
+    {{ $users->links() }}
 
+</body>
+</html>

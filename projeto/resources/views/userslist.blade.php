@@ -2,12 +2,11 @@
 <html>
 <head>
 	@include('partials.index.top') 
+    <title>Personal Finances App</title>
 </head>
 <body>
 	@include('partials.index.nav')
 	
-
-    @if(Auth::user()->admin ==1)
     <form action="{{ route('users.search') }}" method="get" class="form-inline">
       
 
@@ -30,36 +29,16 @@
             <button type="submit" class="btn btn-success" name="search">Search</button>            
         </div>
     </form>
-
-    @endif
-
-    @if(Auth::user())
-    <form action="{{ route('users.search.auth') }}" method="get" class="form-inline">
-      
-
-        <div class="form-group" style="margin-bottom: 5px\">
-            <input type="text" class="form-control selectHeight" name="name" style="margin-left: 5px" id="name"
-                value="{{ old('name') }}" placeholder="Insert Name "  size="22">
-           
-           
-            <button type="submit" class="btn btn-success" name="search">Search</button>            
-        </div>
-    </form>
-
-    @endif
-
       <table class="table table-striped">
     @if (count($users))
             <thead>
                 <tr>
                     <th>Name</th>
                     <th>Profile Photo</th>
-                    @if(Auth::user()->admin==1)
                     <th>Email</th>
                     <th>Type</th>
                     <th>Status</th>
                     <th>Actions</th>
-                    @endif
                 </tr>
             </thead>
 
@@ -68,7 +47,6 @@
                     <tr>
                         <td>{{ $user->name }}</td>
                         <td><img class="profiles" src="{{ $user->getPhoto() }}"></td>
-                        @if(Auth::user()->admin==1)
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->getType() }}</td>
                         <td>{{ $user->getStatus() }}</td>
@@ -128,7 +106,6 @@
                                 @endif
                             </div>
                         </td>
-                        @endif
                     </tr>
                 @endforeach
             </tbody>

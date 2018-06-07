@@ -1,4 +1,5 @@
 @extends('layouts.app')
+<title>Personal Finances App</title>
 
 @section('content')
 <div class="container">
