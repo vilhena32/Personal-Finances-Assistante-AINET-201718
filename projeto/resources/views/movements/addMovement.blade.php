@@ -9,105 +9,96 @@
                 <div class="card-header">{{ __('Add Movement') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{-- route('register') --}}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('store.movements',$id)  }}" enctype="multipart/form-data">
                         @csrf
 
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Type') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Type/Cateogry') }}</label>
 
                             <div class="col-md-6">
+                                <select class="textWidth form-control" name="jobPriority" id="jobPriority" type="text">
+                                    <optgroup label="Expense" id="Expense" name="Expense">
+                                        
+                                        <option>Food</option>
+                                        <option>Clothes</option>
+                                        <option>Services</option>
+                                        <option>Electricity</option>
+                                        <option>Phone</option>
+                                        <option>Fuel</option>
+                                        <option>Mortgage Payment</option>
+
+                                    </optgroup> 
+                                    <optgroup label="Revenue" name="Revenue" id="Revenue">
+                                        <option>Salary</option>
+                                        <option>Bonus</option>
+                                        <option>Royalties</option>
+                                        <option>Interests</option>
+                                        <option>Gifts</option>
+                                        <option>Dividends</option>
+                                        <option>Product Sales</option>
+
+
+                                    </optgroup>
+                                </select>
+
+
+                            </div>
+                        </div>
+
+                       
+
+                        <div class="form-group row">
+                            <label for="date" class="col-md-4 col-form-label text-md-right">{{ __('Date') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="password" type="date" class="form-control{{ $errors->has('date') ? ' is-invalid' : '' }}" name="date" required>
+
+                                @if ($errors->has('date'))
+                                <span class="invalid-feedback">
+                                    <strong>{{ $errors->first('date') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label for="number" class="col-md-4 col-form-label text-md-right">{{ __('Value') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="value" type="text" class="form-control{{ $errors->has('value') ? ' is-invalid' : '' }}" name="value" value="{{ old('value') }}">
+
+                                @if ($errors->has('value'))
+                                <span class="invalid-feedback">
+                                    <strong>{{ $errors->first('value') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="description" class="col-md-4 col-form-label text-md-right">{{ __('Description') }}</label>
+
+                            <div class="col-md-6">
+                               <input id="description" type="text" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" name="description" value="{{ old('description') }}" >
+
                                
-                                <div class="radio">
-                                    <label><input type="radio" name="exp"> Expense</label>
-                                </div>
-                                
-                                <div class="radio">
-                                    <label><input type="radio" value="revenue" name="rep"> Revenue</label>
-                                </div>
-                                
-                            @if(old('radio')=="exp")
-                            {
-                                    ATUM
-                            }
-                            @endif
-    
-
-                                @if ($errors->has('name'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
+                            </span>
+                            
                         </div>
+                    </div>
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Category') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
-
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
+                    <div class="form-group row mb-0">
+                        <div class="col-md-6 offset-md-4">
+                            <button type="submit" class="btn btn-primary">
+                                {{ __('Create Movement') }}
+                            </button>
                         </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Date') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-
-                        <div class="form-group row">
-                            <label for="phone" class="col-md-4 col-form-label text-md-right">{{ __('Value') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="phone" type="text" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone" value="{{ old('phone') }}">
-
-                                @if ($errors->has('phone'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('phone') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="" class="col-md-4 col-form-label text-md-right">{{ __('Description') }}</label>
-
-                            <div class="col-md-6">
-                                 <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
-
-                                @if ($errors->has('profile_photo'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('profile_photo') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-                        
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+</div>
 </div>
 @endsection
