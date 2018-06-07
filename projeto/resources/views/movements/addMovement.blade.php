@@ -15,7 +15,7 @@
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Type/Cateogry') }}</label>
 
                             <div class="col-md-6">
-                                <select class="textWidth form-control" name="jobPriority" id="jobPriority" type="text">
+                                <select class="textWidth form-control" name="type/category" id="type/category" type="text">
                                     <optgroup label="Expense" id="Expense" name="Expense">
                                         
                                         <option>Food</option>
