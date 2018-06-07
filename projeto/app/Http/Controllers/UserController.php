@@ -22,8 +22,8 @@ class UserController extends Controller
     {
         //session_start();
         $this->middleware('auth', ['except' => ['index','register','store']]);
-        $this->middleware('auth', ['only' => ['PublicProfile','associates','filterAuth']]);
-        $this->middleware('admin', ['only' => ['filter','block','unblock','promote','demote','store']]);
+        $this->middleware('auth', ['only' => ['PublicProfile','associates','filterAuth','filter']]);
+        $this->middleware('admin', ['only' => ['block','unblock','promote','demote','store']]);
     }
 
 
@@ -213,7 +213,7 @@ class UserController extends Controller
     public function filter(Request $request)
     {   
        // dd($request);
-        if ($request->input('name')== NULL && $request->input('status')=="" && $request->input('type')=="") {
+        if ($request->input('name')== NULL && $request->input('status')=="" && $request->input('type')=="") {   
             $users = User::orderBy('name','asc')->paginate(10);
             //dd($users);
             return view('userslist', compact('users'));

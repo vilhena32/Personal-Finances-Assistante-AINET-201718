@@ -21,7 +21,7 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/me/password','UserController@changePassword')->middleware('auth');
 Route::patch('/me/password','UserController@updatePassword')->name('users.updatePassword')->middleware('auth');
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('users.logout')->middleware('auth');
-Route::get('/users{name?}{type?}{status?}','UserController@filter')->name('users.search')->middleware('admin');
+Route::get('/users{name?}{type?}{status?}','UserController@filter')->name('users.search')->middleware('auth');
 Route::get('/users{name?}','UserController@filterAuth')->name('users.search.auth')->middleware('auth');
 Route::patch('/users/{user}/block','UserController@block')->name('block')->middleware('admin');
 Route::patch('/users/{user}/unblock','UserController@unblock')->name('unblock')->middleware('admin');
