@@ -9,7 +9,7 @@
             <p>Resgisted users</p>
             @if(Auth::user())
                 @if(Auth::user()->admin==1)
-                    <p><a class="btn btn-secondary" href="{{ route('users.search') }}" role="button">View details </a></p>
+                    <p><a class="btn btn-secondary" href="{{ route('users.search') }}" role="button">View details</a></p>
                 @else
                     <p><a class="btn btn-secondary" href="{{ route('associates') }}" role="button">View details </a></p>
                 @endif
@@ -20,14 +20,14 @@
             <img class="rounded-circle" src="{{ asset('storage/profiles/movimentos.png') }}" alt="Generic placeholder image" width="140" height="140">
             <h2>{{ $movements }}</h2>
             <p>Movements</p>
-            <p><a class="btn btn-secondary" href="#" role="button">View details »</a></p>
+            <p><a class="btn btn-secondary" href="#" role="button">View details</a></p>
         </div><!-- /.col-lg-4 -->
 
         <div class="col-lg-4">
             <img class="rounded-circle" src="{{ asset('storage/profiles/contas.jpg') }}" alt="Generic placeholder image" width="140" height="140">
             <h2>{{ $accounts }}</h2>
             <p>Accounts</p>
-            <p><a class="btn btn-secondary" href="#" role="button">View details »</a></p>
+            <p><a class="btn btn-secondary" href="#" role="button">View details</a></p>
         </div><!-- /.col-lg-4 -->
     </div>
 </div><!-- /.row -->
