@@ -73,7 +73,7 @@
                 <td>{{ $movement->end_balance}}</td>
                 <td>
                     <div class="inline">
-                        <form action="{{-- route('block', $user->id) --}}" method="get" class="inline">
+                        <form action="{{ route('show.movements', $movement->id) }}" method="get" class="inline">
                            <div class="form-group">
                             <button type="submit" class="btn btn-xs btn-danger">Edit</button>
                         </div>
@@ -81,7 +81,7 @@
 
                     <form action="{{-- route('block', $user->id) --}}" method="post" class="inline">
                         @csrf
-                        @method('delete')
+                        {{ method_field('delete') }}
 
                         <div class="form-group">
                             <button type="submit" class="btn btn-xs btn-danger">Delete</button>

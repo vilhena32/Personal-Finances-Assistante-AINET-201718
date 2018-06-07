@@ -158,7 +158,7 @@ class MovementController extends Controller
     {
         $movement = Movement::find($id);
 
-        return view('movements.showMovement',compact('movement'));
+        return view('movements.editMovement',compact('movement'));
     }
 
     /**
@@ -182,7 +182,10 @@ class MovementController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $movement = Movement::find($id);
+        //dd($request);
+        //fazer cenas
+        return redirect('movements/'.$id);
     }
 
     /**
@@ -193,6 +196,9 @@ class MovementController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $movement=Movement::find($id);
+        $movement->destroy;
+
+        return redirect('movements/'.$id);
     }
 }

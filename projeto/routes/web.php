@@ -61,7 +61,7 @@ Route::get('/movements/{account}/create', 'MovementController@create')->name('cr
 Route::post('/movements/{account}/create', 'MovementController@store')->name('store.movements')->middleware('auth');
 Route::get('/movement/{movement}', 'MovementController@show')->name('show.movements')->middleware('auth');
 Route::put('/movement/{movement}', 'MovementController@update')->name('update.movements')->middleware('auth');
-Route::delete('/movement/{movement}', 'MovementController@delete')->name('delete.movements')->middleware('auth');
+Route::delete('/movement/{movement}', 'MovementController@destroy')->name('delete.movements')->middleware('auth');
 
 Route::get('/account/{account}/startBalance', 'AccountController@updateStartAmount')->name('change.startbalance')->middleware('auth');
 Route::patch('/account/{account}/startBalance', 'AccountController@storeStartAmount')->name('update.startbalance')->middleware('auth');
