@@ -21,7 +21,7 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/me/password','UserController@changePassword')->middleware('auth');
 Route::patch('/me/password','UserController@updatePassword')->name('users.updatePassword')->middleware('auth');
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('users.logout')->middleware('auth');
-Route::get('/users{name?}{type?}{status?}','UserController@filter')->name('users.search')->middleware('admin');
+Route::get('/users{name?}{type?}{status?}','UserController@filter')->name('users.search')->middleware('auth');
 Route::get('/users{name?}','UserController@filterAuth')->name('users.search.auth')->middleware('auth');
 Route::patch('/users/{user}/block','UserController@block')->name('block')->middleware('admin');
 Route::patch('/users/{user}/unblock','UserController@unblock')->name('unblock')->middleware('admin');
@@ -59,6 +59,9 @@ Route::post('/account', 'AccountController@store')->name('store.account')->middl
 Route::get('/movements/{account}', 'MovementController@index')->name('list.movements')->middleware('auth');
 Route::get('/movements/{account}/create', 'MovementController@create')->name('create.movements')->middleware('auth');
 Route::post('/movements/{account}/create', 'MovementController@store')->name('store.movements')->middleware('auth');
+Route::get('/movement/{movement}', 'MovementController@show')->name('show.movements')->middleware('auth');
+Route::put('/movement/{movement}', 'MovementController@update')->name('update.movements')->middleware('auth');
+Route::delete('/movement/{movement}', 'MovementController@destroy')->name('delete.movements')->middleware('auth');
 
 Route::get('/account/{account}/startBalance', 'AccountController@updateStartAmount')->name('change.startbalance')->middleware('auth');
 Route::patch('/account/{account}/startBalance', 'AccountController@storeStartAmount')->name('update.startbalance')->middleware('auth');

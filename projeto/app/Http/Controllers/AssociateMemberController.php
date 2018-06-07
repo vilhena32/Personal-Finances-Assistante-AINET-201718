@@ -27,12 +27,13 @@ class AssociateMemberController extends Controller
 
         $user = User::find(Auth::user()->id); 
         $associates= $user->associates;
-        $associatedOf= $user->associateOf;
-        //dd($associatedOf);
+
+        $associatesOf= $user->associatesOf;
+        //dd($associatesOf);
         $users = User::orderBy('name','asc')->paginate(10);
 
         
-        return view('userslist', compact('users','associates'));
+        return view('profile', compact('users','associates','associatesOf'));
     }
 
 

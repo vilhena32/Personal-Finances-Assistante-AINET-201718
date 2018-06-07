@@ -195,6 +195,7 @@ class AccountController extends Controller
       
         $userid = Auth::user()->id;
         
+        return redirect('accounts/'.$userid);
     }
 
     public function closeAccount($id)
