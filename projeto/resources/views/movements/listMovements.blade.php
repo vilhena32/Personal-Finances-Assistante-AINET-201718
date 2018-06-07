@@ -34,7 +34,7 @@
 
 
                             <div class="form-group">
-                                <button type="submit" class="btn btn-xs btn-danger">Create Movement</button>
+                                <button type="submit" class="btn btn-xs btn-success">Create Movement</button>
                             </div>
                         </form>
                         @endif
