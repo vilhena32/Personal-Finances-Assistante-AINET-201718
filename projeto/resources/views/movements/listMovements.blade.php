@@ -14,7 +14,7 @@
         <thead>
             <tr>
 
-                <tr><th>Account {{$account->id}}</th></tr>
+                <tr><th>Account {{ $account->id}}</th></tr>
                 <tr><th>Description {{$account->description}}</th></tr>
                 
                 <tr><th>Current Balance {{ $account->current_balance }}</th></tr>
@@ -38,34 +38,34 @@
 
                         <form action="{{ route('chart.index',$account->id) }}" method="get" class="form-inline">
                             <div class="form-group" style="margin-bottom: 5px\">
-                            <div class="form-group row">
-                                <label for="date" class="col-md-4 col-form-label text-md-right"> {{ __('Start date') }} </label>
-                                <div class="col-md-6">
-                                    <input id="date" type="date" name="dataI" class="form-control {{ $errors->has('date') ? ' is-invalid' : '' }}" name="date" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
+                                <div class="form-group row">
+                                    <label for="date" class="col-md-4 col-form-label text-md-right"> {{ __('Start date') }} </label>
+                                    <div class="col-md-6">
+                                        <input id="date" type="date" name="dataI" class="form-control {{ $errors->has('date') ? ' is-invalid' : '' }}" name="date" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
 
-                                    @if ($errors->has('date'))
+                                        @if ($errors->has('date'))
                                         <span class="invalid-feedback">
                                             <strong>{{ $errors->first('date') }}</strong>
                                         </span>
-                                    @endif
-                                </div>
-                                <label for="date" class="col-md-4 col-form-label text-md-right"> {{ __('End date') }} </label>
-                                
-                                <div class="col-md-6">
-                                    <input id="date" name="dataF" type="date" class="form-control {{ $errors->has('date') ? ' is-invalid' : '' }}" name="date" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
+                                        @endif
+                                    </div>
+                                    <label for="date" class="col-md-4 col-form-label text-md-right"> {{ __('End date') }} </label>
 
-                                    @if ($errors->has('date'))
+                                    <div class="col-md-6">
+                                        <input id="date" name="dataF" type="date" class="form-control {{ $errors->has('date') ? ' is-invalid' : '' }}" name="date" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
+
+                                        @if ($errors->has('date'))
                                         <span class="invalid-feedback">
                                             <strong>{{ $errors->first('date') }}</strong>
                                         </span>
-                                    @endif
+                                        @endif
+                                    </div>
                                 </div>
-                            </div>
                                 <button type="submit" class="btn btn-success" name="search">   View Statistics</button>            
                                 <div><button type="submit" class="btn btn-success" name="search">View Statistics by Month</button>
                                 </div>
                             </div>
-                     </form>
+                        </form>
                         @endif
                     </td>
                 </div>
@@ -103,14 +103,14 @@
                 <td>
                     <div class="inline">
                         <form action="{{ route('show.movements', $movement->id) }}" method="get" class="inline">
-                           <div class="form-group">
+                         <div class="form-group">
                             <button type="submit" class="btn btn-xs btn-danger">Show</button>
-                            </form>
-                        </div>
+                        </form>
+                    </div>
                     
                     <div class="inline">
                         <form action="{{ route('edit.movements', $movement->id) }}" method="get" class="inline">
-                           <div class="form-group">
+                         <div class="form-group">
                             <button type="submit" class="btn btn-xs btn-danger">Edit</button>
                         </div>
                     </form>
