@@ -67,6 +67,9 @@ Route::delete('/movement/{movement}', 'MovementController@destroy')->name('delet
 Route::get('/account/{account}/startBalance', 'AccountController@updateStartAmount')->name('change.startbalance')->middleware('auth');
 Route::patch('/account/{account}/startBalance', 'AccountController@storeStartAmount')->name('update.startbalance')->middleware('auth');
 
+//CHARTS(EM TESTES!)
+Route::get('charts', 'ChartControllerController@index')->name('chart.index')->middleware('auth');
+
 //Route::get('/me/associates', 'UserController@destroy')->name('users.destroy');
 
 //Route::get('/associate-off', 'UserController@destroy')->name('users.destroy');
