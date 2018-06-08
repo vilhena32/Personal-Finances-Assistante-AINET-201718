@@ -8,6 +8,7 @@ use App\Account;
 use App\Movement;
 use DB;
 use Charts;
+use Auth;
 
 
 class ChartController extends Controller
@@ -15,9 +16,9 @@ class ChartController extends Controller
     public function index(Request $request, $id)
     {
             // recebe id da conta  Request $request, $id $request->input('dataI') $request->input('dataF')
-      
-        $moves = Movement::where('account_id',2)->whereBetween('date', [$request->input('dataI'), $request->input('dataF')])->get();
+        $moves = Movement::where('account_id',$id)->whereBetween('date',[$request->input('dataI'), $request->input('dataF')]);
 
+       dd($moves);
 
 
     	//$products = Product::where(DB::raw("(DATE_FORMAT(created_at,'%Y'))"),date('Y'))->get();
@@ -26,7 +27,7 @@ class ChartController extends Controller
 			      ->elementLabel("Number of Expenses/Revenues")
 			      ->dimensions(1000, 500)
 			      ->responsive(true)
-			      ->groupByMonth(date('Y'), true);
+			      ->groupBy('movement_category_id');
 
         return view('charts',compact('chart'));
     }

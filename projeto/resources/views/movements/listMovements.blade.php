@@ -3,6 +3,7 @@
 <head>
 	@include('partials.index.top')
     <title>Personal Finances App</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
 </head>
 <body>
@@ -36,12 +37,11 @@
                         </form>
 
                         <form action="{{ route('chart.index',$account->id) }}" method="get" class="form-inline">
-                        <form>
                             <div class="form-group" style="margin-bottom: 5px\">
                             <div class="form-group row">
                                 <label for="date" class="col-md-4 col-form-label text-md-right"> {{ __('Start date') }} </label>
                                 <div class="col-md-6">
-                                    <input id="date" type="date" class="form-control {{ $errors->has('date') ? ' is-invalid' : '' }}" name="date" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
+                                    <input id="date" type="date" name="dataI" class="form-control {{ $errors->has('date') ? ' is-invalid' : '' }}" name="date" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
 
                                     @if ($errors->has('date'))
                                         <span class="invalid-feedback">
@@ -52,7 +52,7 @@
                                 <label for="date" class="col-md-4 col-form-label text-md-right"> {{ __('End date') }} </label>
                                 
                                 <div class="col-md-6">
-                                    <input id="date" type="date" class="form-control {{ $errors->has('date') ? ' is-invalid' : '' }}" name="date" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
+                                    <input id="date" name="dataF" type="date" class="form-control {{ $errors->has('date') ? ' is-invalid' : '' }}" name="date" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
 
                                     @if ($errors->has('date'))
                                         <span class="invalid-feedback">
@@ -60,10 +60,11 @@
                                         </span>
                                     @endif
                                 </div>
-                            </div>                                   
-                                <button type="submit" class="btn btn-success" name="search">View Statistics</button>            
                             </div>
-                         </form>
+                                <button type="submit" class="btn btn-success" name="search">   View Statistics</button>            
+                                <div><button type="submit" class="btn btn-success" name="search">View Statistics by Month</button>
+                                </div>
+                            </div>
                      </form>
                         @endif
                     </td>
