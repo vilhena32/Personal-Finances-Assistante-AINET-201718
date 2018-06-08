@@ -105,8 +105,9 @@
                         <form action="{{ route('show.movements', $movement->id) }}" method="get" class="inline">
                            <div class="form-group">
                             <button type="submit" class="btn btn-xs btn-danger">Show</button>
+                            </form>
                         </div>
-                    </form>
+                    
                     <div class="inline">
                         <form action="{{ route('edit.movements', $movement->id) }}" method="get" class="inline">
                            <div class="form-group">

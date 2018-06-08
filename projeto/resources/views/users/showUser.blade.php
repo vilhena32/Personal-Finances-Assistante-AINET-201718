@@ -17,6 +17,7 @@
                 <th>Status</th>
                 <th>Created At</th>
                 <th>Updated At</th>
+                <td>Actions</td>
 
             </tr>
         </thead>
@@ -29,7 +30,16 @@
                 <td>{{ $user->getStatus() }}</td>
                 <td>{{ $user->created_at }}</td>
                 <td>{{ $user->updated_at }}</td>
-
+                <td>
+                    @if($user->id==Auth::user()->id)
+                        <div class="inline">
+                        <form action="{{ route('showEdit', $user->id) }}" method="get" class="inline">
+                           <div class="form-group">
+                            <button type="submit" class="btn btn-xs btn-danger">Edit Profile</button>
+                        </form>
+                        </div>
+                    @endif
+                </td>
 
 
             </tr>

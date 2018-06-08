@@ -35,14 +35,9 @@ class AccountController extends Controller
     {
         $user= Auth::user();
         $aux= $user->accounts;
-        $accounts=[];
-        foreach($aux as $a)
-        {
-            if($a->deleted_at !=NULL)
-            {
-                array_push($accounts,$a);
-            }
-        }
+        $accounts = Account::onlyTrashed()->where('owner_id',$user->id)->get();
+             
+       
 
         return view('accounts.listAccounts',compact('accounts'));
     }
@@ -249,23 +244,36 @@ class AccountController extends Controller
     public function closeAccount($id)
     {
         $account = Account::find($id);
+        $userid = Auth::user()->id;
 
-        foreach ($account->movements as $m) {
-            $m->delete();
-         }
+        //dd($account->movements);
+        if(empty($account->movements))
+        {
+            return redirect('accounts/'.$userid);
+        }
         $account->delete();
       
-        $userid = Auth::user()->id;
         return redirect('accounts/'.$userid);
+        
     }
 
 
     public function reopenAccount($id)
     {
-        $account = Account::withTrashed()->where('id', $id)->restore();
+         $tr = Account::onlyTrashed()
+                ->where('id', $id)
+                ->get();
+        $userid = Auth::user()->id;
+
+        if($tr!=NULL)
+        {
+            $account = Account::withTrashed()->where('id', $id)->restore();
+        }        
+
+        
         //$account->restore();
        // dd($account);
-        $userid = Auth::user()->id;
+        
         return redirect('accounts/'.$userid);
     }
 }
