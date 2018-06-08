@@ -18,9 +18,9 @@ class ChartController extends Controller
     {
             // recebe id da conta  Request $request, $id $request->input('dataI') $request->input('dataF')
 
-        $moves = Movement::where('account_id',$id)->whereBetween('date', [$request->input('dataI'), $request->input('dataF')]);
+        
 
-       //dd($moves);
+       //dd($id);
 
 
     	//$products = Product::where(DB::raw("(DATE_FORMAT(created_at,'%Y'))"),date('Y'))->get();   Movement::where(DB::raw("(DATE_FORMAT(created_at,'%Y'))"),date('Y'))
@@ -41,11 +41,44 @@ class ChartController extends Controller
         //           ->responsive(false)
         //           ->groupByMonth(date('Y'), true);
 
-        $moves = Movement::where(DB::raw("(DATE_FORMAT(created_at,'%Y'))"),date('Y'))->whereBetween('date',[$request->input('dataI'), $request->input('dataF')])
-        ->get();
-        $exp= Movement::whereBetween('date',[$request->input('dataI'), $request->input('dataF')])->whereBetween('movement_category_id',[1,7])->get();
-        $rev= Movement::whereBetween('date',[$request->input('dataI'), $request->input('dataF')])->whereBetween('movement_category_id',[8,14])->get();
+        $exp= Movement::whereBetween('date',[$request->input('dataI'), $request->input('dataF')])->whereBetween('movement_category_id',[1,7])
+        ->where('account_id',$id)->get();
+        $rev= Movement::whereBetween('date',[$request->input('dataI'), $request->input('dataF')])->whereBetween('movement_category_id',[8,14])->where('account_id',$id)->get(); 
         //d($exp);
+        $e=0;
+        $r=0;
+        foreach($exp as $a)
+        {
+            
+            $e=$e+$a->value;
+        }
+
+        foreach($rev as $b)
+        {
+            
+            $r=$r+$b->value;
+        }
+        //dd($r);
+        $chart =Charts::create('pie', 'highcharts')
+        ->title('My nice chart')
+        ->labels(['Expenses', 'Revenues'])
+        ->values([$e,$r])
+        ->dimensions(1000,500)
+        ->responsive(false);
+
+        return view('charts',compact('chart'));
+    }
+
+
+
+    public function myGlobal(Request $request, $id)
+    {
+            
+
+        $exp= Movement::whereBetween('date',[$request->input('dataI'), $request->input('dataF')])->whereBetween('movement_category_id',[1,7])
+        ->where('account_id',$id)->get();
+        $rev= Movement::whereBetween('date',[$request->input('dataI'), $request->input('dataF')])->whereBetween('movement_category_id',[8,14])->where('account_id',$id)->get();     
+        //dd($exp);
         $e=0;
         $r=0;
         foreach($exp as $a)
