@@ -36,37 +36,30 @@
                 <td>
                     @if(Auth::user())
                     <form action="{{route('accounts.delete', $account->id)}}" method="post" class="inline">
-                        {{ csrf_field() }}
-                        {{ method_field('delete') }}
+                        @csrf
+                        @method('delete')
 
                         <div class="form-group">
                             <button type="submit" class="btn btn-xs btn-danger">Delete</button>
                         </div>
                     </form>
-                   
 
-                    <form action="{{route('change.startbalance', $account->id)}}" method="get" class="inline">
-                        
-
+                    <form action="{{ route('accounts.edit', $account->id) }}" method="get" class="inline">
                         <div class="form-group">
-                            <button type="submit" class="btn btn-xs btn-success">Change Start</button>
+                            <button type="submit" class="btn btn-xs btn-danger">Edit Account</button>
                         </div>
                     </form>
 
-
                     <form action="{{route('list.movements', $account->id)}}" method="get" class="inline">
-                      
-
                         <div class="form-group">
                             <button type="submit" class="btn btn-xs btn-info">Show Movements</button>
                         </div>
                     </form>                              
 
                     @if($account->deleted_at==NULL)
-                    
                         <form action="{{route('close.account', $account->id)}}" method="post" class="inline">
-                        {{ csrf_field() }}
-                        {{ method_field('patch') }}
+                        @csrf
+                        @method('patch')
 
                         <div class="form-group">
                             <button type="submit" class="btn btn-xs btn-warning">Close Account</button>
@@ -74,22 +67,17 @@
                     </form>
                     
                     @else
-                    
                         <form action="{{route('reopen.account', $account->id)}}" method="post" class="inline">
-                        {{ csrf_field() }}
-                        {{ method_field('patch') }}
+                        @csrf
+                        @method('patch')
 
                         <div class="form-group">
                             <button type="submit" class="btn btn-xs btn-danger">Reopen Account</button>
                         </div>
                     </form>
-
-                    
                     @endif
-
                     @endif
                 </td>
-
             </tr>
             @endforeach
         </table>
@@ -100,9 +88,6 @@
             <button type="submit" class="btn btn-success" name="createNewAccount">Create new account</button>
         </form>
         @endif
-
-
-
 
         {{-- $accounts->links() --}}
 
