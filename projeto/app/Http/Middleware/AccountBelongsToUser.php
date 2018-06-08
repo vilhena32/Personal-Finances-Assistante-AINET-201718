@@ -5,9 +5,11 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+use App\Account;
+use App\User;
 
 
-class Admin
+class AccountBelongsToUser
 {
     /**
      * Handle an incoming request.
@@ -17,14 +19,14 @@ class Admin
      * @return mixed
      */
     public function handle($request, Closure $next)
-    {   
-      //  dd($request);
-        if (Auth::check()){
-            if(Auth::user()->admin ==1)
-            {
-                return $next($request);                
-            }
-            return redirect('/');
-        }        
+    {
+        $account = Account::findOrFail($request->account);
+        $user = Auth::user();
+
+        if ($account->owner_id != $user->id) {
+            return response("Account doesn't belong to this user!", 403);
+        }
+        
+        return $next($request);
     } 
 }

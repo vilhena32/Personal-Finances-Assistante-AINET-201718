@@ -35,7 +35,6 @@ Route::get('/me/show/', 'UserController@showProfile')->name('showProfile'); //Es
 
 
 
-
 //Profiles
 
 Route::get('/profiles', 'AssociateMemberController@listUsers')->name('associates')->middleware('auth');
@@ -46,8 +45,8 @@ Route::get('/me/associate-of', 'AssociateMemberController@myAssociateOf')->name(
 Route::get('/account', 'AccountController@create')->name('create.account')->middleware('auth');
 Route::post('/account', 'AccountController@store')->name('store.account')->middleware('auth');
 
-Route::get('/account/{account}', 'AccountController@edit')->name('account.edit')->middleware('auth');
-Route::put('/account/{account}', 'AccountController@update')->name('account.update')->middleware('auth');
+Route::get('/account/{account}', 'AccountController@edit')->name('accounts.edit')->middleware('auth');
+Route::put('/account/{account}', 'AccountController@update')->name('accounts.update')->middleware('auth', 'account_exists', 'account_belongs_to_user');
 
 Route::get('/accounts/{user}', 'AccountController@index')->name('accounts')->middleware('auth');
 Route::get('/accounts/{user}/closed', 'AccountController@listClosedAccounts')->name('accounts.closed')->middleware('auth');

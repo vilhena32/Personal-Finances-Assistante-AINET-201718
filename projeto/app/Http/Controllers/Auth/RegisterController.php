@@ -67,17 +67,17 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return User
      */
-    protected function create(array $data)
-    {
+     protected function create(array $data)
+     {
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'phone' => $data['phone'] ?? null,
             'password' => Hash::make($data['password']),
-            ]);
- 
-        if(array_key_exists('profile_photo', $data)){
-            if(!Storage::disk('public')->exists('profiles')){
+        ]);
+        
+        if (array_key_exists('profile_photo', $data)) {
+            if (!Storage::disk('public')->exists('profiles')) {
                 Storage::disk('public')->makeDirectory('profiles');
             }
             $file = request()->file('profile_photo')->store('profiles', 'public');
