@@ -9,10 +9,10 @@
                 <div class="card-header">{{ __('Upload Document') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{-- route('register') --}}" enctype="multipart/form-data">
+                    <form method="POST" action="{{-- route('store.doc') --}}" enctype="multipart/form-data">
                         @csrf
 
-     
+                
                         <div class="form-group row">
                             <label for="document" class="col-md-4 col-form-label text-md-right">{{ __('Document') }}</label>
 

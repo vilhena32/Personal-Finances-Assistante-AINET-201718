@@ -16,7 +16,8 @@ class ChartController extends Controller
     public function index(Request $request, $id)
     {
             // recebe id da conta  Request $request, $id $request->input('dataI') $request->input('dataF')
-        $moves = Movement::where('account_id',$id)->whereBetween('date',[$request->input('dataI'), $request->input('dataF')]);
+        
+        $moves = Movement::where('account_id',$id)->whereBetween('date', [$request->input('dataI'), $request->input('dataF')]);
 
        dd($moves);
 

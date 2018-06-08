@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Document;
+use App\Movement;
+use Illuminate\Support\Facades\Validator;
 class DocumentController extends Controller
 {
     //
@@ -21,9 +23,18 @@ class DocumentController extends Controller
     	return view('documents.addDocument');
     }
 
-    public function store(Request $request, $id)
+    public function store(AddDocumentRequest $request, $id)
     {
-    	//return view();
+
+        $data = $request->validated();
+        $document = new Document();
+       
+        $mov = Movement::find($id);
+        $mov->documents()->save($mov);
+        
+       
+        //redirect
+
     }
 
 
