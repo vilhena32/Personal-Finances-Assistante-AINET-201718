@@ -181,6 +181,10 @@ class AccountController extends Controller
 
         $data = $request->validated();
 
+        if ($account->start_balance != $data->start_balance) {
+            $this->updateAccountMovements($start_balance);
+        }
+
         $account->fill($data);
 
         $account->save();
@@ -188,6 +192,35 @@ class AccountController extends Controller
         return redirect()
                     ->route('home')
                     ->with('sucess', 'Account updated successfully');
+    }
+
+
+    public function updateAccountMovements($start_balance)
+    {
+        $account = \Route::current()->parameter('account');
+        $movements = $account->movements();
+
+        if ($movements->count() > 0) {
+            $initial_balance = $start_balance;
+
+            foreach ($movements as $movement) {
+                $movement->start_balance = $initial_balance;
+                $movement->end_balance = $initial_balance + $movement->value;
+
+                $movement->save();
+
+                $initial_balance = $movement->end_balance;
+                $final_balance = $movement->end_balance;
+            }
+
+            $account->current_balance = $final_balance;
+            $account->save();
+        } 
+
+        if ($movements->count() == 0) {
+            $account->current_balance = $start_balance;
+            $account->save();
+        }
     }
 
 
