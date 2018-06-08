@@ -68,7 +68,7 @@ Route::get('/account/{account}/startBalance', 'AccountController@updateStartAmou
 Route::patch('/account/{account}/startBalance', 'AccountController@storeStartAmount')->name('update.startbalance')->middleware('auth');
 
 //CHARTS(EM TESTES!)
-Route::get('charts', 'ChartControllerController@index')->name('chart.index')->middleware('auth');
+Route::get('/charts', 'ChartController@index')->name('chart.index')->middleware('auth');
 
 //Route::get('/me/associates', 'UserController@destroy')->name('users.destroy');
 
