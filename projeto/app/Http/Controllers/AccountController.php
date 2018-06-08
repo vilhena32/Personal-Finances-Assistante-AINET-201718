@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Requests\CreateAccountRequest;
-use App\User;
 use Auth;
-use Carbon\Carbon;
+use App\User;
 use App\Account;
 use App\Movement;
+use App\Http\Requests\CreateAccountRequest;
+use App\Http\Requests\UpdateAccountRequest;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
@@ -81,7 +82,6 @@ class AccountController extends Controller
         {
             $account->start_balance = $request->input('balance');
             $account->current_balance = $request->input('balance');
-        
         }
 
         if($movements->count()>0)
@@ -91,7 +91,6 @@ class AccountController extends Controller
                 $m->end_balance = $m->end_balance + $request->input('balance');
                 $m->start_balance = $m->start_balance + $request->input('balance');
                 //$account->current_balance =                 
-
                 $m->save();
             }
 
@@ -114,8 +113,9 @@ class AccountController extends Controller
     {
         $account = new Account;
         
-        return view('accounts.addAccount', compact('account'));
+        return view('accounts.add', compact('account'));
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -127,27 +127,17 @@ class AccountController extends Controller
     {
         $data = $request->validated();
 
-        $account = new Account([
-            'account_type_id' => $data['account_type_id'],
-            'date' => $data['date'] ?? Carbon::now()->format('Y-m-d'),
-            'start_balance' => $data['start_balance'],
-            'description' => $data['description'],
-            'code' =>   $data['code'],
-        ]);
+        $account = new Account($data);
 
         $account->current_balance = $account->start_balance;
-        $account->last_movement_date = null;
-        $account->deleted_at = null;
-        $account->created_at = Carbon::now();
 
         Auth::user()->accounts()->save($account);
-
-        $account->save();
 
         return redirect()
                     ->route('home')
                     ->with('success', 'Account created successfully.');
     }
+
 
     /**
      * Display the specified resource.
@@ -160,6 +150,7 @@ class AccountController extends Controller
         //
     }
 
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -168,8 +159,11 @@ class AccountController extends Controller
      */
     public function edit($id)
     {
-        //
+        $account = Account::findOrFail($id);
+
+        return view('accounts.edit', compact('account'));
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -178,10 +172,21 @@ class AccountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateAccountRequest $request, $id)
     {
-        //
+        $account = Account::findOrFail($id);
+
+        $data = $request->validated();
+
+        $account->fill($data);
+
+        $account->save();
+
+        return redirect()
+                    ->route('home')
+                    ->with('sucess', 'Account updated successfully');
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -204,22 +209,20 @@ class AccountController extends Controller
         return redirect('accounts/'.$userid);
     }
 
+
     public function closeAccount($id)
     {
-        
-
         $account = Account::find($id);
-
 
         foreach ($account->movements as $m) {
             $m->delete();
          }
         $account->delete();
-       // dd($account);
       
         $userid = Auth::user()->id;
         return redirect('accounts/'.$userid);
     }
+
 
     public function reopenAccount($id)
     {

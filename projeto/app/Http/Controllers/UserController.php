@@ -33,11 +33,6 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
-
-
-
-
     public function show($id)
     {   
         $user = User::find($id);
@@ -57,10 +52,8 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $except = ['password','email','photo','phone'];
-        //dd($request);
        
         $user= Auth::user();
-         //dd($user);
 
         if($request->input('name')!= "")
         {
@@ -213,7 +206,7 @@ class UserController extends Controller
     public function filter(Request $request)
     {   
        // dd($request);
-        if ($request->input('name')== NULL && $request->input('status')=="" && $request->input('type')=="") {   
+        if ($request->input('name') == NULL && $request->input('status') == "" && $request->input('type') == "") {   
             $users = User::orderBy('name','asc')->paginate(10);
             foreach ($users as $user) {
                 $user->associates=$user->associates();
@@ -222,8 +215,7 @@ class UserController extends Controller
             //dd($users);
             if(Auth::user()->isAdmin()){
                 return view('userslist', compact('users'));
-            }
-            else{
+            } else {
              return view('profile',compact('users'));
             }
         } else {
@@ -242,8 +234,10 @@ class UserController extends Controller
             if ($request->input('type') == "regular") {  
                 $type = 0;
             }
+
+            if ($request->input('name') != null) {
                 $name = $request->input('name');
-            
+            }
 
             if (!isset($status) && !isset($type)) {
                 $users= User::where('name', 'like' ,'%' . $name . '%')

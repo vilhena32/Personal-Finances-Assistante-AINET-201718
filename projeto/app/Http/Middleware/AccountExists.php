@@ -5,9 +5,10 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+use App\Account;
 
 
-class Admin
+class AccountExists
 {
     /**
      * Handle an incoming request.
@@ -17,14 +18,13 @@ class Admin
      * @return mixed
      */
     public function handle($request, Closure $next)
-    {   
-      //  dd($request);
-        if (Auth::check()){
-            if(Auth::user()->admin ==1)
-            {
-                return $next($request);                
-            }
-            return redirect('/');
-        }        
+    {
+        $account = Account::findOrFail($request->account);
+
+        if ($account === null) {
+            return response("Account doesn't exist!", 404);
+        }
+        
+        return $next($request);
     } 
 }

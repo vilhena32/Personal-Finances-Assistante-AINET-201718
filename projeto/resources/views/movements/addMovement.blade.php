@@ -9,7 +9,7 @@
                 <div class="card-header">{{ __('Add Movement') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('store.movements',$id)  }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('store.movements',$id)  }}" class="form-group">
                         @csrf
 
                         <div class="form-group row">
