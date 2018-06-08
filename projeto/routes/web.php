@@ -67,43 +67,11 @@ Route::delete('/movement/{movement}', 'MovementController@destroy')->name('delet
 Route::get('/account/{account}/startBalance', 'AccountController@updateStartAmount')->name('change.startbalance')->middleware('auth');
 Route::patch('/account/{account}/startBalance', 'AccountController@storeStartAmount')->name('update.startbalance')->middleware('auth');
 
-//Route::get('/me/associates', 'UserController@destroy')->name('users.destroy');
 
-//Route::get('/associate-off', 'UserController@destroy')->name('users.destroy');
+//Documents
+Route::get('/documents/{document}', 'DocumentController@show')->name('show.doc')->middleware('auth');
 
-//Route::get('/accounts/{users}', 'UserController@destroy')->name('users.destroy');
-//Route::get('/accounts/{users}/opened', 'UserController@destroy')->name('users.destroy');
-//Route::get('/accounts/{users}/closed', 'UserController@destroy')->name('users.destroy');
+Route::get('/document/{movement}', 'DocumentController@create')->name('create.doc')->middleware('auth');
+Route::post('/document/{movement}', 'DocumentController@store')->name('store.doc')->middleware('auth');
 
-//Route::delete('/account/{account}', 'UserController@destroy')->name('users.destroy');
-//Route::patch('/account/{account}/close', 'UserController@destroy')->name('users.destroy');
-
-//Route::patch('/accounts/{account}/reopen', 'UserController@destroy')->name('users.destroy');
-
-//Route::post('/account', 'UserController@destroy')->name('users.destroy');
-
-//Route::put('/account/{account}', 'UserController@destroy')->name('users.destroy');
-
-//Route::get('/movements/{account}', 'UserController@destroy')->name('users.destroy');
-
-//Route::get('/movements/{account}/create', 'UserController@destroy')->name('users.destroy');
-//Route::post('/movements/{account}/create', 'UserController@destroy')->name('users.destroy');
-//Route::get('/movement/{movement}', 'UserController@destroy')->name('users.destroy');
-//Route::put('/movement/{movement}', 'UserController@destroy')->name('users.destroy');
-//Route::delete('/movement/{movement}', 'UserController@destroy')->name('users.destroy');
-
-//Route::post('/documents/{movement}', 'UserController@destroy')->name('users.destroy');
-
-//Route::delete('/document/{document}', 'UserController@destroy')->name('users.destroy');
-//Route::get('/document/{document}', 'UserController@destroy')->name('users.destroy');
-
-//Route::get('/dashboard/{user}', 'UserController@destroy')->name('users.destroy');
-
-//Route::get('/me/associates', 'UserController@destroy')->name('users.destroy');
-
-//Route::delete('/me/associates/{user}', 'UserController@destroy')->name('users.destroy');
-//Route::get('/home', 'HomeController@index');
-
-
-
-//Route::get('/home', 'HomeController@index');
+Route::delete('/document/{document}', 'DocumentController@delete')->name('delete.doc')->middleware('auth');
