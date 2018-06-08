@@ -2,8 +2,11 @@
 
 namespace App\Http\Requests;
 
+use DB;
+use Auth;
 use App\Account;
 use Carbon\Carbon;
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateAccountRequest extends FormRequest
@@ -27,10 +30,17 @@ class CreateAccountRequest extends FormRequest
     {
         return [
             'account_type_id' => 'required|exists:account_types,id',
-            'date' => 'required|date',
+            'date' => 'nullable|date',
             'start_balance' => 'required|numeric|regex:/^-?\d*(\.\d{2})?$/',
             'description' => 'nullable|string|max:255',
-            'code' => 'required|string|max:255|unique:accounts',
+            'code' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('accounts')->where(function ($query) {
+                    return $query->where('owner_id', Auth::user()->id);
+                }),
+            ],
         ];
     }
 }

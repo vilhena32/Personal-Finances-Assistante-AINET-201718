@@ -24,9 +24,8 @@ class AccountController extends Controller
 
     public function index(User $user)
     {   
-
         //$accounts= $user->accounts;
-        $accounts = Account::withTrashed() ->where('owner_id', $user->id)->get();
+        $accounts = Account::withTrashed()->where('owner_id', $user->id)->get();
 
         return view('accounts.listAccounts', compact('accounts'));
     }
@@ -64,14 +63,13 @@ class AccountController extends Controller
 
         return view('accounts.listAccounts',compact('accounts'));
     }
-
-
+/*
     public function updateStartAmount($id)
     {   
         $account = Account::find($id);
         return view('accounts.editStart',compact('account'));
     }
-
+*/
 
     public function storeStartAmount($id, Request $request)
     {
@@ -129,7 +127,12 @@ class AccountController extends Controller
 
         $account = new Account($data);
 
+        if (empty($account->date)) {
+            $account->date = Carbon::now()->format('Y-m-d');
+        }
+
         $account->current_balance = $account->start_balance;
+        $account->created_at = Carbon::now();
 
         Auth::user()->accounts()->save($account);
 
