@@ -30,13 +30,40 @@
                         @if(Auth::user()->id == $account->owner_id)
 
                         <form action="{{ route('create.movements', $account->id) }}" method="get" class="inline">
-
-
-
                             <div class="form-group">
                                 <button type="submit" class="btn btn-xs btn-success">Create Movement</button>
                             </div>
                         </form>
+                        <form action="{{ route('users.search') }}" method="get" class="form-inline">
+                        <form>
+                            <div class="form-group" style="margin-bottom: 5px\">
+                            <div class="form-group row">
+                                <label for="date" class="col-md-4 col-form-label text-md-right"> {{ __('Start date') }} </label>
+                                <div class="col-md-6">
+                                    <input id="date" type="date" class="form-control {{ $errors->has('date') ? ' is-invalid' : '' }}" name="date" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
+
+                                    @if ($errors->has('date'))
+                                        <span class="invalid-feedback">
+                                            <strong>{{ $errors->first('date') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                                <label for="date" class="col-md-4 col-form-label text-md-right"> {{ __('End date') }} </label>
+                                
+                                <div class="col-md-6">
+                                    <input id="date" type="date" class="form-control {{ $errors->has('date') ? ' is-invalid' : '' }}" name="date" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
+
+                                    @if ($errors->has('date'))
+                                        <span class="invalid-feedback">
+                                            <strong>{{ $errors->first('date') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>                                   
+                                <button type="submit" class="btn btn-success" name="search">View Statistics</button>            
+                            </div>
+                         </form>
+                     </form>
                         @endif
                     </td>
                 </div>

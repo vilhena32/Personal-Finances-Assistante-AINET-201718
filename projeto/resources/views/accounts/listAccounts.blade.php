@@ -14,6 +14,8 @@
         <form action="{{ route('create.account') }}" method="get">
             <button type="submit" class="btn btn-success" name="createNewAccount">Create new account</button>
         </form>
+        
+
     <table class="table table-striped">
         <thead>
             <tr>
@@ -47,7 +49,7 @@
                         
 
                         <div class="form-group">
-                            <button type="submit" class="btn btn-xs btn-danger">Change Start</button>
+                            <button type="submit" class="btn btn-xs btn-success">Change Start</button>
                         </div>
                     </form>
 
@@ -56,11 +58,9 @@
                       
 
                         <div class="form-group">
-                            <button type="submit" class="btn btn-xs btn-danger">Show Movements</button>
+                            <button type="submit" class="btn btn-xs btn-info">Show Movements</button>
                         </div>
-                    </form>
-
-                    
+                    </form>                              
 
                     @if($account->deleted_at==NULL)
                     
@@ -69,7 +69,7 @@
                         {{ method_field('patch') }}
 
                         <div class="form-group">
-                            <button type="submit" class="btn btn-xs btn-danger">Close Account</button>
+                            <button type="submit" class="btn btn-xs btn-warning">Close Account</button>
                         </div>
                     </form>
                     
