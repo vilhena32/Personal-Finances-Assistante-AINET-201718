@@ -31,7 +31,7 @@ Route::patch('/users/{user}/demote','UserController@demote')->name('removeAdmin'
 Route::get('/me/profile','UserController@edit')->name('showEdit')->middleware('auth');
 Route::put('/me/profile','UserController@store')->name('editUser')->middleware('auth');
 Route::get('/show/{user}', 'UserController@show')->name('showUser')->middleware('auth');
-Route::get('/me/show/', 'UserController@showProfile')->name('showProfile'); //Esta é para o Querido! 
+Route::get('/me/show/', 'UserController@myProfile')->name('showProfile'); //Esta é para o Querido! 
 
 
 
