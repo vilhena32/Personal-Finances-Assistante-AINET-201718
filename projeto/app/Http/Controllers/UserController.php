@@ -129,7 +129,7 @@ class UserController extends Controller
         $user->password = Hash::make($data['password']);
         $user->save();
         
-        return redirect()->route('file');
+        return redirect()->route('home');
     }
 
     public function updateProfile()

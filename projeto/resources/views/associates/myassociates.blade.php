@@ -24,7 +24,7 @@
      @foreach($associates as $associate)
         <tr>
 
-            <td>{{$associate->name }}</a></td>
+            <td><a href="{{ route('accounts',$associate->id) }}">{{$associate->name }}</a></td>
                     <td><img src="{{$associate->getPhoto()}}"></td>
            
                  

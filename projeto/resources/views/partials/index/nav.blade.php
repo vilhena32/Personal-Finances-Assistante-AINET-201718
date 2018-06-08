@@ -10,9 +10,11 @@
                 {{ Auth::user()->name }}
             </button>
             <div class="dropdown-menu pull-right" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item id" id ="accounts" href="{{ route('accounts',Auth::user()) }}">My Accounts</a>
-              <a class="dropdown-item" href="{{ route('showProfile') }}">MyProfile
-              <a class="dropdown-item" href="{{ route('logout') }}">Logout</a>
+                <a class="dropdown-item id" id ="accounts" href="{{ route('my.associates',Auth::user()) }}">My Associates</a>
+                <a class="dropdown-item id" id ="accounts" href="{{ route('my.associatedOf',Auth::user()) }}">Associated Of</a>
+                <a class="dropdown-item id" id ="accounts" href="{{ route('accounts',Auth::user()) }}">My Accounts</a>
+                <a class="dropdown-item" href="{{ route('showProfile') }}">MyProfile
+                <a class="dropdown-item" href="{{ route('logout') }}">Logout</a>
             </div> 
         </div>
     @endif

@@ -1,20 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="css/styles.css">
-<title>Personal Finnances Application</title>
-	@include('partials.index.top')
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Personal Finnances Application</title>
+    @include('partials.index.top')
 </head>
 <body>
 	@include('partials.index.nav')
 	
-
-
-    @if (count($accounts))
+     <div class="inline">
         <form action="{{ route('create.account') }}" method="get">
             <button type="submit" class="btn btn-success" name="createNewAccount">Create new account</button>
         </form>
-        
+        <div class="inline">
+        <form action="{{ route('accounts.open',Auth::user()->id) }}" method="get">
+            <button type="submit" class="btn btn-success" name="createNewAccount">Opened Accounts</button>
+        </form>
+         <form action="{{ route('accounts.closed',Auth::user()->id) }}" method="get">
+            <button type="submit" class="btn btn-success" name="createNewAccount">Closed Accounts</button>
+        </form>
+    </div>
+    
+
+
+    @if (count($accounts))
+
+
 
     <table class="table table-striped">
         <thead>
@@ -57,7 +68,7 @@
                     </form>                              
 
                     @if($account->deleted_at==NULL)
-                        <form action="{{route('close.account', $account->id)}}" method="post" class="inline">
+                    <form action="{{route('close.account', $account->id)}}" method="post" class="inline">
                         @csrf
                         @method('patch')
 
@@ -67,7 +78,7 @@
                     </form>
                     
                     @else
-                        <form action="{{route('reopen.account', $account->id)}}" method="post" class="inline">
+                    <form action="{{route('reopen.account', $account->id)}}" method="post" class="inline">
                         @csrf
                         @method('patch')
 
@@ -84,7 +95,7 @@
 
         @else
         <form action="{{ route('create.account') }}" method="get">
-        <h2>No Accounts found</h2>
+            <h2>No Accounts found</h2>
             <button type="submit" class="btn btn-success" name="createNewAccount">Create new account</button>
         </form>
         @endif

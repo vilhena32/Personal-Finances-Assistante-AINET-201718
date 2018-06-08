@@ -79,6 +79,8 @@ class ChartController extends Controller
         ->where('account_id',$id)->get();
         $rev= Movement::whereBetween('date',[$request->input('dataI'), $request->input('dataF')])->whereBetween('movement_category_id',[8,14])->where('account_id',$id)->get();     
         //dd($exp);
+
+        
         $e=0;
         $r=0;
         foreach($exp as $a)

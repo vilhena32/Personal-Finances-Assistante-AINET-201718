@@ -31,7 +31,7 @@ Route::patch('/users/{user}/demote','UserController@demote')->name('removeAdmin'
 Route::get('/me/profile','UserController@edit')->name('showEdit')->middleware('auth');
 Route::put('/me/profile','UserController@store')->name('editUser')->middleware('auth');
 Route::get('/show/{user}', 'UserController@show')->name('showUser')->middleware('auth');
-Route::get('/me/show/', 'UserController@myProfile')->name('showProfile'); //Esta é para o Querido! 
+Route::get('/me/show/', 'UserController@myProfile')->name('showProfile'); 
 
 
 
@@ -39,7 +39,7 @@ Route::get('/me/show/', 'UserController@myProfile')->name('showProfile'); //Esta
 
 Route::get('/profiles', 'AssociateMemberController@listUsers')->name('associates')->middleware('auth');
 Route::get('/me/associates', 'AssociateMemberController@myAssociates')->name('my.associates')->middleware('auth'); //myAssociateOf
-Route::get('/me/associate-of', 'AssociateMemberController@myAssociateOf')->name('my.associates')->middleware('auth');
+Route::get('/me/associate-of', 'AssociateMemberController@myAssociateOf')->name('my.associatedOf')->middleware('auth');
 
 //Accounts
 Route::get('/account', 'AccountController@create')->name('create.account')->middleware('auth');
@@ -60,7 +60,8 @@ Route::patch('/account/{account}/reopen', 'AccountController@reopenAccount')->na
 Route::get('/movements/{account}', 'MovementController@index')->name('list.movements')->middleware('auth');
 Route::get('/movements/{account}/create', 'MovementController@create')->name('create.movements')->middleware('auth');
 Route::post('/movements/{account}/create', 'MovementController@store')->name('store.movements')->middleware('auth');
-Route::get('/movement/{movement}', 'MovementController@show')->name('show.movements')->middleware('auth');
+Route::get('/movement/{movement}/show', 'MovementController@show')->name('show.movements')->middleware('auth');
+Route::get('/movement/{movement}', 'MovementController@edit')->name('edit.movements')->middleware('auth');
 Route::put('/movement/{movement}', 'MovementController@update')->name('update.movements')->middleware('auth');
 Route::delete('/movement/{movement}', 'MovementController@destroy')->name('delete.movements')->middleware('auth');
 
