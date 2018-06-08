@@ -39,7 +39,13 @@ class UserController extends Controller
         $associates= $user->associates;
         $associateOf= $user->associatesOf;
 
-        return view('profile',compact('user','associates','associateOf'));
+        return view('users.showUserProfile',compact('user','associates','associateOf'));
+    }
+
+    public function myProfile()
+    {
+        $user = Auth::user();
+        return view('users.showUser',compact('user'));
     }
 
 
@@ -131,10 +137,7 @@ class UserController extends Controller
         return view('profile');
     }    
 
-    public function myProfile()
-    {
-        return view('profile');
-    }
+
 
 
     public function block(User $user)

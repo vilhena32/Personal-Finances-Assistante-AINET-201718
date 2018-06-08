@@ -13,4 +13,13 @@ class Document extends Model
     {
         return $this->hasMany('App\Movement','document_id');
     }
+
+    public function getDoc()
+    {
+    	if ($this->profile_photo==NULL) {
+            return asset('storage/docs/default.png');
+        } else {
+            return asset('storage/docs/'.$this->original_name);
+        }
+    }
 }

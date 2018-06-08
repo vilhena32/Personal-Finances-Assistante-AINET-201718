@@ -143,7 +143,7 @@ class MovementController extends Controller
 
 
         //dd($movement);
-        $movement-save();
+        $movement->save();
         return redirect('movements/'.$id);
 
     }

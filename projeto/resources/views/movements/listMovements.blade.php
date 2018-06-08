@@ -106,7 +106,7 @@
                         </div>
                     </form>
 
-                    <form action="{{-- route('block', $user->id) --}}" method="post" class="inline">
+                    <form action="{{ route('delete.movements', $movement->id) }}" method="post" class="inline">
                         @csrf
                         {{ method_field('delete') }}
 
