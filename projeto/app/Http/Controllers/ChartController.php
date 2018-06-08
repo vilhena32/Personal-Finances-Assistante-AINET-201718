@@ -9,6 +9,7 @@ use App\Movement;
 use DB;
 use Charts;
 
+
 class ChartController extends Controller
 {
     public function index(Request $request, $id)
