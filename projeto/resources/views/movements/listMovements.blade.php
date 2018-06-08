@@ -34,7 +34,8 @@
                                 <button type="submit" class="btn btn-xs btn-success">Create Movement</button>
                             </div>
                         </form>
-                        <form action="{{ route('users.search') }}" method="get" class="form-inline">
+
+                        <form action="{{ route('chart.index',$account->id) }}" method="get" class="form-inline">
                         <form>
                             <div class="form-group" style="margin-bottom: 5px\">
                             <div class="form-group row">
