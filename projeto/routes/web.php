@@ -72,7 +72,7 @@ Route::patch('/account/{account}/startBalance', 'AccountController@storeStartAmo
 Route::get('document/{document}/download','DocumentController@downloadDoc')->name('doc.download')->middleware('auth');
 //CHARTS(EM TESTES!)
 Route::get('/charts/{account}', 'ChartController@index')->name('chart.index')->middleware('auth');
-
+Route::get('/dashboard/{user}', 'ChartController@myDash')->name('dash')->middleware('auth');
 //Route::get('/me/associates', 'UserController@destroy')->name('users.destroy');
 
 //Documents
