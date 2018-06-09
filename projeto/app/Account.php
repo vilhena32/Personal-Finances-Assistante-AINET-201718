@@ -62,5 +62,14 @@ class Account extends Model
     	//return $this->delete_at;
     }
 
+    public function getExp()
+    {
+        
+    }
+
+    public function getRev()
+    {
+        
+    }
   
 }
