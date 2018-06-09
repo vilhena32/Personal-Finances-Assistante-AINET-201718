@@ -84,7 +84,9 @@
                 <th>Value</th>
                 <th>Start Balance</th>
                 <th>End Balance</th>
+                <th>Document</th>
                 <th>Actions</th>
+
 
             </tr>
         </thead>
@@ -100,6 +102,17 @@
                 <td>{{ $movement->value }}</td>
                 <td>{{ $movement->start_balance }}</td>
                 <td>{{ $movement->end_balance}}</td>
+                
+                    @if(!empty($movement->document))
+                    <td>
+                    <a href="{{route('doc.download',$movement->document->id)}}">{{ $movement->document->original_name }}</a>
+                    </td>
+                    @else
+                    <td>
+                        <p>No Document</p>
+                    </td>
+                    @endif
+                
                 <td>
                     <div class="inline">
                         <form action="{{ route('show.movements', $movement->id) }}" method="get" class="inline">
@@ -126,6 +139,7 @@
                     </form>
                 </div>
             </td>
+
 
         </tr>
 

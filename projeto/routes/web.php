@@ -68,6 +68,8 @@ Route::delete('/movement/{movement}', 'MovementController@destroy')->name('delet
 Route::get('/account/{account}/startBalance', 'AccountController@updateStartAmount')->name('change.startbalance')->middleware('auth');
 Route::patch('/account/{account}/startBalance', 'AccountController@storeStartAmount')->name('update.startbalance')->middleware('auth');
 
+
+Route::get('document/{document}/download','DocumentController@downloadDoc')->name('doc.download')->middleware('auth');
 //CHARTS(EM TESTES!)
 Route::get('/charts/{account}', 'ChartController@index')->name('chart.index')->middleware('auth');
 

@@ -28,7 +28,25 @@ class DocumentController extends Controller
 
         $data = $request->validated();
         $document = new Document();
+        
+        $document = Document::create([
        
+            'description' => $data['description'],
+           
+        ]);
+
+            // 'original_name' => $data['document'],
+        
+        if (array_key_exists('document', $data)) {
+            if (!Storage::disk('public')->exists('documents')) {
+                Storage::disk('public')->makeDirectory('documents');
+            }
+            $file = request()->file('document')->store('documents', 'public');
+            $document->original_name = basename($file);
+        }
+        $user->save();
+
+
         $mov = Movement::find($id);
         $mov->documents()->save($mov);
         
@@ -48,5 +66,15 @@ class DocumentController extends Controller
     	$mov= Movement::find($id);
     	$mov->document->dissociate();
     	$mov->save();	
+
+
+    }
+
+
+    public function downloadDoc($id)
+    {
+        $doc= Document::find($id);
+        $pathToFile= 'public/documents/'.$doc->original_name;
+        return response()->download($pathToFile);
     }
 }
