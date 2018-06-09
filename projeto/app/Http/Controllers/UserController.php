@@ -26,6 +26,34 @@ class UserController extends Controller
         $this->middleware('admin', ['only' => ['block','unblock','promote','demote','store']]);
     }
 
+    public function addAssociate($id)
+    {
+        $a= new AssociateMember();
+        $a->main_user_id= Auth::user()->id;
+        $a->associated_user_id=$id;
+
+        $a->save();
+
+        return redirect()
+            ->route('associates')
+            ->with('success', 'User associated successfully');
+
+    }
+
+
+    public function removeAssociate($id)
+    {
+        $a= AssociateMember::where('associated_user_id',$id);
+       
+
+        $a->delete();
+
+        return redirect()
+            ->route('associates')
+            ->with('success', 'User disassociated successfully');
+
+    }
+
 
     /**
      * Display the specified resource.
