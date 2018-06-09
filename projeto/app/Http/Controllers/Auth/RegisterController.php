@@ -56,8 +56,9 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255|regex:/^[a-z A-Z]+$/u',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:3|confirmed',
-            'phone' => 'nullable|unique:users|regex:/(9)[0-9]{8}/',
-            'profile_photo' => 'nullable|image|mimes:jpeg,bmp,png',         
+            'phone' => 'nullable|regex:/^([0-9\s\+]*)$/|unique:users',
+            'profile_photo' => 'nullable|image|mimes:jpeg,bmp,png',
+               
         ]);
     }
 
@@ -67,24 +68,23 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return User
      */
-    protected function create(array $data)
-    {
+     protected function create(array $data)
+     {
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'phone' => $data['name'],
+            'phone' => $data['phone'] ?? null,
             'password' => Hash::make($data['password']),
-            ]);
-
-        if(array_key_exists('profile_photo', $data)){
-            if(!Storage::exists(storage_path('profiles', $public))){
-                Storage::makeDirectory(storage_path('profiles', $public));
+        ]);
+        
+        if (array_key_exists('profile_photo', $data)) {
+            if (!Storage::disk('public')->exists('profiles')) {
+                Storage::disk('public')->makeDirectory('profiles');
             }
-            request()->file('profile_photo')->store('profiles', $public);         
-            $file = request()->file('profile_photo')->store('profiles', $public);         
-            $split = explode("/", $file);
-            $user->profile_photo = $split[3];
+            $file = request()->file('profile_photo')->store('profiles', 'public');
+            $user->profile_photo = basename($file);
         }
+        $user->save();
     }
 
     /**

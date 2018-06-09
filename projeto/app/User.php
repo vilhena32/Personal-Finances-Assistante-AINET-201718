@@ -15,8 +15,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','phone_number', 'photo'
+        'name', 'email', 'password','phone', 'profile_photo'
     ];
+
 
     /**
      * The attributes that should be hidden for arrays.
@@ -28,33 +29,53 @@ class User extends Authenticatable
     ];
 
 
-
     public function getType()
-    {
-        switch ($this->admin) {
-            case '1':
-                return 'Administrator';
-            case '0':
-                return 'Registered';
-        }
-
-        return 'Anonymous';
+    {   
+        return $this->admin ? 'Administrator' : 'Regular';
     }
+
 
     public function getStatus()
     {   
-         switch ($this->blocked) {
-            case '0':
-                return 'Unblocked';
-            case '1':
-                return 'Blocked';
-        }
-
-        return 'Anonymous';
+        return $this->blocked ? 'Blocked' : 'Unblocked';
   
     }
 
-   
 
+    public function getPhoto(){
+        if ($this->profile_photo==NULL) {
+            return asset('storage/profiles/default.png');
+        } else {
+            return asset('storage/profiles/'.$this->profile_photo);
+        }
+    }
+
+
+    public function associates()
+    {
+        return $this->belongsToMany('App\User', 'associate_members', 'main_user_id', 'associated_user_id')
+            ->withPivot('created_at');
+    }
+
+    public function associatesOf()
+    {
+        return $this->belongsToMany('App\User', 'associate_members', 'associated_user_id', 'main_user_id')
+            ->withPivot('created_at');
+    }
+
+    public function accounts()
+    {
+        return $this->hasMany('App\Account','owner_id');
+    }
+
+
+    public function associatedOf()
+    {
+        //return $this->belongsToMany('App\User','associate_members','main_user_id','this->id')->withPivot('created_at');
+    }
+    public function isAdmin(){
+        return $this->admin==1;
+    }
+    
 
 }

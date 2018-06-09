@@ -1,69 +1,69 @@
 <!DOCTYPE html>
 <html>
 <head>
-    @include('partials.index.top')
+    @include('partials.index.top') 
+    <title>Personal Finances App</title>
 </head>
 <body>
     @include('partials.index.nav')
     
+    <form action="{{ route('users.search') }}" method="get" class="form-inline">
 
 
+        <div class="form-group" style="margin-bottom: 5px\">
+            <input type="text" class="form-control selectHeight" name="name" style="margin-left: 5px" id="name"
+            value="{{ old('name') }}" placeholder="Insert Name "  size="22">
+            <button type="submit" class="btn btn-success" name="search">Search</button>
+        </div>
+    </form>
     <table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Type</th>
-            <th>Status</th>
-            <th>Created At</th>
-            <th>Updated At</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    
-    <tbody>
-   
-        <tr>
-            <td>{{ $user->name }}</a></td>
-            <td>{{$user->email}}</td>
-            <td>{{ $user->getType() }}</td>
-            <td>{{ $user->getStatus() }}</td>
-            <td>{{ $user->created_at }}</td>
-            <td>{{ $user->updated_at }}</td>
-            
-            <td>
-                <a class="btn btn-xs btn-primary" href="{{route('showEdit', $user)}}">Edit</a>
-                <form action="" method="post" class="inline">
-                {{ csrf_field() }}
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-xs btn-danger">Delete</button>
-                    </div>
+        @if (count($users))
+        <thead>
+            <tr>
+                <th>Profile Photo</th>                    
+                <th>Name</th>
+                <th>Associates</th>
+            </tr>
+        </thead>
 
-                </form>
-                <form action="" method="post" class="inline">
-                    {{ csrf_field() }}
-                    <div class="form-group">
-                        @if ($user->blocked == 0 || $user->admin == 0)
-                        <button type="submit" class="btn btn-xs btn-danger" name="block" >Block User</button>
-                        @else
-                        <button type="submit" class="btn btn-xs btn-success" name="block" >Unblock User</button>
-                        @endif
-                    </div>
-                </form>
+        <tbody>
+            @foreach ($users as $user)
+            <tr>
+                <td><img class="profiles" src="{{ $user->getPhoto() }}"></td>
+                <td>{{ $user->name }}</td>
+                <td>
+                
+                @if(count($user->associates))
 
-                <form action="" method="post" class="inline">
-                    {{ csrf_field() }}
-                    <div class="form-group">
-                        @if ($user->admin == 0)
-                        <button type="submit" class="btn btn-xs btn-danger" name="block" >Assign Admin</button>
-                        @else
-                        <button type="submit" class="btn btn-xs btn-success" name"block" >Remove Admin</button>
-                        @endif
-                    </div>
-                </form>
-            </td>
-        </tr>
+                @foreach($user->associates as $associate)
+                    @if($associate->id == Auth::user()->id)
+                       <span>associate</span>
+                    @endif
+
+                @endforeach
+                @endif
+               
+                @if(count($user->associatesOf))
+                @foreach($user->associatesOf as $associatesOf)
+               
+                         @if($associatesOf->id == Auth::user()->id)
+                            <span>associate-of</span>
+                            @endif
+                
+                  
+                @endforeach
+               
+                @endif
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
     </table>
+    @else
+    <h2>No users found</h2>
+    @endif
+
+    {{ $users->links() }}
+
 </body>
 </html>
-

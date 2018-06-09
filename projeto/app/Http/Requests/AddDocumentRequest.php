@@ -2,9 +2,14 @@
 
 namespace App\Http\Requests;
 
+use DB;
+use Auth;
+use App\Account;
+use Carbon\Carbon;
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateUserRequest extends FormRequest
+class AddDocumentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +29,9 @@ class CreateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|regex:/^[a-zA-Z]+$/u',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:3|confirmed',
-            'phone' => 'nullable|unique:users|regex:/(9)[0-9]{8}/',
-            'profile_photo' => 'nullable|image|mimes:jpeg,bmp,png'
+            'document' => 'required|mimes:pdf,png,jpeg',
+    
+            ],
         ];
     }
 }
